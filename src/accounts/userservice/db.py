@@ -44,6 +44,7 @@ class UserDb:
             Column('state', String, nullable=False),
             Column('zip', String, nullable=False),
             Column('ssn', String, nullable=False),
+            Column('email', String, nullable=False, unique=True),
         )
 
         # Set up tracing autoinstrumentation for sqlalchemy

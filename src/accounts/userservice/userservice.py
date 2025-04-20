@@ -83,6 +83,7 @@ def create_app():
         - state
         - zip
         - ssn
+        - email
         """
         try:
             app.logger.debug('Sanitizing input.')
@@ -113,6 +114,7 @@ def create_app():
                 'state': req['state'],
                 'zip': req['zip'],
                 'ssn': req['ssn'],
+                'email': req['email']
             }
             # Add user_data to database
             app.logger.debug("Adding user to the database")
@@ -146,6 +148,7 @@ def create_app():
             'state',
             'zip',
             'ssn',
+            'email'
         )
         if any(f not in req for f in fields):
             raise UserWarning('missing required field(s)')
@@ -158,6 +161,10 @@ def create_app():
         # Check if passwords match
         if not req['password'] == req['password-repeat']:
             raise UserWarning('passwords do not match')
+        
+        # Verify email is in the requuired format
+        if not re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', req['email']):
+            raise UserWarning('email is not in the required format')
 
     @app.route('/login', methods=['GET'])
     def login():
@@ -168,12 +175,13 @@ def create_app():
         token expiry time determined by environment variable
 
         request fields:
-        - username
+        - username/email
         - password
         """
         app.logger.debug('Sanitizing login input.')
         username = bleach.clean(request.args.get('username'))
         password = bleach.clean(request.args.get('password'))
+        email = bleach.clean(request.args.get('email'))
 
         # Get user data
         try:
@@ -193,6 +201,7 @@ def create_app():
                 'user': username,
                 'acct': user['accountid'],
                 'name': full_name,
+                'email': user['email'],
                 'iat': datetime.utcnow(),
                 'exp': exp_time,
             }

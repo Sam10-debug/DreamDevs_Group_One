@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# create a GCP service account and a Kubernetes service account environment variable
 export KSA_NAME="boa-ksa"
 export GSA_NAME="boa-gsa"
 

@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS users (
   state CHAR(2) NOT NULL,
   zip VARCHAR(5) NOT NULL,
   ssn CHAR(11) NOT NULL
+  email VARCHAR(64) NOT NULL,
 );
 
 CREATE INDEX IF NOT EXISTS idx_users_accountid ON users (accountid);
