@@ -45,7 +45,8 @@ def signup_helper(locust, username):
                 "city":"Seattle",
                 "state":"WA",
                 "zip":"98103",
-                "ssn":"111-22-3333"}
+                "ssn":"111-22-3333",
+                "email": "test@gmail.com"}
     with locust.client.post("/signup", data=userdata, catch_response=True) as response:
         for r_hist in response.history:
             if r_hist.cookies.get('token') is not None:

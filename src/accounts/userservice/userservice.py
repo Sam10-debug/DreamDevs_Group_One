@@ -83,6 +83,7 @@ def create_app():
         - state
         - zip
         - ssn
+        - email
         """
         try:
             app.logger.debug('Sanitizing input.')
@@ -113,6 +114,7 @@ def create_app():
                 'state': req['state'],
                 'zip': req['zip'],
                 'ssn': req['ssn'],
+                'email': req['email']
             }
             # Add user_data to database
             app.logger.debug("Adding user to the database")
@@ -146,6 +148,7 @@ def create_app():
             'state',
             'zip',
             'ssn',
+            'email'
         )
         if any(f not in req for f in fields):
             raise UserWarning('missing required field(s)')
