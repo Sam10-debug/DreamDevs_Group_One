@@ -37,20 +37,20 @@ steps:
   # Build the Docker image
   - id: build
     name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'europe-west1-docker.pkg.dev/dreamdev-team1/landing-page/landing-page:$COMMIT_SHA', '.']
+    args: ['build', '-t', 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/landing-page:$COMMIT_SHA', '.']
     dir: 'src/landing-page'
 
   # Push the image to Artifact Registry
   - id: push
     name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'europe-west1-docker.pkg.dev/dreamdev-team1/landing-page/landing-page:$COMMIT_SHA']
+    args: ['push', 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/landing-page:$COMMIT_SHA']
     waitFor: ['build']
 
   # Deploy to Cloud Run 
   - id: deploy
     name: 'gcr.io/cloud-builders/gcloud'
     args: ['run', 'deploy', 'landing-page',
-           '--image=europe-west1-docker.pkg.dev/dreamdev-team1/landing-page/landing-page:$COMMIT_SHA',
+           '--image=europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/landing-page:$COMMIT_SHA',
            '--platform=managed',
            '--region=europe-west1',
            '--allow-unauthenticated',
