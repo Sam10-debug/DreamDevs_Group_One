@@ -129,7 +129,7 @@ steps:
     id: 'update-frontend'
     env:
       - 'CLOUDSDK_COMPUTE_REGION=europe-west1'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=bank-of-anthos'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
 
   # Update userservice deployment
   - name: 'gcr.io/cloud-builders/kubectl'
@@ -142,7 +142,7 @@ steps:
     id: 'update-userservice'
     env:
       - 'CLOUDSDK_COMPUTE_REGION=europe-west1'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=bank-of-anthos'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
 
   # Update loadgenerator deployment
   - name: 'gcr.io/cloud-builders/kubectl'
@@ -155,7 +155,7 @@ steps:
     id: 'update-loadgenerator'
     env:
       - 'CLOUDSDK_COMPUTE_REGION=europe-west1'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=bank-of-anthos'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
 
   # Verify deployments
   - name: 'gcr.io/cloud-builders/kubectl'
