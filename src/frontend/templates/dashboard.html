@@ -1,0 +1,1190 @@
+<!--
+Copyright 2020 Google LLC
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    https://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+    <title>MoniNext</title>
+
+    <link rel="icon" href="static/img/favicon.png" />
+    <link rel="stylesheet"
+        href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+        integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="static/styles/cymbal.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="static/styles/platform.css">
+    <link rel="stylesheet" href="static/styles/platform/None.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .inter {
+            font-family: "Inter", sans-serif;
+            font-optical-sizing: auto;
+        }
+
+        html,
+        body {
+            font-family: "Inter", sans-serif;
+            font-optical-sizing: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Platform banner -->
+    <!--      
+    <div class="platform-banner">
+      <span class="platform-flag">
+        None
+      </span>
+    </div> -->
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-top">
+            <div class="main-container">
+
+                <a class="navbar-brand">
+                    MoniNext
+                </a>
+
+
+                <button type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarResponsive"
+                    aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right">
+                    <span class="material-icons">menu</span>
+                </button>
+                <div class="justify-content-end collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span>
+                                    <span id="account-user-name">Test User</span>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                                <form id="logout-form" method="POST" action="/logout">
+                                    <a class="dropdown-item"
+                                        onclick="document.querySelector('#logout-form').submit();">Sign out<i
+                                            class="fa-icon-spacer fas fa-sign-out-alt"></i></a>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+    <!-- Main Content -->
+    <main class="p-3">
+        <!-- Top row - overview, account # -->
+
+        <!-- Balance / Deposit / Send Payment row -->
+        <div class="flex flex-col gap-6 col-lg-12 align-items-start p-2">
+            <div class="w-full flex flex-col md:flex-row gap-6">
+                <!-- <div class="md:w-3/4 max-w-[636px]">
+                        <h2 class="text-black text-lg font-semibold mb-4 w-full">Dashboard</h2>
+                        <div class="w-full  p-6 bg-white rounded-xl shadow">
+                            <div class="space-y-4">
+                                <p class="text-gray-600 text-lg font-medium">
+                                    Account Balance
+                                </p>
+                                <div class="flex justify-between md:items-center md:flex-row flex-col gap-2">
+                                    <h2 class="md:text-5xl text-2xl font-bold">
+                                        ₦378,000.00
+                                    </h2>
+                                    <a href="#"
+                                        class="flex items-center gap-1 text-blue-500 px-4 py-2 bg-blue-50 rounded-lg w-fit ">
+                                        View Details
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" class="ml-1">
+                                            <polyline points="9 18 15 12 9 6"></polyline>
+                                        </svg>
+                                    </a>
+                                </div>
+                                <div
+                                    class="mt-6 border border-blue-100 border-dashed rounded-lg p-4 bg-blue-50 bg-opacity-30 flex justify-between md:items-center text-sm md:flex-row flex-col gap-2">
+                                    <div class="flex gap-2">
+                                        <span class="text-gray-500">Account Name:</span>
+                                        <span class="text-gray-800 font-medium">Cameron Jameson Wiliamson</span>
+                                    </div>
+                                    <div class="flex gap-2 items-center">
+                                        <span class="text-gray-500">Account No:</span>
+                                        <span class="text-gray-800 font-medium">00122234567</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                            fill="currentColor" stroke="none" class="text-blue-600">
+                                            <path
+                                                d="M20 2H10c-1.103 0-2 .897-2 2v4H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2v-4h4c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM4 20V10h10l.002 10H4zm16-6h-4v-4c0-1.103-.897-2-2-2h-4V4h10v10z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div> -->
+                <div class="md:w-3/4 max-w-[636px]">
+                    <h2 class="text-black text-lg font-semibold mb-4 w-full">Dashboard</h2>
+                    <div
+                        class="w-full p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-50">
+                        <div class="space-y-5">
+                            <div class="flex justify-between md:items-center flex-col md:flex-row">
+                                <p class="text-gray-600 text-lg font-medium flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                                    Account Balance
+                                </p>
+                            </div>
+
+                            <div class="flex justify-between md:items-center md:flex-row flex-col gap-3">
+                                <div>
+                                    <h2
+                                        class="md:text-5xl text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                                        ₦378,000.00
+                                    </h2>
+                                    <p class="text-xs text-gray-500 mt-1">Available for withdrawal</p>
+                                </div>
+                                <div class="flex gap-2">
+                                    <button data-toggle="modal" data-target="#depositFunds" data-keyboard="false"
+                                        data-backdrop="static"
+                                        class="flex items-center gap-1 text-white font-medium px-4 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-lg w-fit transition-colors duration-200">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        </svg>
+                                        Fund Account
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div
+                                class="mt-6 border border-blue-100 border-dashed rounded-lg p-4 bg-gradient-to-r from-blue-50 to-white flex justify-between md:items-center text-sm md:flex-row flex-col gap-3">
+                                <div class="flex gap-2 items-center">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <span class="text-gray-500 block text-xs">Account Name:</span>
+                                        <span class="text-gray-800 font-medium">Faith Adeola</span>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-center">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                                            <path d="M2 10h20"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <div>
+                                            <span class="text-gray-500 block text-xs">Account No:</span>
+                                            <span class="text-gray-800 font-medium">00122234567</span>
+                                        </div>
+                                        <button
+                                            class="w-6 h-6 bg-blue-100 rounded flex items-center justify-center text-blue-600 hover:bg-blue-200 transition-colors">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                                                <path
+                                                    d="M20 2H10c-1.103 0-2 .897-2 2v4H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2v-4h4c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM4 20V10h10l.002 10H4zm16-6h-4v-4c0-1.103-.897-2-2-2h-4V4h10v10z">
+                                                </path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full max-w-[636px]">
+                    <h2 class="text-gray-600 text-lg font-medium mb-4 w-1/2 hidden md:block text-left">Make Payment</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div
+                            class="bg-white rounded-xl p-4 shadow flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors">
+                            <div class="flex items-center" data-toggle="modal" data-target="#sendPayment"
+                                data-keyboard="false" data-backdrop="static">
+                                <div class="w-10 h-10 bg-blue-100 rounded-md flex items-center justify-center mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                    </svg>
+                                </div>
+                                <span class="font-medium">Transfer</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18l6-6-6-6"></path>
+                            </svg>
+                        </div>
+
+                        <div
+                            class="bg-white rounded-xl p-4 shadow flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors">
+                            <div class="flex items-center" data-action="topup" data-toggle="topup" data-target="#topUpModal"
+                                data-keyboard="false" data-backdrop="static">
+                                <div class="w-10 h-10 bg-blue-100 rounded-md flex items-center justify-center mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path
+                                            d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <span class="font-medium">Top-up</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18l6-6-6-6"></path>
+                            </svg>
+                        </div>
+
+                        <div
+                            class="bg-white rounded-xl p-4 shadow flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors">
+                            <div class="flex items-center" data-action="pay-bills">
+                                <div class="w-10 h-10 bg-blue-100 rounded-md flex items-center justify-center mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9l-7-7z"></path>
+                                        <path d="M13 2v7h7"></path>
+                                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                                        <line x1="10" y1="9" x2="8" y2="9"></line>
+                                    </svg>
+                                </div>
+                                <span class="font-medium">Pay Bills</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18l6-6-6-6"></path>
+                            </svg>
+                        </div>
+
+                        <div
+                            class="bg-white rounded-xl p-4 shadow flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors" data-action="topup" data-toggle="topup" data-target="#topUpModal"
+                                data-keyboard="false" data-backdrop="static">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                        <rect x="7" y="7" width="3" height="3"></rect>
+                                        <rect x="14" y="7" width="3" height="3"></rect>
+                                        <rect x="7" y="14" width="3" height="3"></rect>
+                                        <rect x="14" y="14" width="3" height="3"></rect>
+                                    </svg>
+                                </div>
+                                <span class="font-medium text-gray-400"> New feature</span>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18l6-6-6-6"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="w-full mx-auto bg-gray-100">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="p-4 sm:p-6 flex flex-col sm:flex-row justify-between md:items-center gap-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Transaction History</h3>
+                        <div class="flex flex-col sm:flex-row w-full sm:w-auto gap-3">
+                            <div class="relative w-full sm:w-64 lg:w-80">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <input id="transaction-search" type="text"
+                                    class="bg-gray-50 border border-gray-200 rounded-lg text-gray-700 pl-10 pr-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    placeholder="Search by account name, biller name">
+                            </div>
+                            <div class="flex gap-2">
+                                <select id="transaction-type-filter"
+                                    class="bg-gray-50 border border-gray-200 rounded-lg text-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none cursor-pointer">
+                                    <option value="all">All Transactions</option>
+                                    <option value="credit">Credit Only</option>
+                                    <option value="debit">Debit Only</option>
+                                </select>
+                                <button id="download-transactions-btn"
+                                    class="flex items-center gap-1 px-3 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <span>Download</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="transaction-container" class="divide-y divide-gray-100">
+                        <div
+                            class="transaction-item p-4 sm:px-6 flex flex-row sm:flex-row sm:items-center gap-3 hover:bg-gray-50 transition-colors">
+                            <div
+                                class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600"
+                                    viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0-7a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 3.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="font-medium transaction-label">External Bank</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm text-gray-500 transaction-account">9099791699</span>
+                                    <span
+                                        class="text-xs px-2 py-0.5 bg-green-50 text-green-600 rounded-full transaction-type">Credit</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold text-green-600 transaction-amount">+₦10.00</p>
+                                <p class="text-xs text-gray-500 transaction-date">Apr 19</p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="transaction-item p-4 sm:px-6 flex flex-row sm:flex-row sm:items-center gap-3 hover:bg-gray-50 transition-colors">
+                            <div
+                                class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M16 17a1 1 0 01-1 1H5a1 1 0 010-2h10a1 1 0 011 1zm-3.293-7.707a1 1 0 010 1.414L9.414 14H17a1 1 0 110 2H9.414l3.293 3.293a1 1 0 01-1.414 1.414l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 0z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="font-medium transaction-label">Alice</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm text-gray-500 transaction-account">1033623433</span>
+                                    <span
+                                        class="text-xs px-2 py-0.5 bg-red-50 text-red-600 rounded-full transaction-type">Debit</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold text-red-600 transaction-amount">-₦88.66</p>
+                                <p class="text-xs text-gray-500 transaction-date">Apr 14</p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="transaction-item p-4 sm:px-6 flex flex-row sm:flex-row sm:items-center gap-3 hover:bg-gray-50 transition-colors">
+                            <div
+                                class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M16 17a1 1 0 01-1 1H5a1 1 0 010-2h10a1 1 0 011 1zm-3.293-7.707a1 1 0 010 1.414L9.414 14H17a1 1 0 110 2H9.414l3.293 3.293a1 1 0 01-1.414 1.414l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 0z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="font-medium transaction-label">Bob</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm text-gray-500 transaction-account">1055757655</span>
+                                    <span
+                                        class="text-xs px-2 py-0.5 bg-red-50 text-red-600 rounded-full transaction-type">Debit</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold text-red-600 transaction-amount">-₦73.84</p>
+                                <p class="text-xs text-gray-500 transaction-date">Apr 13</p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="transaction-item p-4 sm:px-6 flex flex-row sm:flex-row sm:items-center gap-3 hover:bg-gray-50 transition-colors">
+                            <div
+                                class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600"
+                                    viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0-7a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 3.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="font-medium transaction-label">Alice</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm text-gray-500 transaction-account">1033623433</span>
+                                    <span
+                                        class="text-xs px-2 py-0.5 bg-green-50 text-green-600 rounded-full transaction-type">Credit</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold text-green-600 transaction-amount">+₦33.94</p>
+                                <p class="text-xs text-gray-500 transaction-date">Apr 11</p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="transaction-item p-4 sm:px-6 flex flex-row sm:flex-row sm:items-center gap-3 hover:bg-gray-50 transition-colors">
+                            <div
+                                class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M16 17a1 1 0 01-1 1H5a1 1 0 010-2h10a1 1 0 011 1zm-3.293-7.707a1 1 0 010 1.414L9.414 14H17a1 1 0 110 2H9.414l3.293 3.293a1 1 0 01-1.414 1.414l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 0z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="font-medium transaction-label">None</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm text-gray-500 transaction-account">5540755282</span>
+                                    <span
+                                        class="text-xs px-2 py-0.5 bg-red-50 text-red-600 rounded-full transaction-type">Debit</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold text-red-600 transaction-amount">-₦34.31</p>
+                                <p class="text-xs text-gray-500 transaction-date">Apr 10</p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="transaction-item p-4 sm:px-6 flex flex-row sm:flex-row sm:items-center gap-3 hover:bg-gray-50 transition-colors">
+                            <div
+                                class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600"
+                                    viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0-7a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 3.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="font-medium transaction-label">External Bank</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm text-gray-500 transaction-account">9099791699</span>
+                                    <span
+                                        class="text-xs px-2 py-0.5 bg-green-50 text-green-600 rounded-full transaction-type">Credit</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold text-green-600 transaction-amount">+₦2,500.00</p>
+                                <p class="text-xs text-gray-500 transaction-date">Apr 5</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="no-results-message" class="p-8 text-center hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400 mb-4" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <h4 class="text-lg font-medium text-gray-700 mb-1">No transactions found</h4>
+                        <p class="text-gray-500">Try adjusting your search or filter to find what you're looking for.
+                        </p>
+                    </div>
+
+                    <div class="p-4 sm:px-6 border-t border-gray-100 flex justify-between items-center">
+                        <div class="text-sm text-gray-500">
+                            Showing <span id="transactions-count" class="font-medium">28</span> transactions
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    setTimeout(initializeTransactionFiltering, 1000);
+                });
+
+                function initializeTransactionFiltering() {
+                    console.log('Initializing transaction filtering...');
+                    const transactions = parseTransactions();
+                    console.log(`Found ${transactions.length} transactions`);
+                    setupFiltering(transactions);
+                }
+
+                function parseTransactions() {
+                    const transactions = [];
+                    const transactionItems = document.querySelectorAll('.transaction-item');
+
+                    transactionItems.forEach(item => {
+                        // Extract data from each transaction item
+                        const label = item.querySelector('.transaction-label').textContent.trim();
+                        const account = item.querySelector('.transaction-account').textContent.trim();
+                        const type = item.querySelector('.transaction-type').textContent.trim();
+                        const amount = item.querySelector('.transaction-amount').textContent.trim();
+                        const date = item.querySelector('.transaction-date').textContent.trim();
+
+                        
+                        const isCredit = type.toLowerCase() === 'credit';
+
+                        const transaction = {
+                            element: item,
+                            label: label,
+                            account: account,
+                            type: type.toLowerCase(),
+                            amount: amount,
+                            date: date,
+                            isCredit: isCredit,
+                            isDebit: !isCredit,
+                            searchText: `${label} ${account} ${type} ${amount} ${date}`.toLowerCase()
+                        };
+
+                        transactions.push(transaction);
+                    });
+
+                    return transactions;
+                }
+
+                function setupFiltering(transactions) {
+                    const searchInput = document.getElementById('transaction-search');
+                    const typeFilter = document.getElementById('transaction-type-filter');
+                    const transactionContainer = document.getElementById('transaction-container');
+                    const noResultsMessage = document.getElementById('no-results-message');
+                    const transactionsCount = document.getElementById('transactions-count');
+
+                    function applyFilters() {
+                        const searchTerm = searchInput.value.toLowerCase();
+                        const typeValue = typeFilter.value;
+
+                        let visibleCount = 0;
+
+                        transactions.forEach(transaction => {
+                            const matchesSearch = searchTerm === '' || transaction.searchText.includes(searchTerm);
+
+                            const matchesType =
+                                typeValue === 'all' ||
+                                (typeValue === 'credit' && transaction.isCredit) ||
+                                (typeValue === 'debit' && transaction.isDebit);
+
+                            
+                            if (matchesSearch && matchesType) {
+                                transaction.element.classList.remove('hidden');
+                                visibleCount++;
+                            } else {
+                                transaction.element.classList.add('hidden');
+                            }
+                        });
+
+                        transactionsCount.textContent = visibleCount;
+
+                        if (visibleCount === 0) {
+                            noResultsMessage.classList.remove('hidden');
+                        } else {
+                            noResultsMessage.classList.add('hidden');
+                        }
+                    }
+
+                    setTimeout(function () {
+                        console.log('Setting up download button...');
+                        const downloadButton = document.getElementById('download-transactions-btn');
+
+                        if (downloadButton) {
+                            console.log('Download button found, attaching event listener');
+                            downloadButton.addEventListener('click', function () {
+                                console.log('Download button clicked!');
+                                downloadTransactions();
+                            });
+                        } else {
+                            console.log('Download button not found');
+                        }
+                    }, 5000); 
+                    searchInput.addEventListener('input', applyFilters);
+                    typeFilter.addEventListener('change', applyFilters);
+                }
+
+                function downloadTransactions() {
+                    console.log('Generating CSV download...');
+
+                    const visibleTransactions = [];
+                    const transactionItems = document.querySelectorAll('.transaction-item:not(.hidden)');
+
+                    transactionItems.forEach(item => {
+                        const label = item.querySelector('.transaction-label').textContent.trim();
+                        const account = item.querySelector('.transaction-account').textContent.trim();
+                        const type = item.querySelector('.transaction-type').textContent.trim();
+                        const amount = item.querySelector('.transaction-amount').textContent.trim();
+                        const date = item.querySelector('.transaction-date').textContent.trim();
+
+                        visibleTransactions.push({
+                            date: date,
+                            type: type,
+                            account: account,
+                            label: label,
+                            amount: amount
+                        });
+                    });
+
+                    
+                    const headers = ['Date', 'Type', 'Account', 'Label', 'Amount'];
+
+                    const rows = visibleTransactions.map(tx => [
+                        tx.date,
+                        tx.type,
+                        tx.account,
+                        tx.label || 'None',
+                        tx.amount
+                    ]);
+
+                    const allRows = [headers, ...rows];
+
+                    const csvContent = allRows.map(row =>
+                        row.map(value =>
+                            typeof value === 'string' && value.includes(',')
+                                ? `"${value}"`
+                                : value
+                        ).join(',')
+                    ).join('\n');
+
+                    // Create and trigger download
+                    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+
+                    // Format date for filename
+                    const now = new Date();
+                    const filename = `transaction_history_${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}.csv`;
+
+                    link.setAttribute('href', url);
+                    link.setAttribute('download', filename);
+
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
+                    console.log('Download initiated');
+                }
+                
+                document.addEventListener('DOMContentLoaded', function () {
+                    const topUpButtons = document.querySelectorAll('[data-action="topup"]');
+                    topUpButtons.forEach(button => {
+                        button.addEventListener('click', function () {
+                            $('#topUpModal').modal('show');
+                        });
+                    });
+                    document.getElementById('topup-form').addEventListener('submit', function (e) {
+                        e.preventDefault();
+                        const phoneNumber = document.getElementById('phone-number').value;
+                        const network = document.getElementById('network-provider').value;
+                        const amount = document.getElementById('topup-amount').value;
+
+                        // Validate phone number format
+                        if (!/^\d{11}$/.test(phoneNumber)) {
+                            alert('Please enter a valid 11-digit phone number');
+                            return;
+                        }
+
+                        const formData = new FormData();
+                        formData.append('account_number', phoneNumber); 
+                        formData.append('label', network);              
+                        formData.append('amount', amount);
+                        formData.append('transaction_type', 'topup');   
+
+                        fetch('/api/transaction', {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    alert('Top-up successful!');
+                                    $('#topUpModal').modal('hide');
+                                    // Reload transactions or update balance as needed
+                                    window.location.reload();
+                                } else {
+                                    alert('Top-up failed: ' + data.message);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('An error occurred during the top-up process.');
+                            });
+                    });
+                });
+
+                document.addEventListener('DOMContentLoaded', function () {
+                    // Set up the trigger for pay bills button
+                    const payBillsButtons = document.querySelectorAll('[data-action="pay-bills"]');
+
+                    payBillsButtons.forEach(button => {
+                        button.addEventListener('click', function () {
+                            $('#payBillsModal').modal('show');
+                        });
+                    });
+
+                    // Filter service providers based on bill type selection
+                    const billTypeSelect = document.getElementById('bill-type');
+                    const serviceProviderSelect = document.getElementById('service-provider');
+                    const meterNumberLabel = document.getElementById('meter-number-label');
+
+                    billTypeSelect.addEventListener('change', function () {
+                        const selectedBillType = this.value;
+
+                        // Update label based on bill type
+                        switch (selectedBillType) {
+                            case 'electricity':
+                                meterNumberLabel.textContent = 'Meter Number';
+                                break;
+                            case 'water':
+                                meterNumberLabel.textContent = 'Customer Number';
+                                break;
+                            case 'internet':
+                                meterNumberLabel.textContent = 'Account ID';
+                                break;
+                            case 'cable':
+                                meterNumberLabel.textContent = 'Smartcard/IUC Number';
+                                break;
+                            default:
+                                meterNumberLabel.textContent = 'Meter/Service Number';
+                        }
+
+                        // Filter service providers
+                        Array.from(serviceProviderSelect.options).forEach(option => {
+                            if (option.dataset.billType === selectedBillType || option.value === '') {
+                                option.style.display = '';
+                            } else {
+                                option.style.display = 'none';
+                            }
+                        });
+
+                        // Reset service provider selection
+                        serviceProviderSelect.value = '';
+                    });
+
+                    // Handle form submission
+                    document.getElementById('pay-bills-form').addEventListener('submit', function (e) {
+                        e.preventDefault();
+
+                        // Get form data
+                        const billType = document.getElementById('bill-type').value;
+                        const serviceProvider = document.getElementById('service-provider').value;
+                        const meterNumber = document.getElementById('meter-number').value;
+                        const amount = document.getElementById('bill-amount').value;
+
+                        // Set the label as combination of bill type and provider
+                        document.getElementById('bill-label').value = `${serviceProvider} ${billType.charAt(0).toUpperCase() + billType.slice(1)}`;
+
+                        // Create form data - using the same field names as your send payment API
+                        const formData = new FormData(this);
+
+                        // Submit to the same endpoint as send payment
+                        fetch('/api/transaction', {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    alert('Bill payment successful!');
+                                    $('#payBillsModal').modal('hide');
+                                    // Reload transactions or update balance as needed
+                                    window.location.reload();
+                                } else {
+                                    alert('Bill payment failed: ' + data.message);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('An error occurred during the bill payment process.');
+                            });
+                    });
+                });
+
+                
+                
+            </script>
+
+            <!-- Deposit Modal -->
+            <div class="modal fade" id="depositFunds" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <form id="deposit-form" class="needs-validation" novalidate="" method="POST" action="/deposit">
+                            <div class="modal-header">
+                                <h3 class="modal-title header-title" id="exampleModalLongTitle">Make a Deposit</h3>
+                                <button type="button" class="close deposit-cancel" data-dismiss="modal"
+                                    aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-10 offset-md-1 mb-4">
+                                        <label class="text-uppercase text-muted secondary-text mb-3"
+                                            for="accounts">External Account</label>
+                                        <select class="custom-select d-block w-100" id="accounts" name="account">
+                                        <option value='{"account_num": "9099791699", "routing_num": "808889588" }'>
+                                                External Bank - 9099791699 - 808889588
+                                            </option>
+
+
+                                            <option disabled>──────────</option>
+                                            <option value="add">New External Account</option>
+                                        </select>
+                                        <div id="otherDepositInputs" class="hidden">
+                                            <div id="alertBanner" class="alert alert-danger mt-3 mb-3" role="alert">
+                                                <span
+                                                    class="error-icon mr-2 material-icons">error</span><strong>Warning</strong>:
+                                                This website is a simulation. Please don't include real personal
+                                                information.
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><strong
+                                                            class="modal-icon">#</strong></span>
+                                                </div>
+                                                <input class="form-control" type="number" step='1'
+                                                    id="external_account_num" name="external_account_num" min=1000000000
+                                                    max=9999999999 placeholder="Account Number" />
+                                                <div class="invalid-feedback">
+                                                    Please enter a valid 10 digit account number.
+                                                </div>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><span
+                                                            class="modal-icon material-icons">account_balance</span></span>
+                                                </div>
+                                                <input class="form-control" type="number" step='1'
+                                                    id="external_routing_num" name="external_routing_num" min=100000000
+                                                    max=999999999 placeholder="Routing Number" />
+                                                <div class="invalid-feedback">
+                                                    Please enter a valid 9 digit routing number.
+                                                </div>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><span
+                                                            class="modal-icon material-icons">label</span></span>
+                                                </div>
+                                                <input class="form-control" type="text" id="external_label"
+                                                    maxLength="30" pattern="^[0-9a-zA-Z][0-9a-zA-Z ]{0,29}$"
+                                                    name="external_label" placeholder="Account Label (Optional)" />
+                                                <div class="invalid-feedback">
+                                                    Invalid label.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10 offset-md-1">
+                                        <label class="text-uppercase text-muted secondary-text mb-1"
+                                            for="deposit-amount">Deposit Amount</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend mr-2">
+                                                <span class="input-group-text"><span
+                                                        class="amount-font material-icons money-icon">attach_money</span></span>
+                                            </div>
+                                            <input class="form-control amount-font" type="number" autocomplete="off"
+                                                step="0.01" id="deposit-amount" name="amount" placeholder="0.00"
+                                                min="0.01" max="500000.00" required>
+                                            <div class="invalid-feedback">
+                                                Please enter a valid amount.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="row align-items-end text-right">
+                                    <div class="col-md-10 offset-md-1 text-right align-items-end">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cancel</button>
+                                        <button type="submit"
+                                            class="btn btn-primary btn-with-padding deposit-send-button">Deposit</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" id="deposit-uuid" name="uuid">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Send Modal -->
+            <div class="modal fade" id="sendPayment" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <form id="payment-form" class="needs-validation" novalidate="" method="POST" action="/payment">
+                            <div class="modal-header">
+                                <h3 class="modal-title header-title" id="exampleModalLongTitle">Send a Payment</h3>
+                                <button type="button" class="close payment-cancel" data-dismiss="modal"
+                                    aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-10 offset-md-1 mb-4">
+                                        <label class="text-uppercase text-muted secondary-text mb-3"
+                                            for="payment-accounts">Recipient</label>
+
+                                        <select class="custom-select d-block w-100 mb-3" id="payment-accounts"
+                                            name="account_num">
+
+
+                                            <option value="1033623433">Alice - 1033623433</option>
+
+
+
+                                            <option value="1055757655">Bob - 1055757655</option>
+
+
+
+                                            <option value="1077441377">Eve - 1077441377</option>
+
+
+
+
+                                            <option disabled>──────────</option>
+                                            <option value="add">New Recipient</option>
+                                        </select>
+                                        <div id="otherAccountInputs" class="hidden">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><strong
+                                                            class="modal-icon">#</strong></span>
+                                                </div>
+                                                <input class="form-control" type="number" step='1'
+                                                    id="contact_account_num" name="contact_account_num" min=1000000000
+                                                    max=9999999999 placeholder="Account Number" />
+                                                <div class="invalid-feedback">
+                                                    Please enter a valid 10 digit account number.
+                                                </div>
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><span
+                                                            class="modal-icon material-icons">label</span></span>
+                                                </div>
+                                                <input class="form-control" type="text" id="contact_label"
+                                                    name="contact_label" maxLength="30"
+                                                    pattern="^[0-9a-zA-Z][0-9a-zA-Z ]{0,29}$"
+                                                    placeholder="Contact Label (Optional)" />
+                                                <div class="invalid-feedback">
+                                                    Invalid label.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10 offset-md-1">
+                                        <label class="text-uppercase text-muted secondary-text mb-3"
+                                            for="payment-amount">Transaction Amount</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend mr-2">
+                                                <span class="input-group-text"><span
+                                                        class="amount-font  material-icons">attach_money</span></span>
+                                            </div>
+                                            <input class="form-control amount-font" type="number" autocomplete="off"
+                                                step="0.01" id="payment-amount" name="amount" placeholder="0.00"
+                                                min="0.01" max="7096.31" required>
+                                            <div class="invalid-feedback">
+                                                Please enter a valid amount.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="row align-items-end text-right">
+                                    <div class="col-md-10 offset-md-1 text-right align-items-end">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cancel</button>
+                                        <button type="submit"
+                                            class="btn btn-primary btn-with-padding deposit-send-button">Send</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="hidden" id="payment-uuid" name="uuid">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top-up modal -->
+
+            <div class="modal fade" id="topUpModal" tabindex="-1" role="dialog" aria-labelledby="topUpModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="topUpModalLabel">Top-up Phone</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="topup-form">
+                                <!-- Hidden input to identify this as top-up while using same API -->
+                                <input type="hidden" name="transaction_type" value="topup">
+
+                                <!-- Phone Number -->
+                                <div class="form-group">
+                                    <label for="phone-number">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone-number" name="account_number"
+                                        placeholder="Enter phone number" pattern="[0-9]{11}" required>
+                                    <small class="form-text text-muted">Enter a valid 11-digit phone number</small>
+                                </div>
+
+                                <!-- Network Selection  -->
+                                <div class="form-group">
+                                    <label for="network-provider">Network Provider</label>
+                                    <select class="form-control" id="network-provider" name="label" required>
+                                        <option value="">Select network provider</option>
+                                        <option value="MTN">MTN</option>
+                                        <option value="Airtel">Airtel</option>
+                                        <option value="Glo">Glo</option>
+                                        <option value="9Mobile">9Mobile</option>
+                                    </select>
+                                </div>
+
+                                <!-- Amount Field (same as send payment) -->
+                                <div class="form-group">
+                                    <label for="topup-amount">Amount (₦)</label>
+                                    <input type="number" class="form-control" id="topup-amount" name="amount"
+                                        placeholder="Enter amount" min="100" required>
+                                    <small class="form-text text-muted">Minimum amount is ₦100</small>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-block">Top-up Now</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pay Bills modal -->
+            <!-- Pay Bills Modal Form -->
+            <div class="modal fade" id="payBillsModal" tabindex="-1" role="dialog" aria-labelledby="payBillsModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="payBillsModalLabel">Pay Bills</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="pay-bills-form">
+                                <!-- Hidden input to identify this as bill payment -->
+                                <input type="hidden" name="transaction_type" value="bill_payment">
+
+                                <!-- Bill Type Selection -->
+                                <div class="form-group">
+                                    <label for="bill-type">Bill Type</label>
+                                    <select class="form-control" id="bill-type" required>
+                                        <option value="">Select bill type</option>
+                                        <option value="electricity">Electricity</option>
+                                        <option value="water">Water</option>
+                                        <option value="internet">Internet</option>
+                                        <option value="cable">Cable TV</option>
+                                    </select>
+                                </div>
+
+                                <!-- Service Provider Selection -->
+                                <div class="form-group">
+                                    <label for="service-provider">Service Provider</label>
+                                    <select class="form-control" id="service-provider" required>
+                                        <option value="">Select provider</option>
+                                        <!-- Electricity providers (initially shown) -->
+                                        <option data-bill-type="electricity" value="EKEDC">Eko Electricity Distribution
+                                            Company</option>
+                                        <option data-bill-type="electricity" value="IKEDC">Ikeja Electricity
+                                            Distribution Company</option>
+                                        <option data-bill-type="electricity" value="AEDC">Abuja Electricity Distribution
+                                            Company</option>
+                                        <!-- Water providers (hidden initially) -->
+                                        <option data-bill-type="water" value="LWC">Lagos Water Corporation</option>
+                                        <option data-bill-type="water" value="FCTWB">FCT Water Board</option>
+                                        <!-- Internet providers (hidden initially) -->
+                                        <option data-bill-type="internet" value="MTN">MTN Broadband</option>
+                                        <option data-bill-type="internet" value="Airtel">Airtel Internet</option>
+                                        <option data-bill-type="internet" value="Spectranet">Spectranet</option>
+                                        <!-- Cable TV providers (hidden initially) -->
+                                        <option data-bill-type="cable" value="DSTV">DSTV</option>
+                                        <option data-bill-type="cable" value="GOTV">GOTV</option>
+                                        <option data-bill-type="cable" value="Startimes">Startimes</option>
+                                    </select>
+                                </div>
+
+                                <!-- Meter/Service Number (replacing account number) -->
+                                <div class="form-group">
+                                    <label id="meter-number-label">Meter/Service Number</label>
+                                    <input type="text" class="form-control" id="meter-number" name="account_number"
+                                        placeholder="Enter meter or service number" required>
+                                    <small class="form-text text-muted">Enter your meter/service number without
+                                        spaces</small>
+                                </div>
+
+                                <!-- Amount Field -->
+                                <div class="form-group">
+                                    <label for="bill-amount">Amount (₦)</label>
+                                    <input type="number" class="form-control" id="bill-amount" name="amount"
+                                        placeholder="Enter amount" min="100" required>
+                                    <small class="form-text text-muted">Minimum amount is ₦100</small>
+                                </div>
+
+                                <!-- Hidden label field to store selected provider -->
+                                <input type="hidden" id="bill-label" name="label" value="">
+
+                                <button type="submit" class="btn btn-primary btn-block">Pay Bill</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+    </main>
+    <!-- JavaScript common -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+        crossorigin="anonymous"></script>
+    <!-- Page specific-->
+    <script src="static/scripts/index.js"></script>
+</body>
+
+</html>

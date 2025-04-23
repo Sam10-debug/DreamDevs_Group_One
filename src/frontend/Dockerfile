@@ -41,4 +41,4 @@ COPY . .
 RUN find . -type f -name '*' -exec chmod a+r '{}' ';'
 
 # Start server using gunicorn
-CMD gunicorn -b :$PORT --threads 4 --log-config logging.conf --log-level=$LOG_LEVEL "frontend:create_app()"
+CMD gunicorn --reload -b :$PORT --threads 4 --log-config logging.conf --log-level=$LOG_LEVEL "frontend:create_app()"
