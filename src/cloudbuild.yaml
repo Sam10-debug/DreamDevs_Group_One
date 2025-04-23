@@ -145,17 +145,17 @@ steps:
       - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
 
   # Update loadgenerator deployment
-  - name: 'gcr.io/cloud-builders/kubectl'
-    args:
-      - 'set'
-      - 'image'
-      - 'deployment/loadgenerator'
-      - 'loadgenerator=europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/loadgenerator:$COMMIT_SHA'
-    waitFor: ['get-credentials', 'build-loadgenerator']
-    id: 'update-loadgenerator'
-    env:
-      - 'CLOUDSDK_COMPUTE_REGION=europe-west1-b'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
+  # - name: 'gcr.io/cloud-builders/kubectl'
+  #   args:
+  #     - 'set'
+  #     - 'image'
+  #     - 'deployment/loadgenerator'
+  #     - 'loadgenerator=europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/loadgenerator:$COMMIT_SHA'
+  #   waitFor: ['get-credentials', 'build-loadgenerator']
+  #   id: 'update-loadgenerator'
+  #   env:
+  #     - 'CLOUDSDK_COMPUTE_REGION=europe-west1-b'
+  #     - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
 
   # Verify deployments
   - name: 'gcr.io/cloud-builders/kubectl'
@@ -164,9 +164,9 @@ steps:
   - name: 'gcr.io/cloud-builders/kubectl'
     args: ['rollout', 'status', 'deployment/userservice', '--timeout=3m']
     waitFor: ['update-userservice']
-  - name: 'gcr.io/cloud-builders/kubectl'
-    args: ['rollout', 'status', 'deployment/loadgenerator', '--timeout=3m']
-    waitFor: ['update-loadgenerator']
+  # - name: 'gcr.io/cloud-builders/kubectl'
+  #   args: ['rollout', 'status', 'deployment/loadgenerator', '--timeout=3m']
+  #   waitFor: ['update-loadgenerator']
 
 images:
   - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/frontend:$COMMIT_SHA'
