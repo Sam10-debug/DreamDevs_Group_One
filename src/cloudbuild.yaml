@@ -112,7 +112,7 @@ steps:
       - 'container'
       - 'clusters'
       - 'get-credentials'
-      - 'bank-of-anthos'
+      - 'dreamdev-team1-cluster'
       - '--zone=europe-west1'
       - '--project=dreamdev-team1'
     id: 'get-credentials'
