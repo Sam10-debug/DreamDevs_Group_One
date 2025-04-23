@@ -37,10 +37,35 @@ steps:
     args: 
       - 'build'
       - '-t'
-      - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/frontend:$SHORT_SHA'
+      - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/frontend:$COMMIT_SHA'
       - '.'
+      - '--cache-from=europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/frontend:latest'
     dir: 'src/frontend'
     id: 'build-frontend'
+    waitFor: ['docker-auth']
+
+  # Build userservice image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: 
+      - 'build'
+      - '-t'
+      - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/userservice:$COMMIT_SHA'
+      - '.'
+      - '--cache-from=europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/userservice:latest'
+    dir: 'src/accounts/userservice'
+    id: 'build-userservice'
+    waitFor: ['docker-auth']
+
+  # Build loadgenerator image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: 
+      - 'build'
+      - '-t'
+      - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/loadgenerator:$COMMIT_SHA'
+      - '.'
+      - '--cache-from=europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/loadgenerator:latest'
+    dir: 'src/loadgenerator'
+    id: 'build-loadgenerator'
     waitFor: ['docker-auth']
 
   # Conditional ledgerwriter build
@@ -51,7 +76,7 @@ steps:
       - |
         if [ -d "src/ledgerwriter" ]; then
           docker build \
-            -t europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/ledgerwriter:$SHORT_SHA \
+            -t europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/ledgerwriter:$COMMIT_SHA \
             -f src/ledgerwriter/Dockerfile .
         else
           echo "Skipping ledgerwriter build - directory not found"
@@ -64,17 +89,31 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: 
       - 'push'
-      - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/frontend:$SHORT_SHA'
+      - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/frontend:$COMMIT_SHA'
     waitFor: ['build-frontend']
 
-  # Configure GKE access (cluster in us-central1)
+  # Push userservice image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: 
+      - 'push'
+      - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/userservice:$COMMIT_SHA'
+    waitFor: ['build-userservice']
+
+  # Push loadgenerator image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: 
+      - 'push'
+      - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/loadgenerator:$COMMIT_SHA'
+    waitFor: ['build-loadgenerator']
+
+  # Configure GKE access
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - 'container'
       - 'clusters'
       - 'get-credentials'
       - 'bank-of-anthos'
-      - '--zone=us-central1'
+      - '--zone=europe-west1'
       - '--project=dreamdev-team1'
     id: 'get-credentials'
     waitFor: ['-']
@@ -85,14 +124,55 @@ steps:
       - 'set'
       - 'image'
       - 'deployment/frontend'
-      - 'front=europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/frontend:$SHORT_SHA'
+      - 'front=europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/frontend:$COMMIT_SHA'
     waitFor: ['get-credentials', 'build-frontend']
+    id: 'update-frontend'
     env:
-      - 'CLOUDSDK_COMPUTE_REGION=us-central1'
+      - 'CLOUDSDK_COMPUTE_REGION=europe-west1'
       - 'CLOUDSDK_CONTAINER_CLUSTER=bank-of-anthos'
 
+  # Update userservice deployment
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args:
+      - 'set'
+      - 'image'
+      - 'deployment/userservice'
+      - 'userservice=europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/userservice:$COMMIT_SHA'
+    waitFor: ['get-credentials', 'build-userservice']
+    id: 'update-userservice'
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=europe-west1'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=bank-of-anthos'
+
+  # Update loadgenerator deployment
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args:
+      - 'set'
+      - 'image'
+      - 'deployment/loadgenerator'
+      - 'loadgenerator=europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/loadgenerator:$COMMIT_SHA'
+    waitFor: ['get-credentials', 'build-loadgenerator']
+    id: 'update-loadgenerator'
+    env:
+      - 'CLOUDSDK_COMPUTE_REGION=europe-west1'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=bank-of-anthos'
+
+  # Verify deployments
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['rollout', 'status', 'deployment/frontend', '--timeout=3m']
+    waitFor: ['update-frontend']
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['rollout', 'status', 'deployment/userservice', '--timeout=3m']
+    waitFor: ['update-userservice']
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['rollout', 'status', 'deployment/loadgenerator', '--timeout=3m']
+    waitFor: ['update-loadgenerator']
+
 images:
-  - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/frontend:$SHORT_SHA'
+  - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/frontend:$COMMIT_SHA'
+  - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/userservice:$COMMIT_SHA'
+  - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/loadgenerator:$COMMIT_SHA'
 
 options:
   logging: CLOUD_LOGGING_ONLY
+  
