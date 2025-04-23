@@ -128,7 +128,7 @@ steps:
     waitFor: ['get-credentials', 'build-frontend']
     id: 'update-frontend'
     env:
-      - 'CLOUDSDK_COMPUTE_REGION=europe-west1'
+      - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
       - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
 
   # Update userservice deployment
@@ -141,7 +141,7 @@ steps:
     waitFor: ['get-credentials', 'build-userservice']
     id: 'update-userservice'
     env:
-      - 'CLOUDSDK_COMPUTE_REGION=europe-west1'
+      - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
       - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
 
   # Update loadgenerator deployment
@@ -154,7 +154,7 @@ steps:
     waitFor: ['get-credentials', 'build-loadgenerator']
     id: 'update-loadgenerator'
     env:
-      - 'CLOUDSDK_COMPUTE_REGION=europe-west1'
+      - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
       - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
 
   # Verify deployments
