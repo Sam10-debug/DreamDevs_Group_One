@@ -152,7 +152,8 @@ steps:
       - 'deployment/loadgenerator'
       - 'loadgenerator=europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/loadgenerator:$COMMIT_SHA'
     # waitFor: ['get-credentials', 'build-loadgenerator']
-    waitFor: ['apply-loadgenerator', 'build-loadgenerator']
+    # waitFor: ['apply-loadgenerator', 'build-loadgenerator']
+    waitFor: ['create-loadgenerator', 'build-loadgenerator']
     id: 'update-loadgenerator'
     env:
       - 'CLOUDSDK_COMPUTE_REGION=europe-west1-b'
