@@ -67,21 +67,30 @@ spec:
             - name: VERSION
               value: v0.6.6
             - name: PORT
-              value: "8080"
+              value: '8080'
             - name: ENABLE_TRACING
-              value: "false"
+              value: 'true'
             - name: TOKEN_EXPIRY_SECONDS
-              value: "3600"
+              value: '3600'
             - name: PRIV_KEY_PATH
               value: /tmp/.ssh/privatekey
             - name: LOG_LEVEL
               value: info
+            - name: SENDGRID_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: email-secrets
+                  key: sendgrid-api-key
+            - name: EMAIL_FROM
+              value: 'udurosinlohun@gmail.com'
           envFrom:
             - configMapRef:
                 name: environment-config
             - configMapRef:
                 name: accounts-db-config
-          image: us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/userservice:v0.6.6@sha256:70e7332af06ecae6496ef87b0b0512dae60eefb8c74f5335df527aa150c86605
+            - secretRef:
+                name: smtp-creds
+          image: docker.io/uthmanduro/userservice:1.4 #us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/userservice:v0.6.6@sha256:70e7332af06ecae6496ef87b0b0512dae60eefb8c74f5335df527aa150c86605
           name: userservice
           ports:
             - containerPort: 8080

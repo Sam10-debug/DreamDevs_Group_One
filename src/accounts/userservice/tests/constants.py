@@ -47,6 +47,7 @@ EXAMPLE_USER_REQUEST = {
     'state': 'CA',
     'zip': '94043',
     'ssn': '123',
+    'email': 'test@gmail.com'
 }
 EXAMPLE_USER = {
     'accountid': '123',
@@ -60,6 +61,7 @@ EXAMPLE_USER = {
     'state': 'CA',
     'zip': '94043',
     'ssn': '123',
+    'email': 'test1@gmail.com'
 }
 EXPECTED_FIELDS = [
     'username',
@@ -73,6 +75,7 @@ EXPECTED_FIELDS = [
     'state',
     'zip',
     'ssn',
+    'email'
 ]
 
 # Usernames must be >1 and <=15 chars, alphanumeric and underscores
