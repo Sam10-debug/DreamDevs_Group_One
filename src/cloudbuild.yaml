@@ -113,7 +113,7 @@ steps:
       - 'clusters'
       - 'get-credentials'
       - 'dreamdev-team1-cluster'
-      - '--zone=europe-west1'
+      - '--zone=europe-west1-b'
       - '--project=dreamdev-team1'
     id: 'get-credentials'
     waitFor: ['-']
