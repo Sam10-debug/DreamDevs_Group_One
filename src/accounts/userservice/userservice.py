@@ -39,6 +39,13 @@ from opentelemetry.instrumentation.flask import FlaskInstrumentor
 
 from db import UserDb
 
+# from sendgrid import SendGridAPIClient
+# from sendgrid.helpers.mail import Mail
+
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
 def create_app():
     """Flask application factory to create instances
     of the Userservice Flask App
@@ -121,6 +128,9 @@ def create_app():
             users_db.add_user(user_data)
             app.logger.info("Successfully created user.")
 
+            send_email(req['email'], 'Welcome to MoniNext', f'Hello {req["firstname"]}, welcome to MoniNext! Your account has been successfully created.')
+            app.logger.info('Welcome email sent to %s', req['email'])
+
         except UserWarning as warn:
             app.logger.error("Error creating new user: %s", str(warn))
             return str(warn), 400
@@ -202,6 +212,11 @@ def create_app():
             app.logger.debug('Creating jwt token.')
             token = jwt.encode(payload, app.config['PRIVATE_KEY'], algorithm='RS256')
             app.logger.info('Login Successful.')
+
+            # Send email notification
+            send_email(user['email'], 'Login Notification', f'Hello {full_name}, you have successfully logged in to your account on {datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")}.')
+            app.logger.info('Login notification email sent to %s', user['email'])
+            
             return jsonify({'token': token}), 200
 
         except LookupError as err:
@@ -213,6 +228,31 @@ def create_app():
         except SQLAlchemyError as err:
             app.logger.error('Error logging in: %s', str(err))
             return 'failed to retrieve user information', 500
+
+    def send_email(to_email, subject, content):
+        # Configuration (load from environment variables)
+        SMTP_SERVER = os.environ.get("SMTP_SERVER", "smtp.gmail.com")
+        SMTP_PORT = int(os.environ.get("SMTP_PORT", 587))
+        SMTP_USER = os.environ.get("SMTP_USER")
+        SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD")
+
+        # Create email
+        msg = MIMEMultipart()
+        msg["From"] = "noreply@bankofanthos.com"
+        msg["To"] = to_email
+        msg["Subject"] = subject
+        msg.attach(MIMEText(content, "html"))
+
+        # Send email
+        try:
+            with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+                server.starttls()
+                server.login(SMTP_USER, SMTP_PASSWORD)
+                server.send_message(msg)
+            return True
+        except Exception as e:
+            print(f"Email failed: {str(e)}")
+            return False
 
     @atexit.register
     def _shutdown():
