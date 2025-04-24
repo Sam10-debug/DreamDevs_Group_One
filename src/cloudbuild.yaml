@@ -147,9 +147,17 @@ steps:
   - name: 'gcr.io/cloud-builders/kubectl'
     args: ['rollout', 'status', 'deployment/frontend', '--timeout=3m']
     waitFor: ['update-frontend']
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
+
   - name: 'gcr.io/cloud-builders/kubectl'
     args: ['rollout', 'status', 'deployment/userservice', '--timeout=3m']
     waitFor: ['update-userservice']
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
+
   - name: 'gcr.io/cloud-builders/kubectl'
     args: ['rollout', 'status', 'deployment/loadgenerator', '--timeout=3m']
     waitFor: ['update-loadgenerator']
