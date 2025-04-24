@@ -27,6 +27,12 @@ limitations under the License.
       <div class="row mt-5 mb-5">
         <!-- Alert on load -->
         {% if message != None and message != 'Login Failed' %}
+        <div class="col-lg-4">
+          <a href="http://127.0.0.1:5500/DreamDevs_Group_One/src/landing-page/index.html" type="button" class="btn btn-secondary"
+            ><span class="mr-2 material-icons arrow-back">arrow_back</span
+            >Back</a
+          >
+        </div>
         <div class="col-md-8 offset-md-2">
           <div class="alert alert-info alert-dismissible fade show" role="alert">
             <span class="error-icon mr-2 material-icons">error</span>{{ message }}
