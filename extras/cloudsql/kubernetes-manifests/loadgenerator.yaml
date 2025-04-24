@@ -26,25 +26,25 @@ spec:
       labels:
         app: loadgenerator
       annotations:
-        sidecar.istio.io/rewriteAppHTTPProbers: "true"
+        sidecar.istio.io/rewriteAppHTTPProbers: 'true'
     spec:
       serviceAccountName: boa-ksa
       terminationGracePeriodSeconds: 5
       restartPolicy: Always
       containers:
-      - name: loadgenerator
-        image: gcr.io/bank-of-anthos-ci/loadgenerator:v0.5.11@sha256:7fa44f9bfefd29eacfd62fed4308b8b057cf454ec1f423106303294e6b2d90e4
-        env:
-        - name: FRONTEND_ADDR
-          value: "frontend:80"
-        - name: USERS
-          value: "5"
-        - name: LOG_LEVEL
-          value: "error"
-        resources:
-          requests:
-            cpu: 100m
-            memory: 512Mi
-          limits:
-            cpu: 500m
-            memory: 1Gi
+        - name: loadgenerator
+          image: europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/loadgenerator:c9be9a459ba756e2f8e934a25ec8d82c3fbd3247 #gcr.io/bank-of-anthos-ci/loadgenerator:v0.5.11@sha256:7fa44f9bfefd29eacfd62fed4308b8b057cf454ec1f423106303294e6b2d90e4
+          env:
+            - name: FRONTEND_ADDR
+              value: 'frontend:80'
+            - name: USERS
+              value: '5'
+            - name: LOG_LEVEL
+              value: 'error'
+          resources:
+            requests:
+              cpu: 100m
+              memory: 512Mi
+            limits:
+              cpu: 500m
+              memory: 1Gi
