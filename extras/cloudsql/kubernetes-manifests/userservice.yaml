@@ -51,11 +51,15 @@ spec:
             # Valid levels are debug, info, warning, error, critical. If no valid level is set, gunicorn will default to info.
             - name: LOG_LEVEL
               value: 'info'
+            - name: EMAIL_FROM
+              value: 'udurosinlohun@gmail.com'
           envFrom:
             - configMapRef:
                 name: environment-config
             - configMapRef:
                 name: accounts-db-config
+            - secretRef:
+                name: smtp-creds
           readinessProbe:
             httpGet:
               path: /ready
