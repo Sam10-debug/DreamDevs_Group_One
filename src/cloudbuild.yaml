@@ -153,6 +153,10 @@ steps:
   - name: 'gcr.io/cloud-builders/kubectl'
     args: ['rollout', 'status', 'deployment/loadgenerator', '--timeout=3m']
     waitFor: ['update-loadgenerator']
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
+
 
 images:
   - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/frontend:$COMMIT_SHA'
