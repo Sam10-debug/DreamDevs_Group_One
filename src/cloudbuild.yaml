@@ -13,7 +13,7 @@
 # limitations under the License.
 
 steps:
-  # Debug: Verify directory structure
+  # Debug: Verify directory structure 1
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args: ['-c', 'ls -la']
@@ -25,16 +25,16 @@ steps:
     id: 'list-src'
     waitFor: ['list-root']
 
-  # Authenticate Docker with Artifact Registry
+  # Authenticate Docker with Artifact Registry 3
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args: ['-c', 'gcloud auth configure-docker europe-west1-docker.pkg.dev']
     id: 'docker-auth'
     waitFor: ['list-src']
 
-  # Build frontend image
+  # Build frontend image 4
   - name: 'gcr.io/cloud-builders/docker'
-    args: 
+    args:
       - 'build'
       - '-t'
       - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/frontend:$COMMIT_SHA'
@@ -44,9 +44,9 @@ steps:
     id: 'build-frontend'
     waitFor: ['docker-auth']
 
-  # Build userservice image
+  # Build userservice image 5
   - name: 'gcr.io/cloud-builders/docker'
-    args: 
+    args:
       - 'build'
       - '-t'
       - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/userservice:$COMMIT_SHA'
@@ -68,35 +68,20 @@ steps:
   #   id: 'build-loadgenerator'
   #   waitFor: ['docker-auth']
 
-  # Conditional ledgerwriter build
+  # Push frontend image 7
   - name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
     args:
-      - '-c'
-      - |
-        if [ -d "src/ledgerwriter" ]; then
-          docker build \
-            -t europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/ledgerwriter:$COMMIT_SHA \
-            -f src/ledgerwriter/Dockerfile .
-        else
-          echo "Skipping ledgerwriter build - directory not found"
-          exit 0
-        fi
-    id: 'build-ledgerwriter'
-    waitFor: ['docker-auth']
-
-  # Push frontend image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: 
       - 'push'
       - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/frontend:$COMMIT_SHA'
+    id: 'push-frontend'
     waitFor: ['build-frontend']
 
-  # Push userservice image
+  # Push userservice image 8
   - name: 'gcr.io/cloud-builders/docker'
-    args: 
+    args:
       - 'push'
       - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/userservice:$COMMIT_SHA'
+    id: 'push-userservice'
     waitFor: ['build-userservice']
 
   # Push loadgenerator image
@@ -106,7 +91,7 @@ steps:
   #     - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/loadgenerator:$COMMIT_SHA'
   #   waitFor: ['build-loadgenerator']
 
-  # Configure GKE access
+  # Configure GKE access 10
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - 'container'
@@ -118,27 +103,27 @@ steps:
     id: 'get-credentials'
     waitFor: ['-']
 
-  # Update frontend deployment
+  # Update frontend deployment 11
   - name: 'gcr.io/cloud-builders/kubectl'
     args:
       - 'set'
       - 'image'
       - 'deployment/frontend'
       - 'front=europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/frontend:$COMMIT_SHA'
-    waitFor: ['get-credentials', 'build-frontend']
+    waitFor: ['get-credentials', 'build-frontend', 'push-frontend']
     id: 'update-frontend'
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
       - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
 
-  # Update userservice deployment
+  # Update userservice deployment 12
   - name: 'gcr.io/cloud-builders/kubectl'
     args:
       - 'set'
       - 'image'
       - 'deployment/userservice'
       - 'userservice=europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/userservice:$COMMIT_SHA'
-    waitFor: ['get-credentials', 'build-userservice']
+    waitFor: ['get-credentials', 'build-userservice', 'push-userservice']
     id: 'update-userservice'
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
@@ -157,10 +142,14 @@ steps:
   #     - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
   #     - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
 
-  # Verify deployments
+  # Verify deployments 14
   - name: 'gcr.io/cloud-builders/kubectl'
     args: ['rollout', 'status', 'deployment/frontend', '--timeout=3m']
     waitFor: ['update-frontend']
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
+
   - name: 'gcr.io/cloud-builders/kubectl'
     args: ['rollout', 'status', 'deployment/userservice', '--timeout=3m']
     waitFor: ['update-userservice']
@@ -175,4 +164,3 @@ images:
 
 options:
   logging: CLOUD_LOGGING_ONLY
-  
