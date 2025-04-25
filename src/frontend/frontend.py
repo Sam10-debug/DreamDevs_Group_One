@@ -93,7 +93,7 @@ def create_app():
             return login_page()
         return home()
 
-    @app.route("/home")
+    @app.route("/dashboard")
     def home():
         """
         Renders home page. Redirects to /login if token is not valid
@@ -170,7 +170,7 @@ def create_app():
                                pod_name=pod_name,
                                pod_zone=pod_zone)
 
-    @app.route("/dashboard")
+    @app.route("/home")
     def dashboard():
         """
         Renders dashboard page. Redirects to /login if token is not valid

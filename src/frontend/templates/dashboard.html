@@ -98,7 +98,29 @@ limitations under the License.
     <!-- Main Content -->
     <main class="p-3">
         <!-- Top row - overview, account # -->
-
+        {% if message != None %}
+        <div class="row col-lg-12 align-items-start" id="alert-message-div" >
+          <div class="col-lg">
+              <div class="card snackbar-card">
+                <div class="card-body snackbar-body">
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <h5 id="alert-message" class="alert-message-container">
+                        <div class="check-mark-container">
+                          <span class="snackbar-close material-icons">check_circle</span>
+                        </div>
+                        {{ message }}
+                      </h5>
+                    </div>
+                    <div class="button-icon col-auto">
+                      <span class="snackbar-close material-icons" onclick="$('#alert-message-div').remove();">close</span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
         <!-- Balance / Deposit / Send Payment row -->
         <div class="flex flex-col gap-6 col-lg-12 align-items-start p-2">
             <div class="w-full flex flex-col md:flex-row gap-6">
@@ -159,7 +181,7 @@ limitations under the License.
                                 <div>
                                     <h2
                                         class="md:text-5xl text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                                        ₦378,000.00
+                                        {{ format_currency(balance) }}
                                     </h2>
                                     <p class="text-xs text-gray-500 mt-1">Available for withdrawal</p>
                                 </div>
@@ -192,7 +214,7 @@ limitations under the License.
                                     </div>
                                     <div>
                                         <span class="text-gray-500 block text-xs">Account Name:</span>
-                                        <span class="text-gray-800 font-medium">Faith Adeola</span>
+                                        <span class="text-gray-800 font-medium">{{ name }}</span>
                                     </div>
                                 </div>
                                 <div class="flex gap-2 items-center">
@@ -208,7 +230,7 @@ limitations under the License.
                                     <div class="flex items-center gap-2">
                                         <div>
                                             <span class="text-gray-500 block text-xs">Account No:</span>
-                                            <span class="text-gray-800 font-medium">00122234567</span>
+                                            <span class="text-gray-800 font-medium">{{ account_id }}</span>
                                         </div>
                                         <button
                                             class="w-6 h-6 bg-blue-100 rounded flex items-center justify-center text-blue-600 hover:bg-blue-200 transition-colors">
@@ -352,6 +374,8 @@ limitations under the License.
                     </div>
 
                     <div id="transaction-container" class="divide-y divide-gray-100">
+                        {% for t in history %}
+                        {% if t.toAccountNum == account_id %}
                         <div
                             class="transaction-item p-4 sm:px-6 flex flex-row sm:flex-row sm:items-center gap-3 hover:bg-gray-50 transition-colors">
                             <div
@@ -364,19 +388,29 @@ limitations under the License.
                                 </svg>
                             </div>
                             <div class="flex-grow">
-                                <p class="font-medium transaction-label">External Bank</p>
+                                <p class="font-medium transaction-label">
+                                    {% if t.accountLabel != None %}
+                                        {{ t.accountLabel }}
+                                {% else %}
+                                    <span class="transaction-label-none">None</span>
+                                {% endif %}
+                                </p>
                                 <div class="flex items-center gap-2">
-                                    <span class="text-sm text-gray-500 transaction-account">9099791699</span>
+                                    <span class="text-sm text-gray-500 transaction-account">
+                                        {{ t.fromAccountNum }}
+                                    </span>
                                     <span
                                         class="text-xs px-2 py-0.5 bg-green-50 text-green-600 rounded-full transaction-type">Credit</span>
                                 </div>
                             </div>
                             <div class="text-right">
-                                <p class="font-semibold text-green-600 transaction-amount">+₦10.00</p>
-                                <p class="text-xs text-gray-500 transaction-date">Apr 19</p>
+                                <p class="font-semibold text-green-600 transaction-amount">+{{ format_currency(t.amount) }}</p>
+                                <p class="text-xs text-gray-500 transaction-date">
+                                    {{ format_timestamp_month(t.timestamp) }} {{ format_timestamp_day(t.timestamp) }}
+                                </p>
                             </div>
                         </div>
-
+                        {% elif t.fromAccountNum == account_id %}
                         <div
                             class="transaction-item p-4 sm:px-6 flex flex-row sm:flex-row sm:items-center gap-3 hover:bg-gray-50 transition-colors">
                             <div
@@ -389,43 +423,26 @@ limitations under the License.
                                 </svg>
                             </div>
                             <div class="flex-grow">
-                                <p class="font-medium transaction-label">Alice</p>
+                                <p class="font-medium transaction-label">  
+                                    {% if t.accountLabel != None %}
+                                    {{ t.accountLabel }}
+                                  {% else %}
+                                    <span class="transaction-label-none">None</span>
+                                  {% endif %}</p>
                                 <div class="flex items-center gap-2">
-                                    <span class="text-sm text-gray-500 transaction-account">1033623433</span>
+                                    <span class="text-sm text-gray-500 transaction-account">{{ t.toAccountNum }}</span>
                                     <span
                                         class="text-xs px-2 py-0.5 bg-red-50 text-red-600 rounded-full transaction-type">Debit</span>
                                 </div>
                             </div>
                             <div class="text-right">
-                                <p class="font-semibold text-red-600 transaction-amount">-₦88.66</p>
-                                <p class="text-xs text-gray-500 transaction-date">Apr 14</p>
+                                <p class="font-semibold text-red-600 transaction-amount">-{{ format_currency(t.amount) }}</p>
+                                <p class="text-xs text-gray-500 transaction-date">{{ format_timestamp_month(t.timestamp) }} {{ format_timestamp_day(t.timestamp) }}</p>
                             </div>
                         </div>
+                        {% endif %}
+                        {% endfor %}
 
-                        <div
-                            class="transaction-item p-4 sm:px-6 flex flex-row sm:flex-row sm:items-center gap-3 hover:bg-gray-50 transition-colors">
-                            <div
-                                class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M16 17a1 1 0 01-1 1H5a1 1 0 010-2h10a1 1 0 011 1zm-3.293-7.707a1 1 0 010 1.414L9.414 14H17a1 1 0 110 2H9.414l3.293 3.293a1 1 0 01-1.414 1.414l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 0z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                            <div class="flex-grow">
-                                <p class="font-medium transaction-label">Bob</p>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-sm text-gray-500 transaction-account">1055757655</span>
-                                    <span
-                                        class="text-xs px-2 py-0.5 bg-red-50 text-red-600 rounded-full transaction-type">Debit</span>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <p class="font-semibold text-red-600 transaction-amount">-₦73.84</p>
-                                <p class="text-xs text-gray-500 transaction-date">Apr 13</p>
-                            </div>
-                        </div>
 
                         <div
                             class="transaction-item p-4 sm:px-6 flex flex-row sm:flex-row sm:items-center gap-3 hover:bg-gray-50 transition-colors">
@@ -438,21 +455,9 @@ limitations under the License.
                                         clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <div class="flex-grow">
-                                <p class="font-medium transaction-label">Alice</p>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-sm text-gray-500 transaction-account">1033623433</span>
-                                    <span
-                                        class="text-xs px-2 py-0.5 bg-green-50 text-green-600 rounded-full transaction-type">Credit</span>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <p class="font-semibold text-green-600 transaction-amount">+₦33.94</p>
-                                <p class="text-xs text-gray-500 transaction-date">Apr 11</p>
-                            </div>
                         </div>
 
-                        <div
+                        <!-- <div
                             class="transaction-item p-4 sm:px-6 flex flex-row sm:flex-row sm:items-center gap-3 hover:bg-gray-50 transition-colors">
                             <div
                                 class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
@@ -462,46 +467,8 @@ limitations under the License.
                                         d="M16 17a1 1 0 01-1 1H5a1 1 0 010-2h10a1 1 0 011 1zm-3.293-7.707a1 1 0 010 1.414L9.414 14H17a1 1 0 110 2H9.414l3.293 3.293a1 1 0 01-1.414 1.414l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 0z"
                                         clip-rule="evenodd" />
                                 </svg>
-                            </div>
-                            <div class="flex-grow">
-                                <p class="font-medium transaction-label">None</p>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-sm text-gray-500 transaction-account">5540755282</span>
-                                    <span
-                                        class="text-xs px-2 py-0.5 bg-red-50 text-red-600 rounded-full transaction-type">Debit</span>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <p class="font-semibold text-red-600 transaction-amount">-₦34.31</p>
-                                <p class="text-xs text-gray-500 transaction-date">Apr 10</p>
-                            </div>
-                        </div>
-
-                        <div
-                            class="transaction-item p-4 sm:px-6 flex flex-row sm:flex-row sm:items-center gap-3 hover:bg-gray-50 transition-colors">
-                            <div
-                                class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0-7a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 3.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                            <div class="flex-grow">
-                                <p class="font-medium transaction-label">External Bank</p>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-sm text-gray-500 transaction-account">9099791699</span>
-                                    <span
-                                        class="text-xs px-2 py-0.5 bg-green-50 text-green-600 rounded-full transaction-type">Credit</span>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <p class="font-semibold text-green-600 transaction-amount">+₦2,500.00</p>
-                                <p class="text-xs text-gray-500 transaction-date">Apr 5</p>
-                            </div>
-                        </div>
-                    </div>
+                            </div> -->
+                            
 
                     <div id="no-results-message" class="p-8 text-center hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400 mb-4" fill="none"
@@ -1184,6 +1151,8 @@ limitations under the License.
         integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
         crossorigin="anonymous"></script>
     <!-- Page specific-->
+    {% include 'shared/footer.html' %}
+{% include 'shared/scripts.html' %}
     <script src="static/scripts/index.js"></script>
 </body>
 
