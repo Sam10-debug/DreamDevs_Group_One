@@ -120,7 +120,7 @@ def create_app():
             }
             _validate_new_contact(req)
 
-            _check_contact_allowed(username, auth_payload["acct"], req)
+            # _check_contact_allowed(username, auth_payload["acct"], req)
             # Create contact data to be added to the database.
             contact_data = {
                 "username": username,
