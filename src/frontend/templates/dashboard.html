@@ -490,6 +490,10 @@ limitations under the License.
             </div>
 
             <script>
+                const basePath = window.location.origin;
+                const pagePath = basePath + window.location.pathname;
+                const paymentURL = basePath + '/payment';
+
                 document.addEventListener('DOMContentLoaded', function () {
                     setTimeout(initializeTransactionFiltering, 1000);
                 });
@@ -652,7 +656,6 @@ limitations under the License.
 
                     console.log('Download initiated');
                 }
-                
                 document.addEventListener('DOMContentLoaded', function () {
                     const topUpButtons = document.querySelectorAll('[data-action="topup"]');
                     topUpButtons.forEach(button => {
@@ -673,25 +676,18 @@ limitations under the License.
                         }
 
                         const formData = new FormData();
-                        formData.append('account_number', phoneNumber); 
-                        formData.append('label', network);              
+                        formData.append('contact_account_num', phoneNumber);
+                        formData.append('contact_label', 'AIRTIME - VTU - ' + getId());
                         formData.append('amount', amount);
-                        formData.append('transaction_type', 'topup');   
-
-                        fetch('/api/transaction', {
+                        formData.append('account_num', 'add');
+                        formData.append('uuid', getId());
+                        fetch(paymentURL, {
                             method: 'POST',
                             body: formData
                         })
                             .then(response => response.json())
                             .then(data => {
-                                if (data.success) {
-                                    alert('Top-up successful!');
-                                    $('#topUpModal').modal('hide');
-                                    // Reload transactions or update balance as needed
-                                    window.location.reload();
-                                } else {
-                                    alert('Top-up failed: ' + data.message);
-                                }
+                                
                             })
                             .catch(error => {
                                 console.error('Error:', error);
@@ -763,10 +759,14 @@ limitations under the License.
                         document.getElementById('bill-label').value = `${serviceProvider} ${billType.charAt(0).toUpperCase() + billType.slice(1)}`;
 
                         // Create form data - using the same field names as your send payment API
-                        const formData = new FormData(this);
-
+                        const formData = new FormData();
+                        formData.append('contact_account_num', meterNumber);
+                        formData.append('contact_label', 'BILL PAYMENT - ' + getId());
+                        formData.append('amount', amount);
+                        formData.append('uuid', getId());
+                        formData.append('account_num', 'add');
                         // Submit to the same endpoint as send payment
-                        fetch('/api/transaction', {
+                        fetch(paymentURL, {
                             method: 'POST',
                             body: formData
                         })
@@ -788,7 +788,12 @@ limitations under the License.
                     });
                 });
 
-                
+                function getId() {
+                    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                        return v.toString(16);
+                    });
+                };
                 
             </script>
 

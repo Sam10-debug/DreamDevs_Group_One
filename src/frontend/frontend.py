@@ -94,7 +94,7 @@ def create_app():
         return home()
 
     @app.route("/dashboard")
-    def home():
+    def dashboard():
         """
         Renders home page. Redirects to /login if token is not valid
         """
@@ -171,7 +171,7 @@ def create_app():
                                pod_zone=pod_zone)
 
     @app.route("/home")
-    def dashboard():
+    def home():
         """
         Renders dashboard page. Redirects to /login if token is not valid
         """
@@ -246,6 +246,85 @@ def create_app():
                                platform_display_name=platform_display_name,
                                pod_name=pod_name,
                                pod_zone=pod_zone)
+
+    @app.route("/home-old")
+    def homeOld():
+        """
+        Renders dashboard page. Redirects to /login if token is not valid
+        """
+        token = request.cookies.get(app.config['TOKEN_NAME'])
+        if not verify_token(token):
+            # user isn't authenticated
+            app.logger.debug('User isn\'t authenticated. Redirecting to login page.')
+            return redirect(url_for('login_page',
+                                    _external=True,
+                                    _scheme=app.config['SCHEME']))
+        token_data = decode_token(token)
+        display_name = token_data['name']
+        username = token_data['user']
+        account_id = token_data['acct']
+
+        hed = {'Authorization': 'Bearer ' + token}
+
+        api_calls = [
+            # get balance
+            ApiCall(display_name=BALANCE_NAME,
+                    api_request=ApiRequest(url=f'{app.config["BALANCES_URI"]}/{account_id}',
+                                           headers=hed,
+                                           timeout=app.config['BACKEND_TIMEOUT']),
+                    logger=app.logger),
+            # get history
+            ApiCall(display_name=TRANSACTION_LIST_NAME,
+                    api_request=ApiRequest(url=f'{app.config["HISTORY_URI"]}/{account_id}',
+                                           headers=hed,
+                                           timeout=app.config['BACKEND_TIMEOUT']),
+                    logger=app.logger),
+            # get contacts
+            ApiCall(display_name=CONTACTS_NAME,
+                    api_request=ApiRequest(url=f'{app.config["CONTACTS_URI"]}/{username}',
+                                           headers=hed,
+                                           timeout=app.config['BACKEND_TIMEOUT']),
+                    logger=app.logger)
+        ]
+
+        api_response = {BALANCE_NAME: None,
+                        TRANSACTION_LIST_NAME: None,
+                        CONTACTS_NAME: []}
+
+        tracer = trace.get_tracer(__name__)
+        with TracedThreadPoolExecutor(tracer, max_workers=3) as executor:
+            futures = []
+
+            future_to_api_call = {
+                executor.submit(api_call.make_call):
+                    api_call for api_call in api_calls
+            }
+
+            for future in concurrent.futures.as_completed(future_to_api_call):
+                if future.result():
+                    api_call = future_to_api_call[future]
+                    api_response[api_call.display_name] = future.result().json()
+
+        _populate_contact_labels(account_id,
+                                 api_response[TRANSACTION_LIST_NAME],
+                                 api_response[CONTACTS_NAME])
+
+        return render_template('index.html',
+                               account_id=account_id,
+                               balance=api_response[BALANCE_NAME],
+                               bank_name=os.getenv('BANK_NAME', 'MoniNext'),
+                               cluster_name=cluster_name,
+                               contacts=api_response[CONTACTS_NAME],
+                               cymbal_logo=os.getenv('CYMBAL_LOGO', 'false'),
+                               history=api_response[TRANSACTION_LIST_NAME],
+                               message=request.args.get('msg', None),
+                               name=display_name,
+                               platform=platform,
+                               platform_display_name=platform_display_name,
+                               pod_name=pod_name,
+                               pod_zone=pod_zone)
+
+
 
     def _populate_contact_labels(account_id, transactions, contacts):
         """
