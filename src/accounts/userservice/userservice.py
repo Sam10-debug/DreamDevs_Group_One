@@ -229,8 +229,7 @@ def create_app():
             app.logger.error('Error logging in: %s', str(err))
             return 'failed to retrieve user information', 500
 
-        @app.route('/users/<accountid>', methods=['GET'])
-   
+    @app.route('/users/<accountid>', methods=['GET'])
     def get_user_by_accountid(accountid):
         """Get user data for the specified accountid.
 
