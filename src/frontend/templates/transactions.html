@@ -1,0 +1,1717 @@
+<!--
+Copyright 2020 Google LLC
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    https://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+    <title>MoniNextER -  Transactions</title>
+
+    <link rel="icon" href="static/img/favicon.png" />
+    <link rel="stylesheet"
+        href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+        crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="static/styles/cymbal.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="static/styles/platform.css">
+    <link rel="stylesheet" href="static/styles/platform/None.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .inter {
+            font-family: "Inter", sans-serif;
+            font-optical-sizing: auto;
+        }
+
+        html,
+        body {
+            font-family: "Inter", sans-serif;
+            font-optical-sizing: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Platform banner -->
+    <!--      
+    <div class="platform-banner">
+      <span class="platform-flag">
+        None
+      </span>
+    </div> -->
+
+    <!-- <header>
+        <nav class="navbar navbar-expand-lg navbar-top">
+            <div class="main-container">
+
+                <a class="navbar-brand">
+                    MoniNext
+                </a>
+
+
+                <button type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarResponsive"
+                    aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right">
+                    <span class="material-icons">menu</span>
+                </button>
+                <div class="justify-content-end collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span>
+                                    <span id="account-user-name">Test User</span>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                                <form id="logout-form" method="POST" action="/logout">
+                                    <a class="dropdown-item"
+                                        onclick="document.querySelector('#logout-form').submit();">Sign out<i
+                                            class="fa-icon-spacer fas fa-sign-out-alt"></i></a>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+    </header> -->
+    <!-- Main Content -->
+    <main class="p-3 flex">
+        <!-- Top row - overview, account # -->
+        <!-- Desktop Sidenav -->
+        <div class="left-0 top-0 h-full w-64 bg-white border-r border-gray-100 flex-col hidden md:flex z-20">
+            <!-- Logo section -->
+            <div class="p-6 pb-8">
+                <a href="/home" class="flex items-center">
+                    <span class="ml-3 text-2xl font-bold text-gray-900">MonieNext</span>
+                </a>
+            </div>
+
+            <!-- Navigation links -->
+            <div class="flex-grow">
+                <ul>
+                    <!-- Home - Active -->
+                    <li>
+                        <a href="/dashboard" class="flex items-center px-6 py-3.5 text-gray-500 hover:bg-gray-50">
+                            <div class="flex items-center justify-center w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="w-6 h-6">
+                                    <path d="M4 13h4v4h8v-4h4L12 5z" fill="currentColor" />
+                                </svg>
+                            </div>
+                            <span class="ml-3 font-medium">Home</span>
+                        </a>
+                    </li>
+
+                    <!-- Transactions -->
+                     <li class="relative">
+                        <!-- Blue indicator bar -->
+                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 rounded-r-md"></div>
+                        <a href="/transactions" class="flex items-center px-6 py-3.5 bg-blue-50 text-blue-600">
+                            <div class="flex items-center justify-center w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                </svg>
+                            </div>
+                            <span class="ml-3 font-medium">Transactions</span>
+                        </a>
+                    </li>
+
+                    <!-- Savings -->
+                    <li>
+                        <a href="/savings" class="flex items-center px-6 py-3.5 text-gray-500 hover:bg-gray-50">
+                            <div class="flex items-center justify-center w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <span class="ml-3 font-medium">Savings</span>
+                        </a>
+                    </li>
+
+                    <!-- Donations -->
+                    <li>
+                        <a href="/donations" class="flex items-center px-6 py-3.5 text-gray-500 hover:bg-gray-50">
+                            <div class="flex items-center justify-center w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                </svg>
+                            </div>
+                            <span class="ml-3 font-medium">Donations</span>
+                        </a>
+                    </li>
+
+                    <!-- Thrifts -->
+                    <li>
+                        <a href="/thrifts" class="flex items-center px-6 py-3.5 text-gray-500 hover:bg-gray-50">
+                            <div class="flex items-center justify-center w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2" />
+                                </svg>
+                            </div>
+                            <span class="ml-3 font-medium">Thrifts</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Logout at bottom -->
+            <div class="p-6 border-t border-gray-100">
+                <a href="/logout" class="flex items-center text-gray-500 hover:text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    <span class="ml-3 font-medium">Logout</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Mobile Bottom Navigation Bar -->
+        <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 md:hidden z-20">
+            <div class="flex justify-between items-center">
+                <!-- Home -->
+                <a href="/home" class="flex flex-col items-center justify-center text-blue-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path d="M4 13h4v4h8v-4h4L12 5z" />
+                    </svg>
+                    <span class="text-xs mt-1">Home</span>
+                </a>
+
+                <!-- Transactions -->
+                <a href="/transactions" class="flex flex-col items-center justify-center text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    <span class="text-xs mt-1">Transactions</span>
+                </a>
+
+                <!-- Savings -->
+                <a href="/savings" class="flex flex-col items-center justify-center text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span class="text-xs mt-1">Savings</span>
+                </a>
+
+                <!-- Donations -->
+                <a href="/donations" class="flex flex-col items-center justify-center text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                    <span class="text-xs mt-1">Donations</span>
+                </a>
+
+                <!-- More menu (for Thrifts & Logout) -->
+                <button class="flex flex-col items-center justify-center text-gray-500 focus:outline-none"
+                    id="mobileMoreBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <span class="text-xs mt-1">More</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobileMoreMenu" class="fixed bottom-16 right-4 bg-white rounded-lg shadow-lg p-4 hidden z-30">
+            <ul class="space-y-3">
+                <li>
+                    <a href="/thrifts" class="flex items-center text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            class="w-5 h-5 mr-3">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2" />
+                        </svg>
+                        Thrifts
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout" class="flex items-center text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            class="w-5 h-5 mr-3">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        
+        <!-- Balance / Deposit / Send Payment row -->
+        <div class="flex flex-col gap-6 align-items-start p-2 md:ml-4 w-full mt-8">
+            <div class="w-full mx-auto bg-gray-100">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="p-4 sm:p-6 flex flex-col sm:flex-row justify-between md:items-center gap-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Transaction History</h3>
+                        <div class="flex flex-col sm:flex-row w-full sm:w-auto gap-3">
+                            <div class="relative w-full sm:w-64 lg:w-80">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <input id="transaction-search" type="text"
+                                    class="bg-gray-50 border border-gray-200 rounded-lg text-gray-700 pl-10 pr-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    placeholder="Search by account name, biller name">
+                            </div>
+                            <div class="flex gap-2">
+                                <select id="transaction-type-filter"
+                                    class="bg-gray-50 border border-gray-200 rounded-lg text-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none cursor-pointer">
+                                    <option value="all">All Transactions</option>
+                                    <option value="credit">Credit Only</option>
+                                    <option value="debit">Debit Only</option>
+                                </select>
+                                <button id="download-transactions-btn"
+                                    class="flex items-center gap-1 px-3 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <span>Download</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div id="transaction-container" class="divide-y divide-gray-100">
+                        {% for t in history %}
+                        {% if t.toAccountNum == account_id %}
+                        <div
+                            class="transaction-item p-4 sm:px-6 flex flex-row sm:flex-row sm:items-center gap-3 hover:bg-gray-50 transition-colors">
+                            <div
+                                class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600"
+                                    viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0-7a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 3.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="font-medium transaction-label">
+                                    {% if t.accountLabel != None %}
+                                        {{ t.accountLabel }}
+                                {% else %}
+                                    <span class="transaction-label-none">None</span>
+                                {% endif %}
+                                </p>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm text-gray-500 transaction-account">
+                                        {{ t.fromAccountNum }}
+                                    </span>
+                                    <span
+                                        class="text-xs px-2 py-0.5 bg-green-50 text-green-600 rounded-full transaction-type">Credit</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold text-green-600 transaction-amount">+{{ format_currency(t.amount) }}</p>
+                                <p class="text-xs text-gray-500 transaction-date">
+                                    {{ format_timestamp_month(t.timestamp) }} {{ format_timestamp_day(t.timestamp) }}
+                                </p>
+                            </div>
+                        </div>
+                        {% elif t.fromAccountNum == account_id %}
+                        <div
+                            class="transaction-item p-4 sm:px-6 flex flex-row sm:flex-row sm:items-center gap-3 hover:bg-gray-50 transition-colors">
+                            <div
+                                class="flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-600" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M16 17a1 1 0 01-1 1H5a1 1 0 010-2h10a1 1 0 011 1zm-3.293-7.707a1 1 0 010 1.414L9.414 14H17a1 1 0 110 2H9.414l3.293 3.293a1 1 0 01-1.414 1.414l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 0z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="font-medium transaction-label">  
+                                    {% if t.accountLabel != None %}
+                                    {{ t.accountLabel }}
+                                  {% else %}
+                                    <span class="transaction-label-none">None</span>
+                                  {% endif %}</p>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm text-gray-500 transaction-account">{{ t.toAccountNum }}</span>
+                                    <span
+                                        class="text-xs px-2 py-0.5 bg-red-50 text-red-600 rounded-full transaction-type">Debit</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-semibold text-red-600 transaction-amount">-{{ format_currency(t.amount) }}</p>
+                                <p class="text-xs text-gray-500 transaction-date">{{ format_timestamp_month(t.timestamp) }} {{ format_timestamp_day(t.timestamp) }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                            
+
+                    <div id="no-results-message" class="p-8 text-center hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400 mb-4" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <h4 class="text-lg font-medium text-gray-700 mb-1">No transactions found</h4>
+                        <p class="text-gray-500">Try adjusting your search or filter to find what you're looking for.
+                        </p>
+                    </div>
+
+                    <div class="p-4 sm:px-6 border-t border-gray-100 flex justify-between items-center">
+                        <div class="text-sm text-gray-500  hidden">
+                             <span id="transactions-count" class="font-medium"></span> 
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <!-- Modal (initially hidden) -->
+                <div id="infoModal" class="fixed inset-0 z-50 hidden flex items-center justify-center">
+                    <!-- Background overlay with blur -->
+                    <div class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 animate-fadeIn">
+                        <!-- Modal icon (success or error) -->
+                        <div class="flex justify-center mb-4">
+                            <!-- Error Icon -->
+                            <div id="errorIcon" class="hidden">
+                                <svg width="126" height="126" viewBox="0 0 126 126" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="63" cy="63.207" r="62.5" fill="#F8C7C7" />
+                                    <circle cx="63" cy="63.207" r="49.5" fill="#E94444" />
+                                    <circle cx="63" cy="63.207" r="38.5" fill="#BA393E" />
+                                    <path d="M59 80.207V73.207H66V80.207H59Z" fill="white" />
+                                    <path d="M59 66.207V45.207H66V66.207H59Z" fill="white" />
+                                </svg>
+                            </div>
+
+                            <!-- Success Icon -->
+                            <div id="successIcon" class="hidden">
+                                <svg width="126" height="126" viewBox="0 0 126 126" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="63" cy="63" r="62.5" fill="#C7F8D5" />
+                                    <circle cx="63" cy="63" r="49.5" fill="#44E970" />
+                                    <circle cx="63" cy="63" r="38.5" fill="#39BA5A" />
+                                    <path d="M54.5 63L61 69.5L72.5 54.5" stroke="white" stroke-width="7"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Modal Title -->
+                        <h2 id="modalTitle" class="text-lg font-bold text-center mt-4"></h2>
+
+                        <!-- Modal Message -->
+                        <p id="modalMessage" class="text-center text-gray-600 text-sm mt-2"></p>
+
+                        <!-- Try Again Button -->
+                        <div class="flex justify-center mt-4">
+                            <button id="closeModalBtn"
+                                class="p-3 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 text-sm transition-colors">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transaction Detail Modal -->
+                <div id="transactionDetailModal" class="fixed inset-0 z-50 hidden">
+                    <!-- Background color -->
+                    <div class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+
+                    <!-- Modal content -->
+                    <div class="relative w-full max-w-lg mx-auto my-8 px-4">
+                        <!-- Transaction card with ticket-style cut edges -->
+                        <div class="bg-white rounded-2xl shadow-lg overflow-hidden relative">
+                            <!-- Top semi-circle cutout -->
+                            <div class="absolute -left-5 top-64 w-10 h-10 bg-blue-600 rounded-full"></div>
+                            <div class="absolute -right-5 top-64 w-10 h-10 bg-blue-600 rounded-full"></div>
+
+                            <!-- Upper section -->
+                            <div class="p-8 pb-4">
+                                <!-- Transaction type badge -->
+                                <div id="transactionTypeBadge"
+                                    class="inline-block px-4 py-1 rounded-full text-blue-600 bg-blue-100 text-sm font-medium mb-4">
+                                    DEBIT
+                                </div>
+
+                                <h1 id="transactionAmount" class="text-4xl font-bold mb-2"></h1>
+
+                                <!-- Charge -->
+                                <p class="text-gray-500">Charge: <span id="transactionCharge"></span></p>
+                            </div>
+
+                            <!-- Dotted line separator -->
+                            <div class="border-t border-dashed border-blue-300 mx-4"></div>
+
+                            <!-- Details section -->
+                            <div class="bg-gray-50 p-8">
+                                <!-- Transaction type -->
+                                <div class="flex justify-between items-center mb-5">
+                                    <div class="text-gray-500">Transaction Type</div>
+                                    <div id="transactionTypeDetail"
+                                        class="inline-block px-4 py-1 rounded-full text-blue-600 bg-blue-100 text-sm font-medium">
+                                        TRANSFER
+                                    </div>
+                                </div>
+
+                                <!-- Transaction Date -->
+                                <div class="flex justify-between items-start mb-5">
+                                    <div class="text-gray-500">Transaction Date</div>
+                                    <div id="dateDetail" class="text-right">
+                                    </div>
+                                </div>
+
+                                <!-- Narration -->
+                                <div class="flex justify-between items-center mb-5">
+                                    <div class="text-gray-500">Narration</div>
+                                    <div id="narrationDetail" class="text-right truncate max-w-[60%]"></div>
+                                </div>
+                                <!--    Transaction Status -->
+                                <div class="flex justify-between items-center mb-5">
+                                    <div class="text-gray-500">Transaction Status</div>
+                                    <div id="statusDetail"
+                                        class="inline-block px-3 py-1 rounded-full text-blue-600 bg-blue-100 text-sm font-medium">
+                                        COMPLETED
+                                    </div>
+                                </div>
+                                <div class="mt-6 text-center">
+                                    <button id="closeTransactionModal"
+                                        class="text-white font-medium hover:underline text-sm bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 rounded-lg px-5 py-2.5">
+                                        Close
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <form id="payment-form" class="needs-validation hidden" novalidate></form>
+                <!-- Deposit Modal -->
+                <div class="modal fade" id="depositFunds" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <form id="deposit-form" class="needs-validation" novalidate="" method="POST"
+                                action="/deposit">
+                                <div class="modal-header">
+                                    <h3 class="modal-title header-title" id="exampleModalLongTitle">Make a
+                                        Deposit</h3>
+                                    <button type="button" class="close deposit-cancel" data-dismiss="modal"
+                                        aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-10 offset-md-1 mb-4">
+                                            <label class="text-uppercase text-muted secondary-text mb-3"
+                                                for="accounts">External Account</label>
+                                            <select class="custom-select d-block w-100" id="accounts" name="account">
+                                                <option
+                                                    value='{"account_num": "9099791699", "routing_num": "808889588" }'>
+                                                    External Bank - 9099791699 - 808889588
+                                                </option>
+
+
+                                                <option disabled>──────────</option>
+                                                <option value="add">New External Account</option>
+                                            </select>
+                                            <div id="otherDepositInputs" class="hidden">
+                                                <div id="alertBanner" class="alert alert-danger mt-3 mb-3" role="alert">
+                                                    <span
+                                                        class="error-icon mr-2 material-icons">error</span><strong>Warning</strong>:
+                                                    This website is a simulation. Please don't include real
+                                                    personal
+                                                    information.
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><strong
+                                                                class="modal-icon">#</strong></span>
+                                                    </div>
+                                                    <input class="form-control" type="number" step='1'
+                                                        id="external_account_num" name="external_account_num"
+                                                        min=1000000000 max=9999999999 placeholder="Account Number" />
+                                                    <div class="invalid-feedback">
+                                                        Please enter a valid 10 digit account number.
+                                                    </div>
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><span
+                                                                class="modal-icon material-icons">account_balance</span></span>
+                                                    </div>
+                                                    <input class="form-control" type="number" step='1'
+                                                        id="external_routing_num" name="external_routing_num"
+                                                        min=100000000 max=999999999 placeholder="Routing Number" />
+                                                    <div class="invalid-feedback">
+                                                        Please enter a valid 9 digit routing number.
+                                                    </div>
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><span
+                                                                class="modal-icon material-icons">label</span></span>
+                                                    </div>
+                                                    <input class="form-control" type="text" id="external_label"
+                                                        maxLength="30" pattern="^[0-9a-zA-Z][0-9a-zA-Z ]{0,29}$"
+                                                        name="external_label" placeholder="Account Label (Optional)" />
+                                                    <div class="invalid-feedback">
+                                                        Invalid label.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10 offset-md-1">
+                                            <label class="text-uppercase text-muted secondary-text mb-1"
+                                                for="deposit-amount">Deposit Amount</label>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend mr-2">
+                                                    <span class="input-group-text"><span
+                                                            class="amount-font material-icons money-icon">attach_money</span></span>
+                                                </div>
+                                                <input class="form-control amount-font" type="number" autocomplete="off"
+                                                    step="0.01" id="deposit-amount" name="amount" placeholder="0.00"
+                                                    min="0.01" max="500000.00" required>
+                                                <div class="invalid-feedback">
+                                                    Please enter a valid amount.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="row align-items-end text-right">
+                                        <div class="col-md-10 offset-md-1 text-right align-items-end">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Cancel</button>
+                                            <button type="submit"
+                                                class="btn btn-primary btn-with-padding deposit-send-button">Deposit</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" id="deposit-uuid" name="uuid">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Send Modal -->
+                <div class="modal fade" id="sendPayment" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content rounded-lg shadow-lg border-0">
+                            <div class="modal-header border-0 pb-0">
+                                <h3 class="text-lg font-semibold text-gray-800">Transfer Funds</h3>
+                                <button type="button" class="text-gray-400 hover:text-gray-600 focus:outline-none"
+                                    data-dismiss="modal" aria-label="Close">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <form id="transfer-form" class="needs-validation" novalidate>
+                                <div class="modal-body pt-0">
+                                    <!-- Step 1: Account Number -->
+                                    <div id="step-account-number" class="py-4">
+                                        <label class="block text-sm font-medium text-gray-600 mb-2">Enter Account
+                                            Number</label>
+                                        <div class="relative">
+                                            <div
+                                                class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400"
+                                                    viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd"
+                                                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                            </div>
+                                            <input id="account-number" type="text" inputmode="numeric" pattern="[0-9]*"
+                                                maxlength="10"
+                                                class="bg-gray-50 border border-gray-200 rounded-lg text-gray-700 pl-10 pr-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                                placeholder="Enter 10-digit account number">
+                                            <div id="account-validation-message" class="mt-2 text-sm hidden"></div>
+                                        </div>
+
+                                        <!-- Loading state when validating -->
+                                        <div id="validating-account" class="mt-3 flex items-center hidden">
+                                            <svg class="animate-spin h-5 w-5 text-blue-500 mr-2"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                                    stroke-width="4"></circle>
+                                                <path class="opacity-75" fill="currentColor"
+                                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                                </path>
+                                            </svg>
+                                            <span class="text-gray-600">Validating account...</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Step 2: Recipient Details (initially hidden) -->
+                                    <div id="step-recipient-details" class="py-4 hidden">
+                                        <div class="mb-4">
+                                            <label class="block text-sm font-medium text-gray-600 mb-2">Recipient
+                                                Name</label>
+                                            <div class="relative">
+                                                <div
+                                                    class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        class="h-5 w-5 text-gray-400" viewBox="0 0 20 20"
+                                                        fill="currentColor">
+                                                        <path fill-rule="evenodd"
+                                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </div>
+                                                <input id="recipient-name" type="text"
+                                                    class="bg-gray-100 border border-gray-200 rounded-lg text-gray-700 pl-10 pr-4 py-3 w-full focus:outline-none"
+                                                    readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="block text-sm font-medium text-gray-600 mb-2">Amount
+                                                (₦)</label>
+                                            <div class="relative">
+                                                <div
+                                                    class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                                    <span class="text-gray-500 font-medium">₦</span>
+                                                </div>
+                                                <input id="transfer-amount" type="number" step="0.01" min="10"
+                                                    class="bg-gray-50 border border-gray-200 rounded-lg text-gray-700 pl-10 pr-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                                    placeholder="0.00">
+                                            </div>
+                                            <p class="mt-1 text-xs text-gray-500">Minimum transfer amount: ₦10.00</p>
+                                        </div>
+
+                                        <div class="bg-blue-50 rounded-lg p-4 flex items-start">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" viewBox="0 0 20 20"
+                                                fill="currentColor">
+                                                <path fill-rule="evenodd"
+                                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                            <div class="ml-3">
+                                                <p class="text-sm text-blue-800">Please confirm the recipient details
+                                                    before proceeding with the transfer.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer bg-gray-50 border-t border-gray-100 rounded-b-lg">
+                                    <!-- Step 1 Buttons -->
+                                    <div id="step1-buttons">
+                                        <button type="button"
+                                            class="px-4 py-2 !text-gray-500 bg-white border border-gray-200 rounded-lg mr-2 hover:bg-gray-50"
+                                            data-dismiss="modal">Cancel</button>
+                                        <button id="proceed-btn" type="button"
+                                            class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 opacity-50 cursor-not-allowed transition-colors"
+                                            disabled>Proceed</button>
+                                    </div>
+
+                                    <!-- Step 2 Buttons (initially hidden) -->
+                                    <div id="step2-buttons" class="hidden">
+                                        <button id="back-btn" type="button"
+                                            class="px-4 py-2 !text-gray-500 bg-white border border-gray-200 rounded-lg mr-2 hover:bg-gray-50">Back</button>
+                                        <button id="transfer-btn" type="button"
+                                            class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">Transfer</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+        
+                <!-- Top-up modal -->
+
+                <div class="modal fade" id="topUpModal" tabindex="-1" role="dialog" aria-labelledby="topUpModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content border-0 shadow-lg rounded-lg">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title font-weight-bold" id="topUpModalLabel">
+                                    <i class="fas fa-mobile-alt mr-2"></i> Airtime Topup
+                                </h5>
+                                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body p-4">
+                                <form id="topup-form">
+                                    <!-- Hidden input to identify this as top-up while using same API -->
+                                    <input type="hidden" name="transaction_type" value="topup">
+
+                                    <!-- Phone Number -->
+                                    <div class="form-group mb-4">
+                                        <label for="phone-number" class="font-weight-bold mb-2">Phone Number</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text bg-light border-right-0">
+                                                    <i class="fas fa-phone text-primary"></i>
+                                                </span>
+                                            </div>
+                                            <input type="tel" class="form-control bg-light border-left-0"
+                                                id="phone-number" name="account_number" placeholder="Enter phone number"
+                                                pattern="[0-9]{11}" required>
+                                        </div>
+                                        <small class="form-text text-muted mt-2">Enter a valid 11-digit phone
+                                            number</small>
+                                    </div>
+
+                                    <!-- Network Selection  -->
+                                    <div class="form-group mb-4">
+                                        <label for="network-provider" class="font-weight-bold mb-2">Network
+                                            Provider</label>
+                                        <select class="custom-select bg-light" id="network-provider" name="label"
+                                            required>
+                                            <option value="">Select network provider</option>
+                                            <option value="MTN">MTN</option>
+                                            <option value="Airtel">Airtel</option>
+                                            <option value="Glo">Glo</option>
+                                            <option value="9Mobile">9Mobile</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Amount Field -->
+                                    <div class="form-group mb-4">
+                                        <label for="topup-amount" class="font-weight-bold mb-2">Amount</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text bg-light border-right-0">₦</span>
+                                            </div>
+                                            <input type="number" class="form-control bg-light border-left-0"
+                                                id="topup-amount" name="amount" placeholder="Enter amount" min="100"
+                                                required>
+                                        </div>
+                                        <small class="form-text text-muted mt-2">Minimum amount is ₦100</small>
+                                    </div>
+
+                                    <div class="form-group mb-0 mt-4">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block rounded-pill">
+                                            <i class="fas fa-paper-plane mr-2"></i> Top-up Now
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pay Bills modal -->
+                <div class="modal fade" id="payBillsModal" tabindex="-1" role="dialog"
+                    aria-labelledby="payBillsModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content border-0 shadow-lg rounded-lg">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title font-weight-bold" id="payBillsModalLabel">
+                                    <i class="fas fa-file-invoice-dollar mr-2"></i> Pay Bills
+                                </h5>
+                                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body p-4">
+                                <form id="pay-bills-form">
+                                    <!-- Hidden input to identify this as bill payment -->
+                                    <input type="hidden" name="transaction_type" value="bill_payment">
+
+                                    <!-- Bill Type Selection -->
+                                    <div class="form-group mb-4">
+                                        <label for="bill-type" class="font-weight-bold mb-2">Bill Type</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text bg-light border-right-0">
+                                                    <i class="fas fa-tag text-primary"></i>
+                                                </span>
+                                            </div>
+                                            <select class="custom-select bg-light border-left-0" id="bill-type"
+                                                required>
+                                                <option value="">Select bill type</option>
+                                                <option value="electricity">Electricity</option>
+                                                <option value="water">Water</option>
+                                                <option value="internet">Internet</option>
+                                                <option value="cable">Cable TV</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Service Provider Selection -->
+                                    <div class="form-group mb-4">
+                                        <label for="service-provider" class="font-weight-bold mb-2">Service
+                                            Provider</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text bg-light border-right-0">
+                                                    <i class="fas fa-building text-primary"></i>
+                                                </span>
+                                            </div>
+                                            <select class="custom-select bg-light border-left-0" id="service-provider"
+                                                required>
+                                                <option value="">Select provider</option>
+                                                <!-- Electricity providers -->
+                                                <option data-bill-type="electricity" value="EKEDC">Eko Electricity
+                                                    Distribution Company</option>
+                                                <option data-bill-type="electricity" value="IKEDC">Ikeja Electricity
+                                                    Distribution Company</option>
+                                                <option data-bill-type="electricity" value="AEDC">Abuja Electricity
+                                                    Distribution Company</option>
+                                                <!-- Water providers -->
+                                                <option data-bill-type="water" value="LWC">Lagos Water Corporation
+                                                </option>
+                                                <option data-bill-type="water" value="FCTWB">FCT Water Board</option>
+                                                <!-- Internet providers -->
+                                                <option data-bill-type="internet" value="MTN">MTN Broadband</option>
+                                                <option data-bill-type="internet" value="Airtel">Airtel Internet
+                                                </option>
+                                                <option data-bill-type="internet" value="Spectranet">Spectranet</option>
+                                                <!-- Cable TV providers -->
+                                                <option data-bill-type="cable" value="DSTV">DSTV</option>
+                                                <option data-bill-type="cable" value="GOTV">GOTV</option>
+                                                <option data-bill-type="cable" value="Startimes">Startimes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Meter/Service Number -->
+                                    <div class="form-group mb-4">
+                                        <label id="meter-number-label" class="font-weight-bold mb-2">Meter/Service
+                                            Number</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text bg-light border-right-0">
+                                                    <i class="fas fa-hashtag text-primary"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control bg-light border-left-0"
+                                                id="meter-number" name="account_number"
+                                                placeholder="Enter meter or service number" required>
+                                        </div>
+                                        <small class="form-text text-muted mt-2">Enter your meter/service number without
+                                            spaces</small>
+                                    </div>
+
+                                    <!-- Amount Field -->
+                                    <div class="form-group mb-4">
+                                        <label for="bill-amount" class="font-weight-bold mb-2">Amount</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text bg-light border-right-0">₦</span>
+                                            </div>
+                                            <input type="number" class="form-control bg-light border-left-0"
+                                                id="bill-amount" name="amount" placeholder="Enter amount" min="100"
+                                                required>
+                                        </div>
+                                        <small class="form-text text-muted mt-2">Minimum amount is ₦100</small>
+                                    </div>
+
+                                    <!-- Hidden label field to store selected provider -->
+                                    <input type="hidden" id="bill-label" name="label" value="">
+
+                                    <div class="form-group mb-0 mt-4">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block rounded-pill">
+                                            <i class="fas fa-check-circle mr-2"></i> Pay Bill
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    /* Add subtle hover effect to select dropdowns */
+                    .custom-select:hover {
+                        border-color: #80bdff;
+                    }
+
+                    /* Consistent styling on focus for all input elements */
+                    .form-control:focus,
+                    .custom-select:focus {
+                        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+                        border-color: #80bdff;
+                    }
+                </style>
+                <!-- Loading Modal -->
+                <div id="loadingModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+                    <!-- Backdrop overlay -->
+                    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+                    <!-- Modal content -->
+                    <div class="bg-white rounded-lg p-6 shadow-xl relative flex flex-col items-center">
+                        <!-- Spinner -->
+                        <div class="mb-4">
+                            <svg class="animate-spin h-10 w-10 text-blue-600" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                        </div>
+
+                        <!-- Message (optional) -->
+                        <p id="loadingMessage" class="text-gray-700 text-center"></p>
+                    </div>
+                </div>
+
+                <script>
+                    function showLoading(message = '') {
+                        const loadingModal = document.getElementById('loadingModal');
+                        const loadingMessage = document.getElementById('loadingMessage');
+                        loadingMessage.textContent = message;
+                        loadingModal.classList.remove('hidden');
+                        document.body.style.overflow = 'hidden';
+                    }
+                    function closeLoading() {
+                        const loadingModal = document.getElementById('loadingModal');
+                        loadingModal.classList.add('hidden');
+                        document.body.style.overflow = '';
+                    };
+                </script>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const accountNumberInput = document.getElementById('account-number');
+                        const proceedBtn = document.getElementById('proceed-btn');
+                        const validatingAccount = document.getElementById('validating-account');
+                        const validationMessage = document.getElementById('account-validation-message');
+                        const recipientNameInput = document.getElementById('recipient-name');
+                        const transferAmountInput = document.getElementById('transfer-amount');
+
+                        const step1 = document.getElementById('step-account-number');
+                        const step2 = document.getElementById('step-recipient-details');
+                        const step1Buttons = document.getElementById('step1-buttons');
+                        const step2Buttons = document.getElementById('step2-buttons');
+                        const backBtn = document.getElementById('back-btn');
+                        const transferBtn = document.getElementById('transfer-btn');
+
+                        // Enable/disable proceed button based on account number length
+                        accountNumberInput.addEventListener('input', function () {
+                            const value = this.value.replace(/\D/g, ''); // Remove non-digits
+                            this.value = value; // Update input with digits only
+
+                            // Reset validation message
+                            validationMessage.classList.add('hidden');
+                            validationMessage.textContent = '';
+
+                            if (value.length === 10) {
+                                proceedBtn.disabled = false;
+                                proceedBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                            } else {
+                                proceedBtn.disabled = true;
+                                proceedBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+                                // Hide step 2 if account number is changed
+                                if (step2.classList.contains('hidden') === false) {
+                                    goToStep1();
+                                }
+                            }
+                        });
+
+                        // Proceed button click handler
+                        proceedBtn.addEventListener('click', function () {
+                            validateAccount();
+                        });
+
+                        // Back button click handler
+                        backBtn.addEventListener('click', function () {
+                            goToStep1();
+                        });
+
+                        // Transfer button click handler
+                        transferBtn.addEventListener('click', function () {
+                            handleSubmit();
+                        });
+
+                        // Function to validate account
+                        function validateAccount() {
+                            const accountNumber = accountNumberInput.value;
+
+                            // Show validating state
+                            validatingAccount.classList.remove('hidden');
+                            proceedBtn.disabled = true;
+                            proceedBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+                            // Simulate API call to validate account (replace with actual API call)
+                            setTimeout(function () {
+                                // Hide validating state
+                                validatingAccount.classList.add('hidden');
+
+                                // Simulate successful validation (replace with actual validation logic)
+                                if (accountNumber === '1234567890') {
+                                    // Show validation error
+                                    validationMessage.classList.remove('hidden');
+                                    validationMessage.textContent = 'Account not found. Please check and try again.';
+                                    validationMessage.classList.add('text-red-500');
+
+                                    proceedBtn.disabled = false;
+                                    proceedBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                                } else {
+                                    // Successful validation - get account name and proceed to step 2
+                                    const recipientName = getAccountName(accountNumber);
+                                    recipientNameInput.value = recipientName;
+
+                                    // Show step 2
+                                    goToStep2();
+                                }
+                            }, 1500);
+                        }
+
+                        function getAccountName(accountNumber) {
+                            const lastDigit = accountNumber.slice(-1);
+                            // supposed to be an api call
+                            const names = [
+                                'Oluwaseun Adebayo',
+                                'Chidi Okonkwo',
+                                'Amina Ibrahim',
+                                'Emeka Okafor',
+                                'Folake Adeyemi',
+                                'Tunde Bakare',
+                                'Ngozi Eze',
+                                'Ibrahim Mohammed',
+                                'Yetunde Adewale',
+                                'John Smith'
+                            ];
+
+                            return names[lastDigit];
+                        }
+                        function goToStep1() {
+                            step1.classList.remove('hidden');
+                            step2.classList.add('hidden');
+                            step1Buttons.classList.remove('hidden');
+                            step2Buttons.classList.add('hidden');
+
+                            // Reset amount input
+                            transferAmountInput.value = '';
+                        }
+
+                        // Function to go to step 2
+                        function goToStep2() {
+                            step1.classList.add('hidden');
+                            step2.classList.remove('hidden');
+                            step1Buttons.classList.add('hidden');
+                            step2Buttons.classList.remove('hidden');
+
+                            // Focus on amount input
+                            transferAmountInput.focus();
+                        }
+                        function handleSubmit() {
+                            const accountNumber = accountNumberInput.value;
+                            const recipientName = recipientNameInput.value;
+                            const amount = transferAmountInput.value;
+
+                            if (!amount || parseFloat(amount) < 10) {
+                                alert('Please enter a valid amount (minimum ₦10.00)');
+                                return;
+                            }
+                            closeBootstrapModal('sendPayment');
+                            submitTransfer(amount, recipientName, accountNumber);
+                        }
+
+                        // Function to submit transfer (to be implemented)
+                        function submitTransfer(amount, label, accountNumber) {
+                            // console.log('Transfer submitted:');
+                            // console.log('Amount:', amount);
+                            // console.log('Label:', label);
+                            // console.log('Account Number:', accountNumber);
+                            // showLoading('Processing transfer...');
+
+                            const formData = new FormData();
+                            formData.append('contact_account_num', accountNumber);
+                            formData.append('contact_label', label);
+                            formData.append('amount', amount);
+                            formData.append('uuid', getId());
+                            formData.append('account_num', 'add');
+                            closeBootstrapModal('sendPayment');
+                            submitPaymentForm(formData);
+                        }
+                    });
+                </script>
+                <script>
+                    document.querySelectorAll('.transaction-item').forEach(item => {
+                        // Add click event listener to each item
+                        item.addEventListener('click', function () {
+                            const amount = this.querySelector('.transaction-amount')?.textContent;
+                            const label = this.querySelector('.transaction-label')?.textContent.trim();
+                            const isCredit = this.querySelector('.transaction-type')?.textContent.toLowerCase() === 'credit';
+                            const account = this.querySelector('.transaction-account')?.textContent;
+                            const date = this.querySelector('.transaction-date')?.textContent;
+
+                            viewTransactionDetail(amount, label, isCredit, date, account);
+                        });
+                    });
+                    // Function to open transaction detail modal
+                    function viewTransactionDetail(amount, label, isCredit, date, account) {
+                        const transactionTypeBadge = document.getElementById('transactionTypeBadge');
+                        const transactionTypeDetail = document.getElementById('transactionTypeDetail');
+
+                        if (isCredit) {
+                            transactionTypeBadge.textContent = 'CREDIT';
+                            transactionTypeBadge.classList.remove('bg-blue-100', 'text-blue-600');
+                            transactionTypeBadge.classList.add('bg-green-100', 'text-green-600');
+
+                            transactionTypeDetail.textContent = 'CREDIT';
+                            transactionTypeDetail.classList.remove('bg-blue-100', 'text-blue-600');
+                            transactionTypeDetail.classList.add('bg-green-100', 'text-green-600');
+                        } else {
+                            transactionTypeBadge.textContent = 'DEBIT';
+                            transactionTypeBadge.classList.remove('bg-green-100', 'text-green-600');
+                            transactionTypeBadge.classList.add('bg-blue-100', 'text-blue-600');
+
+                            transactionTypeDetail.textContent = 'DEBIT';
+                            transactionTypeDetail.classList.remove('bg-green-100', 'text-green-600');
+                            transactionTypeDetail.classList.add('bg-blue-100', 'text-blue-600');
+                        }
+
+                        document.getElementById('transactionAmount').textContent = amount;
+
+                        const amountValue = parseFloat(amount.replace(/[^\d.-]/g, ''));
+                        const charge = Math.min(amountValue * 0.01, 50).toFixed(2);
+                        document.getElementById('transactionCharge').textContent = `₦ 0`;
+                        document.getElementById('dateDetail').innerHTML = date;
+
+                        document.getElementById('narrationDetail').textContent = label;
+
+                        // Show the modal
+                        const modal = document.getElementById('transactionDetailModal');
+                        modal.classList.remove('hidden');
+                        document.body.style.overflow = 'hidden';
+                        document.getElementById('closeTransactionModal').addEventListener('click', closeTransactionModal);
+                        document.addEventListener('keydown', handleEscKey);
+                    }
+                    function closeTransactionModal() {
+                        const modal = document.getElementById('transactionDetailModal');
+                        modal.classList.add('hidden');
+                        document.body.style.overflow = ''; // Allow scrolling again
+
+                        // Remove escape key listener
+                        document.removeEventListener('keydown', handleEscKey);
+                    }
+
+                    function handleEscKey(event) {
+                        if (event.key === 'Escape') {
+                            closeTransactionModal();
+                        }
+                    }
+
+                </script>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const moreBtn = document.getElementById('mobileMoreBtn');
+                        const moreMenu = document.getElementById('mobileMoreMenu');
+
+                        if (moreBtn && moreMenu) {
+                            moreBtn.addEventListener('click', function () {
+                                moreMenu.classList.toggle('hidden');
+                            });
+
+                            // Close menu when clicking outside
+                            document.addEventListener('click', function (event) {
+                                if (!moreBtn.contains(event.target) && !moreMenu.contains(event.target)) {
+                                    moreMenu.classList.add('hidden');
+                                }
+                            });
+                        }
+                    });
+                </script>
+                <script>
+                    // Function to show the info modal
+                    function showInfo(success = false, title = '', message = '') {
+                        closeLoading();
+                        // Get modal elements
+                        const modal = document.getElementById('infoModal');
+                        const successIcon = document.getElementById('successIcon');
+                        const errorIcon = document.getElementById('errorIcon');
+                        const modalTitle = document.getElementById('modalTitle');
+                        const modalMessage = document.getElementById('modalMessage');
+                        const closeBtn = document.getElementById('closeModalBtn');
+
+                        modalTitle.textContent = title;
+                        modalMessage.textContent = message;
+
+                        // Show appropriate icon
+                        if (success) {
+                            successIcon.classList.remove('hidden');
+                            errorIcon.classList.add('hidden');
+                            closeBtn.textContent = 'Close';
+                        } else {
+                            errorIcon.classList.remove('hidden');
+                            successIcon.classList.add('hidden');
+                            closeBtn.textContent = 'Close';
+                        }
+
+                        // Show the modal
+                        modal.classList.remove('hidden');
+                        document.body.style.overflow = 'hidden';
+
+                        // Add animation class
+                        modal.querySelector('.bg-white').classList.add('animate-fadeIn');
+
+                        // Set up event listeners
+                        closeBtn.addEventListener('click', closeInfo);
+
+                        // Close on background click
+                        modal.addEventListener('click', function (event) {
+                            if (event.target === modal) {
+                                closeInfo();
+                            }
+                        });
+
+                        // Add escape key to close modal
+                        document.addEventListener('keydown', handleEscKey);
+                    }
+
+                    // Function to close the info modal
+                    function closeInfo() {
+                        const modal = document.getElementById('infoModal');
+                        modal.classList.add('hidden');
+                        document.body.style.overflow = '';
+                        document.removeEventListener('keydown', handleEscKey);
+                        window.location.reload();
+                    }
+
+                    // Handle escape key press
+                    function handleEscKey(event) {
+                        if (event.key === 'Escape') {
+                            closeInfo();
+                        }
+                    }
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        @keyframes fadeIn {
+                        from { opacity: 0; transform: scale(0.95); }
+                        to { opacity: 1; transform: scale(1); }
+                        }
+                        .animate-fadeIn {
+                        animation: fadeIn 0.3s ease-out forwards;
+                        }
+                    `;
+                    document.head.appendChild(style);
+
+                </script>
+                <script>
+                    const basePath = window.location.origin;
+                    const pagePath = basePath + window.location.pathname;
+                    const paymentURL = basePath + '/payment';
+
+                    document.addEventListener('DOMContentLoaded', function () {
+                        setTimeout(initializeTransactionFiltering, 1000);
+                    });
+
+                    function initializeTransactionFiltering() {
+                        console.log('Initializing transaction filtering...');
+                        const transactions = parseTransactions();
+                        console.log(`Found ${transactions.length} transactions`);
+                        setupFiltering(transactions);
+                    }
+
+                    function parseTransactions() {
+                        try {
+                            const transactions = [];
+                            const transactionItems = document.querySelectorAll('.transaction-item');
+
+                            transactionItems.forEach(item => {
+                                // Extract data from each transaction item
+                                const label = item.querySelector('.transaction-label')?.textContent.trim();
+                                const account = item.querySelector('.transaction-account')?.textContent.trim();
+                                const type = item.querySelector('.transaction-type')?.textContent.trim();
+                                const amount = item.querySelector('.transaction-amount')?.textContent.trim();
+                                const date = item.querySelector('.transaction-date')?.textContent.trim();
+
+
+                                const isCredit = type?.toLowerCase() === 'credit';
+
+                                const transaction = {
+                                    element: item,
+                                    label: label,
+                                    account: account,
+                                    type: type.toLowerCase(),
+                                    amount: amount,
+                                    date: date,
+                                    isCredit: isCredit,
+                                    isDebit: !isCredit,
+                                    searchText: `${label} ${account} ${type} ${amount} - ${date}`.toLowerCase()
+                                };
+
+                                transactions.push(transaction);
+                            });
+
+                            return transactions;
+                        }
+                        catch (error) {
+                            console.error('Error parsing transactions:', error);
+                            return [];
+                        }
+                    }
+
+                    function setupFiltering(transactions) {
+                        const searchInput = document.getElementById('transaction-search');
+                        const typeFilter = document.getElementById('transaction-type-filter');
+                        const transactionContainer = document.getElementById('transaction-container');
+                        const noResultsMessage = document.getElementById('no-results-message');
+                        const transactionsCount = document.getElementById('transactions-count');
+
+                        function applyFilters() {
+                            const searchTerm = searchInput.value.toLowerCase();
+                            const typeValue = typeFilter.value;
+
+                            let visibleCount = 0;
+
+                            transactions.forEach(transaction => {
+                                const matchesSearch = searchTerm === '' || transaction.searchText.includes(searchTerm);
+
+                                const matchesType =
+                                    typeValue === 'all' ||
+                                    (typeValue === 'credit' && transaction.isCredit) ||
+                                    (typeValue === 'debit' && transaction.isDebit);
+
+
+                                if (matchesSearch && matchesType) {
+                                    transaction.element.classList.remove('hidden');
+                                    visibleCount++;
+                                } else {
+                                    transaction.element.classList.add('hidden');
+                                }
+                            });
+
+                            //transactionsCount.textContent = visibleCount;
+
+                            if (visibleCount === 0) {
+                                noResultsMessage.classList.remove('hidden');
+                            } else {
+                                noResultsMessage.classList.add('hidden');
+                            }
+                        }
+
+                        setTimeout(function () {
+                            console.log('Setting up download button...');
+                            const downloadButton = document.getElementById('download-transactions-btn');
+
+                            if (downloadButton) {
+                                console.log('Download button found, attaching event listener');
+                                downloadButton.addEventListener('click', function () {
+                                    console.log('Download button clicked!');
+                                    downloadTransactions();
+                                });
+                            } else {
+                                console.log('Download button not found');
+                            }
+                        }, 5000);
+                        searchInput.addEventListener('input', applyFilters);
+                        typeFilter.addEventListener('change', applyFilters);
+                    }
+
+                    function downloadTransactions() {
+                        console.log('Generating CSV download...');
+
+                        const visibleTransactions = [];
+                        const transactionItems = document.querySelectorAll('.transaction-item:not(.hidden)');
+
+                        transactionItems.forEach(item => {
+                            const label = item.querySelector('.transaction-label').textContent.trim();
+                            const account = item.querySelector('.transaction-account').textContent.trim();
+                            const type = item.querySelector('.transaction-type').textContent.trim();
+                            const amount = item.querySelector('.transaction-amount').textContent.trim();
+                            const date = item.querySelector('.transaction-date').textContent.trim();
+
+                            visibleTransactions.push({
+                                date: date,
+                                type: type,
+                                account: account,
+                                label: label,
+                                amount: amount
+                            });
+                        });
+
+
+                        const headers = ['Date', 'Type', 'Account', 'Label', 'Amount'];
+
+                        const rows = visibleTransactions.map(tx => [
+                            tx.date,
+                            tx.type,
+                            tx.account,
+                            tx.label || 'None',
+                            tx.amount
+                        ]);
+
+                        const allRows = [headers, ...rows];
+
+                        const csvContent = allRows.map(row =>
+                            row.map(value =>
+                                typeof value === 'string' && value.includes(',')
+                                    ? `"${value}"`
+                                    : value
+                            ).join(',')
+                        ).join('\n');
+
+                        // Create and trigger download
+                        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+
+                        // Format date for filename
+                        const now = new Date();
+                        const filename = `transaction_history_${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}.csv`;
+
+                        link.setAttribute('href', url);
+                        link.setAttribute('download', filename);
+
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+
+                        console.log('Download initiated');
+                    }
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const topUpButtons = document.querySelectorAll('[data-action="topup"]');
+                        topUpButtons.forEach(button => {
+                            button.addEventListener('click', function () {
+                                $('#topUpModal').modal('show');
+                            });
+                        });
+                        document.getElementById('topup-form').addEventListener('submit', function (e) {
+                            e.preventDefault();
+                            const phoneNumber = document.getElementById('phone-number').value;
+                            const network = document.getElementById('network-provider').value;
+                            const amount = document.getElementById('topup-amount').value;
+
+                            // Validate phone number format
+                            if (!/^\d{11}$/.test(phoneNumber)) {
+                                alert('Please enter a valid 11-digit phone number');
+                                return;
+                            }
+
+                            const formData = new FormData();
+                            const tenDigitNumber = phoneNumber.toString().substring(1);
+                            formData.append('contact_account_num', tenDigitNumber);
+                            formData.append('contact_label', 'AIRTIME ' + alphabetId(7));
+                            formData.append('amount', amount);
+                            formData.append('account_num', 'add');
+                            formData.append('uuid', getId());
+                            closeBootstrapModal('topUpModal');
+                            submitPaymentForm(formData);
+                        });
+                    });
+
+                    document.addEventListener('DOMContentLoaded', function () {
+                        // Set up the trigger for pay bills button
+                        const payBillsButtons = document.querySelectorAll('[data-action="pay-bills"]');
+
+                        payBillsButtons.forEach(button => {
+                            button.addEventListener('click', function () {
+                                $('#payBillsModal').modal('show');
+                            });
+                        });
+
+                        // Filter service providers based on bill type selection
+                        const billTypeSelect = document.getElementById('bill-type');
+                        const serviceProviderSelect = document.getElementById('service-provider');
+                        const meterNumberLabel = document.getElementById('meter-number-label');
+
+                        billTypeSelect.addEventListener('change', function () {
+                            const selectedBillType = this.value;
+
+                            // Update label based on bill type
+                            switch (selectedBillType) {
+                                case 'electricity':
+                                    meterNumberLabel.textContent = 'Meter Number';
+                                    break;
+                                case 'water':
+                                    meterNumberLabel.textContent = 'Customer Number';
+                                    break;
+                                case 'internet':
+                                    meterNumberLabel.textContent = 'Account ID';
+                                    break;
+                                case 'cable':
+                                    meterNumberLabel.textContent = 'Smartcard/IUC Number';
+                                    break;
+                                default:
+                                    meterNumberLabel.textContent = 'Meter/Service Number';
+                            }
+
+                            // Filter service providers
+                            Array.from(serviceProviderSelect.options).forEach(option => {
+                                if (option.dataset.billType === selectedBillType || option.value === '') {
+                                    option.style.display = '';
+                                } else {
+                                    option.style.display = 'none';
+                                }
+                            });
+
+                            // Reset service provider selection
+                            serviceProviderSelect.value = '';
+                        });
+
+                        // Handle form submission
+                        document.getElementById('pay-bills-form').addEventListener('submit', function (e) {
+                            e.preventDefault();
+
+                            // Get form data
+                            const billType = document.getElementById('bill-type').value;
+                            const serviceProvider = document.getElementById('service-provider').value;
+                            const meterNumber = document.getElementById('meter-number').value;
+                            const amount = document.getElementById('bill-amount').value;
+
+                            // Set the label as combination of bill type and provider
+                            document.getElementById('bill-label').value = `${serviceProvider} ${billType.charAt(0).toUpperCase() + billType.slice(1)}`;
+
+                            // Create form data - using the same field names as your send payment API
+                            const formData = new FormData();
+                            formData.append('contact_account_num', meterNumber?.substr(0, 10));
+                            formData.append('contact_label', 'BILL PAYMENT ' + serviceProvider + ' ' + alphabetId(7));
+                            formData.append('amount', amount);
+                            formData.append('uuid', getId());
+                            formData.append('account_num', 'add');
+                            // Submit to the same endpoint as send payment
+                            closeBootstrapModal('payBillsModal');
+                            submitPaymentForm(formData);
+                        });
+                    });
+
+                    function submitPaymentForm(formData) {
+                        showLoading('Processing your payment...');
+                        fetch(paymentURL, {
+                            method: 'POST',
+                            body: formData,
+                            redirect: 'follow',
+                            credentials: 'same-origin'
+                        })
+                            .then(response => {
+                                if (response.redirected) {
+                                    handleErrorMessage(response.url);
+                                    return null;
+                                }
+                                return response.text();
+                            })
+                            .then(data => {
+                                if (data) {
+                                    console.log(data);
+                                    // likely means logout.
+                                    if (data.includes('Unauthorized')) {
+                                        showInfo(false, 'Session Expired', 'Your session has expired. Please log in again.');
+                                    } else {
+                                        showInfo(false, 'Payment Pending', 'An issue happened while processing your payment. Please check your transaction history for updates.');
+                                        
+                                    }
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('An error occurred during the top-up process.');
+                            });
+                    }
+
+                    function getId() {
+                        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                            return v.toString(16);
+                        });
+                    };
+
+                    function alphabetId(length = 5) {
+                        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                        let result = '';
+                        for (let i = 0; i < length; i++) {
+                            result += characters.charAt(Math.floor(Math.random() * characters.length));
+                        }
+                        return result;
+                    }
+
+                    function handleErrorMessage(url) {
+                        closeLoading();
+                        const urlParams = new URL(url).searchParams;
+                        const errorMessage = urlParams.get('msg');
+                        if (errorMessage) {
+                            const isSuccessful = errorMessage.includes('success');
+                            showInfo(isSuccessful, isSuccessful ? 'Payment Successful' : 'Payment Failed', errorMessage);
+                        } else {
+                            showInfo(false, 'Request Failed', 'An error occurred. Please try again.');
+                        }
+                    }
+                    function closeBootstrapModal(modalId) {
+                        $(`#${modalId}`).modal('hide');
+                        $('.modal-backdrop').remove();
+                        $('body').removeClass('modal-open').css('padding-right', '');
+                    }
+                </script>
+
+
+
+
+    </main>
+    <!-- JavaScript common -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+        crossorigin="anonymous"></script>
+    <!-- Page specific-->
+    <!-- JavaScript common -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+        crossorigin="anonymous"></script>
+    <script src="static/scripts/index.js"></script>
+</body>
+
+</html>
