@@ -22,8 +22,7 @@ limitations under the License.
 
     <link rel="icon" href="static/img/favicon.png" />
     <link rel="stylesheet"
-        href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
-        integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+        href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -443,20 +442,6 @@ limitations under the License.
                         {% endif %}
                         {% endfor %}
 
-
-                        <div
-                            class="transaction-item p-4 sm:px-6 flex flex-row sm:flex-row sm:items-center gap-3 hover:bg-gray-50 transition-colors">
-                            <div
-                                class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0-7a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 3.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </div>
-
                         <!-- <div
                             class="transaction-item p-4 sm:px-6 flex flex-row sm:flex-row sm:items-center gap-3 hover:bg-gray-50 transition-colors">
                             <div
@@ -482,8 +467,8 @@ limitations under the License.
                     </div>
 
                     <div class="p-4 sm:px-6 border-t border-gray-100 flex justify-between items-center">
-                        <div class="text-sm text-gray-500">
-                            Showing <span id="transactions-count" class="font-medium">28</span> transactions
+                        <div class="text-sm text-gray-500  hidden">
+                             <span id="transactions-count" class="font-medium"></span> 
                         </div>
                     </div>
                 </div>
@@ -506,36 +491,42 @@ limitations under the License.
                 }
 
                 function parseTransactions() {
-                    const transactions = [];
-                    const transactionItems = document.querySelectorAll('.transaction-item');
+                    try {
+                        const transactions = [];
+                        const transactionItems = document.querySelectorAll('.transaction-item');
 
-                    transactionItems.forEach(item => {
-                        // Extract data from each transaction item
-                        const label = item.querySelector('.transaction-label').textContent.trim();
-                        const account = item.querySelector('.transaction-account').textContent.trim();
-                        const type = item.querySelector('.transaction-type').textContent.trim();
-                        const amount = item.querySelector('.transaction-amount').textContent.trim();
-                        const date = item.querySelector('.transaction-date').textContent.trim();
+                        transactionItems.forEach(item => {
+                            // Extract data from each transaction item
+                            const label = item.querySelector('.transaction-label')?.textContent.trim();
+                            const account = item.querySelector('.transaction-account')?.textContent.trim();
+                            const type = item.querySelector('.transaction-type')?.textContent.trim();
+                            const amount = item.querySelector('.transaction-amount')?.textContent.trim();
+                            const date = item.querySelector('.transaction-date')?.textContent.trim();
 
-                        
-                        const isCredit = type.toLowerCase() === 'credit';
 
-                        const transaction = {
-                            element: item,
-                            label: label,
-                            account: account,
-                            type: type.toLowerCase(),
-                            amount: amount,
-                            date: date,
-                            isCredit: isCredit,
-                            isDebit: !isCredit,
-                            searchText: `${label} ${account} ${type} ${amount} ${date}`.toLowerCase()
-                        };
+                            const isCredit = type?.toLowerCase() === 'credit';
 
-                        transactions.push(transaction);
-                    });
+                            const transaction = {
+                                element: item,
+                                label: label,
+                                account: account,
+                                type: type.toLowerCase(),
+                                amount: amount,
+                                date: date,
+                                isCredit: isCredit,
+                                isDebit: !isCredit,
+                                searchText: `${label} ${account} ${type} ${amount} - ${date}`.toLowerCase()
+                            };
 
-                    return transactions;
+                            transactions.push(transaction);
+                        });
+
+                        return transactions;
+                    }
+                    catch (error) {
+                        console.error('Error parsing transactions:', error);
+                        return [];
+                    }
                 }
 
                 function setupFiltering(transactions) {
@@ -559,7 +550,7 @@ limitations under the License.
                                 (typeValue === 'credit' && transaction.isCredit) ||
                                 (typeValue === 'debit' && transaction.isDebit);
 
-                            
+
                             if (matchesSearch && matchesType) {
                                 transaction.element.classList.remove('hidden');
                                 visibleCount++;
@@ -568,7 +559,7 @@ limitations under the License.
                             }
                         });
 
-                        transactionsCount.textContent = visibleCount;
+                        //transactionsCount.textContent = visibleCount;
 
                         if (visibleCount === 0) {
                             noResultsMessage.classList.remove('hidden');
@@ -590,7 +581,7 @@ limitations under the License.
                         } else {
                             console.log('Download button not found');
                         }
-                    }, 5000); 
+                    }, 5000);
                     searchInput.addEventListener('input', applyFilters);
                     typeFilter.addEventListener('change', applyFilters);
                 }
@@ -617,7 +608,7 @@ limitations under the License.
                         });
                     });
 
-                    
+
                     const headers = ['Date', 'Type', 'Account', 'Label', 'Amount'];
 
                     const rows = visibleTransactions.map(tx => [
@@ -676,23 +667,14 @@ limitations under the License.
                         }
 
                         const formData = new FormData();
-                        formData.append('contact_account_num', phoneNumber);
-                        formData.append('contact_label', 'AIRTIME - VTU - ' + getId());
+                        const tenDigitNumber = phoneNumber.toString().substring(1);
+                        formData.append('contact_account_num', tenDigitNumber);
+                        formData.append('contact_label', 'AIRTIME ' + alphabetId(7));
                         formData.append('amount', amount);
                         formData.append('account_num', 'add');
                         formData.append('uuid', getId());
-                        fetch(paymentURL, {
-                            method: 'POST',
-                            body: formData
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                alert('An error occurred during the top-up process.');
-                            });
+                        closeBootstrapModal('topUpModal');
+                        submitPaymentForm(formData);
                     });
                 });
 
@@ -760,33 +742,41 @@ limitations under the License.
 
                         // Create form data - using the same field names as your send payment API
                         const formData = new FormData();
-                        formData.append('contact_account_num', meterNumber);
-                        formData.append('contact_label', 'BILL PAYMENT - ' + getId());
+                        formData.append('contact_account_num', meterNumber?.substr(0, 10));
+                        formData.append('contact_label', 'BILL PAYMENT ' + serviceProvider + ' ' + alphabetId(7));
                         formData.append('amount', amount);
                         formData.append('uuid', getId());
                         formData.append('account_num', 'add');
                         // Submit to the same endpoint as send payment
-                        fetch(paymentURL, {
-                            method: 'POST',
-                            body: formData
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    alert('Bill payment successful!');
-                                    $('#payBillsModal').modal('hide');
-                                    // Reload transactions or update balance as needed
-                                    window.location.reload();
-                                } else {
-                                    alert('Bill payment failed: ' + data.message);
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                alert('An error occurred during the bill payment process.');
-                            });
+                        closeBootstrapModal('payBillsModal');
+                        submitPaymentForm(formData);
                     });
                 });
+
+                function submitPaymentForm(formData) {
+                    fetch(paymentURL, {
+                        method: 'POST',
+                        body: formData,
+                        redirect: 'follow',
+                        credentials: 'same-origin'
+                    })
+                        .then(response => {
+                            if (response.redirected) {
+                                handleErrorMessage(response.url);
+                                return null;
+                            }
+                            return response.text();
+                        })
+                        .then(data => {
+                            if (data) {
+                                console.log(data);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            alert('An error occurred during the top-up process.');
+                        });
+                }
 
                 function getId() {
                     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -794,7 +784,298 @@ limitations under the License.
                         return v.toString(16);
                     });
                 };
-                
+
+                function alphabetId(length = 5) {
+                    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                    let result = '';
+                    for (let i = 0; i < length; i++) {
+                        result += characters.charAt(Math.floor(Math.random() * characters.length));
+                    }
+                    return result;
+                }
+
+                function handleErrorMessage(url) {
+                    const urlParams = new URL(url).searchParams;
+                    const errorMessage = urlParams.get('msg');
+                    if (errorMessage) {
+                        const isSuccessful = errorMessage.includes('success');
+                        showInfo(isSuccessful, isSuccessful ? 'Payment Successful' : 'Payment Failed', errorMessage);
+                    } else {
+                        showInfo(false, 'Request Failed', 'An error occurred. Please try again.');
+                    }
+                }
+                function closeBootstrapModal(modalId) {
+                    const modal = document.getElementById(modalId);
+                    if (modal) {
+                        $(modal).modal('hide');
+                    }
+                }
+            </script>
+            <!-- Modal (initially hidden) -->
+            <div id="infoModal" class="fixed inset-0 z-50 hidden flex items-center justify-center">
+                <!-- Background overlay with blur -->
+                <div class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 animate-fadeIn">
+                    <!-- Modal icon (success or error) -->
+                    <div class="flex justify-center mb-4">
+                        <!-- Error Icon -->
+                        <div id="errorIcon" class="hidden">
+                            <svg width="126" height="126" viewBox="0 0 126 126" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="63" cy="63.207" r="62.5" fill="#F8C7C7" />
+                                <circle cx="63" cy="63.207" r="49.5" fill="#E94444" />
+                                <circle cx="63" cy="63.207" r="38.5" fill="#BA393E" />
+                                <path d="M59 80.207V73.207H66V80.207H59Z" fill="white" />
+                                <path d="M59 66.207V45.207H66V66.207H59Z" fill="white" />
+                            </svg>
+                        </div>
+
+                        <!-- Success Icon -->
+                        <div id="successIcon" class="hidden">
+                            <svg width="126" height="126" viewBox="0 0 126 126" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="63" cy="63" r="62.5" fill="#C7F8D5" />
+                                <circle cx="63" cy="63" r="49.5" fill="#44E970" />
+                                <circle cx="63" cy="63" r="38.5" fill="#39BA5A" />
+                                <path d="M54.5 63L61 69.5L72.5 54.5" stroke="white" stroke-width="7"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Modal Title -->
+                    <h2 id="modalTitle" class="text-lg font-bold text-center mt-4"></h2>
+
+                    <!-- Modal Message -->
+                    <p id="modalMessage" class="text-center text-gray-600 text-sm mt-2"></p>
+
+                    <!-- Try Again Button -->
+                    <div class="flex justify-center mt-4">
+                        <button id="closeModalBtn"
+                            class="p-3 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 text-sm transition-colors">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                // Function to show the info modal
+                function showInfo(success = false, title = '', message = '') {
+                    // Get modal elements
+                    const modal = document.getElementById('infoModal');
+                    const successIcon = document.getElementById('successIcon');
+                    const errorIcon = document.getElementById('errorIcon');
+                    const modalTitle = document.getElementById('modalTitle');
+                    const modalMessage = document.getElementById('modalMessage');
+                    const closeBtn = document.getElementById('closeModalBtn');
+
+                    modalTitle.textContent = title;
+                    modalMessage.textContent = message;
+
+                    // Show appropriate icon
+                    if (success) {
+                        successIcon.classList.remove('hidden');
+                        errorIcon.classList.add('hidden');
+                        closeBtn.textContent = 'Close';
+                    } else {
+                        errorIcon.classList.remove('hidden');
+                        successIcon.classList.add('hidden');
+                        closeBtn.textContent = 'Close';
+                    }
+
+                    // Show the modal
+                    modal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+
+                    // Add animation class
+                    modal.querySelector('.bg-white').classList.add('animate-fadeIn');
+
+                    // Set up event listeners
+                    closeBtn.addEventListener('click', closeInfo);
+
+                    // Close on background click
+                    modal.addEventListener('click', function (event) {
+                        if (event.target === modal) {
+                            closeInfo();
+                        }
+                    });
+
+                    // Add escape key to close modal
+                    document.addEventListener('keydown', handleEscKey);
+                }
+
+                // Function to close the info modal
+                function closeInfo() {
+                    const modal = document.getElementById('infoModal');
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    document.removeEventListener('keydown', handleEscKey);
+                    window.location.reload();
+                }
+
+                // Handle escape key press
+                function handleEscKey(event) {
+                    if (event.key === 'Escape') {
+                        closeInfo();
+                    }
+                }
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes fadeIn {
+                    from { opacity: 0; transform: scale(0.95); }
+                    to { opacity: 1; transform: scale(1); }
+                    }
+                    .animate-fadeIn {
+                    animation: fadeIn 0.3s ease-out forwards;
+                    }
+                `;
+                document.head.appendChild(style);
+
+            </script>
+
+            <!-- Transaction Detail Modal -->
+            <div id="transactionDetailModal" class="fixed inset-0 z-50 hidden">
+                <!-- Background color -->
+                <div class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+
+                <!-- Modal content -->
+                <div class="relative w-full max-w-lg mx-auto my-8 px-4">
+                    <!-- Transaction card with ticket-style cut edges -->
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden relative">
+                        <!-- Top semi-circle cutout -->
+                        <div class="absolute -left-5 top-64 w-10 h-10 bg-blue-600 rounded-full"></div>
+                        <div class="absolute -right-5 top-64 w-10 h-10 bg-blue-600 rounded-full"></div>
+
+                        <!-- Upper section -->
+                        <div class="p-8 pb-4">
+                            <!-- Transaction type badge -->
+                            <div id="transactionTypeBadge"
+                                class="inline-block px-4 py-1 rounded-full text-blue-600 bg-blue-100 text-sm font-medium mb-4">
+                                DEBIT
+                            </div>
+
+                            <h1 id="transactionAmount" class="text-4xl font-bold mb-2"></h1>
+
+                            <!-- Charge -->
+                            <p class="text-gray-500">Charge: <span id="transactionCharge"></span></p>
+                        </div>
+
+                        <!-- Dotted line separator -->
+                        <div class="border-t border-dashed border-blue-300 mx-4"></div>
+
+                        <!-- Details section -->
+                        <div class="bg-gray-50 p-8">
+                            <!-- Transaction type -->
+                            <div class="flex justify-between items-center mb-5">
+                                <div class="text-gray-500">Transaction Type</div>
+                                <div id="transactionTypeDetail"
+                                    class="inline-block px-4 py-1 rounded-full text-blue-600 bg-blue-100 text-sm font-medium">
+                                    TRANSFER
+                                </div>
+                            </div>
+
+                            <!-- Transaction Date -->
+                            <div class="flex justify-between items-start mb-5">
+                                <div class="text-gray-500">Transaction Date</div>
+                                <div id="dateDetail" class="text-right">
+                                </div>
+                            </div>
+
+                            <!-- Narration -->
+                            <div class="flex justify-between items-center mb-5">
+                                <div class="text-gray-500">Narration</div>
+                                <div id="narrationDetail" class="text-right truncate max-w-[60%]"></div>
+                            </div>
+                            <!--    Transaction Status -->
+                            <div class="flex justify-between items-center mb-5">
+                                <div class="text-gray-500">Transaction Status</div>
+                                <div id="statusDetail"
+                                    class="inline-block px-3 py-1 rounded-full text-blue-600 bg-blue-100 text-sm font-medium">
+                                    COMPLETED
+                                </div>
+                            </div>
+                            <div class="mt-6 text-center">
+                                <button id="closeTransactionModal"
+                                    class="text-white font-medium hover:underline text-sm bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 rounded-lg px-5 py-2.5">
+                                    Close
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                document.querySelectorAll('.transaction-item').forEach(item => {
+                    // Add click event listener to each item
+                    item.addEventListener('click', function () {
+                        const amount = this.querySelector('.transaction-amount')?.textContent;
+                        const label = this.querySelector('.transaction-label')?.textContent.trim();
+                        const isCredit = this.querySelector('.transaction-type')?.textContent.toLowerCase() === 'credit';
+                        const account = this.querySelector('.transaction-account')?.textContent;
+                        const date = this.querySelector('.transaction-date')?.textContent;
+
+                        viewTransactionDetail(amount, label, isCredit, date, account);
+                    });
+                });
+                // Function to open transaction detail modal
+                function viewTransactionDetail(amount, label, isCredit, date, account) {
+                    const transactionTypeBadge = document.getElementById('transactionTypeBadge');
+                    const transactionTypeDetail = document.getElementById('transactionTypeDetail');
+
+                    if (isCredit) {
+                        transactionTypeBadge.textContent = 'CREDIT';
+                        transactionTypeBadge.classList.remove('bg-blue-100', 'text-blue-600');
+                        transactionTypeBadge.classList.add('bg-green-100', 'text-green-600');
+
+                        transactionTypeDetail.textContent = 'CREDIT';
+                        transactionTypeDetail.classList.remove('bg-blue-100', 'text-blue-600');
+                        transactionTypeDetail.classList.add('bg-green-100', 'text-green-600');
+                    } else {
+                        transactionTypeBadge.textContent = 'DEBIT';
+                        transactionTypeBadge.classList.remove('bg-green-100', 'text-green-600');
+                        transactionTypeBadge.classList.add('bg-blue-100', 'text-blue-600');
+
+                        transactionTypeDetail.textContent = 'DEBIT';
+                        transactionTypeDetail.classList.remove('bg-green-100', 'text-green-600');
+                        transactionTypeDetail.classList.add('bg-blue-100', 'text-blue-600');
+                    }
+
+                    document.getElementById('transactionAmount').textContent = amount;
+
+                    const amountValue = parseFloat(amount.replace(/[^\d.-]/g, ''));
+                    const charge = Math.min(amountValue * 0.01, 50).toFixed(2);
+                    document.getElementById('transactionCharge').textContent = `₦ 0`;
+                    document.getElementById('dateDetail').innerHTML = date;
+
+                    document.getElementById('narrationDetail').textContent = label;
+
+                    // Show the modal
+                    const modal = document.getElementById('transactionDetailModal');
+                    modal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                    document.getElementById('closeTransactionModal').addEventListener('click', closeTransactionModal);
+                    document.addEventListener('keydown', handleEscKey);
+                }
+                function closeTransactionModal() {
+                    const modal = document.getElementById('transactionDetailModal');
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = ''; // Allow scrolling again
+
+                    // Remove escape key listener
+                    document.removeEventListener('keydown', handleEscKey);
+                }
+
+                function handleEscKey(event) {
+                    if (event.key === 'Escape') {
+                        closeTransactionModal();
+                    }
+                }
+
             </script>
 
             <!-- Deposit Modal -->

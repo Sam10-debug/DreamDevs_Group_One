@@ -119,8 +119,6 @@ def create_app():
                 for k, v in request.get_json().items()
             }
             _validate_new_contact(req)
-
-            # _check_contact_allowed(username, auth_payload["acct"], req)
             # Create contact data to be added to the database.
             contact_data = {
                 "username": username,
@@ -169,22 +167,6 @@ def create_app():
         # Must be >0 and <=30 chars, alphanumeric and spaces, can't start with space
         if req["label"] is None or not re.match(r"^[0-9a-zA-Z][0-9a-zA-Z ]{0,29}$", req["label"]):
             raise UserWarning("invalid account label")
-
-    def _check_contact_allowed(username, accountid, req):
-        """Check that this contact is allowed to be created"""
-        app.logger.debug("checking that this contact is allowed to be created: %s", str(req))
-        # Don't allow self reference
-        if (req["account_num"] == accountid and req["routing_num"] == app.config["LOCAL_ROUTING"]):
-            raise ValueError("may not add yourself to contacts")
-
-        # Don't allow identical contacts
-        for contact in contacts_db.get_contacts(username):
-            if (contact["account_num"] == req["account_num"]
-                    and contact["routing_num"] == req["routing_num"]):
-                raise ValueError("account already exists as a contact")
-
-            if contact["label"] == req["label"]:
-                raise ValueError("contact already exists with that label")
 
     @atexit.register
     def _shutdown():
