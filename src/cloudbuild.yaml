@@ -155,7 +155,7 @@ steps:
       - 'set'
       - 'image'
       - 'deployment/contacts'
-      - 'userservice=europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/contacts:$COMMIT_SHA'
+      - 'contacts=europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/contacts:$COMMIT_SHA'
     waitFor: ['get-credentials', 'build-contacts', 'push-contacts']
     id: 'update-contacts'
     env:
