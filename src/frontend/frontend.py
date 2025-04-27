@@ -786,7 +786,7 @@ def create_app():
             app.logger.error('Error retrieving user by account id: %s', str(err))
             return jsonify({'error': str(err)}), 500
     #get user by username from userservice
-    
+
     @app.route('/logout', methods=['POST'])
     def logout():
         """
@@ -848,6 +848,8 @@ def create_app():
     # set up global variables
     app.config["TRANSACTIONS_URI"] = 'http://{}/transactions'.format(
         os.environ.get('TRANSACTIONS_API_ADDR'))
+    app.config["USERSERVICE_API"] = 'http://{}'.format(
+        os.environ.get('USERSERVICE_API_ADDR'))
     app.config["USERSERVICE_URI"] = 'http://{}/users'.format(
         os.environ.get('USERSERVICE_API_ADDR'))
     app.config["BALANCES_URI"] = 'http://{}/balances'.format(
