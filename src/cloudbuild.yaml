@@ -56,9 +56,21 @@ steps:
     id: 'build-userservice'
     waitFor: ['docker-auth']
 
+    # Build contacts service image 6
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/contacts:$COMMIT_SHA'
+      - '.'
+      - '--cache-from=europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/contacts:latest'
+    dir: 'src/accounts/contacts'
+    id: 'build-contacts'
+    waitFor: ['docker-auth']
+
   # Build loadgenerator image
   # - name: 'gcr.io/cloud-builders/docker'
-  #   args: 
+  #   args:
   #     - 'build'
   #     - '-t'
   #     - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/loadgenerator:$COMMIT_SHA'
@@ -84,9 +96,17 @@ steps:
     id: 'push-userservice'
     waitFor: ['build-userservice']
 
+  # Push contacts image 8
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/contacts:$COMMIT_SHA'
+    id: 'push-contacts'
+    waitFor: ['build-contacts']
+
   # Push loadgenerator image
   # - name: 'gcr.io/cloud-builders/docker'
-  #   args: 
+  #   args:
   #     - 'push'
   #     - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/loadgenerator:$COMMIT_SHA'
   #   waitFor: ['build-loadgenerator']
@@ -129,6 +149,19 @@ steps:
       - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
       - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
 
+  # Update contacts deployment 12
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args:
+      - 'set'
+      - 'image'
+      - 'deployment/contacts'
+      - 'userservice=europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/contacts:$COMMIT_SHA'
+    waitFor: ['get-credentials', 'build-contacts', 'push-contacts']
+    id: 'update-contacts'
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
+
   # Update loadgenerator deployment
   # - name: 'gcr.io/cloud-builders/kubectl'
   #   args:
@@ -156,6 +189,13 @@ steps:
     env:
       - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
       - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
+
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['rollout', 'status', 'deployment/contacts', '--timeout=3m']
+    waitFor: ['update-contacts']
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=europe-west1-b'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=dreamdev-team1-cluster'
   # - name: 'gcr.io/cloud-builders/kubectl'
   #   args: ['rollout', 'status', 'deployment/loadgenerator', '--timeout=3m']
   #   waitFor: ['update-loadgenerator']
@@ -163,6 +203,7 @@ steps:
 images:
   - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/frontend:$COMMIT_SHA'
   - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/userservice:$COMMIT_SHA'
+  - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/contacts:$COMMIT_SHA'
   # - 'europe-west1-docker.pkg.dev/dreamdev-team1/dreamdev-team1-repo/loadgenerator:$COMMIT_SHA'
 
 options:
