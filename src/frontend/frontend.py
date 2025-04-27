@@ -787,7 +787,7 @@ def create_app():
             return jsonify({'error': str(err)}), 500
     #get user by username from userservice
 
-    @app.route('/logout', methods=['POST'])
+    @app.route('/logout', methods=['GET', 'POST'])
     def logout():
         """
         Logs out user by deleting token cookie and redirecting to login page
