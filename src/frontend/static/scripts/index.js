@@ -39,17 +39,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
   });
 
   // Send payment modal client-side validation
-  var paymentForm = document.querySelector("#payment-form");
-  paymentForm.addEventListener("submit", function(e) {
-    // Check if account number is required
-    document.querySelector("#contact_account_num").required = (document.querySelector("#payment-accounts").value == "add");
+  // var paymentForm = document.querySelector("#payment-form");
+  // paymentForm.addEventListener("submit", function(e) {
+  //   // Check if account number is required
+  //   document.querySelector("#contact_account_num").required = (document.querySelector("#payment-accounts").value == "add");
 
-    if(!paymentForm.checkValidity() || document.querySelector("#payment-amount").value <= 0.00){
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    paymentForm.classList.add("was-validated");
-  });
+  //   if(!paymentForm.checkValidity() || document.querySelector("#payment-amount").value <= 0.00){
+  //     e.preventDefault();
+  //     e.stopPropagation();
+  //   }
+  //   paymentForm.classList.add("was-validated");
+  // });
 
   // Reset form on cancel event
   document.querySelectorAll(".payment-cancel").forEach((paymentCancel) => {
@@ -61,9 +61,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
   });
 
   // Handle new account option in Send Payment modal
-  document.querySelector("#payment-accounts").addEventListener("change", function(e) {
-    RefreshModals();
-  });
+  // document.querySelector("#payment-accounts").addEventListener("change", function(e) {
+  //   RefreshModals();
+  // });
 
   // Handle new account option in Deposit modal
   document.querySelector("#accounts").addEventListener("change", function(e) {
@@ -80,22 +80,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
   // Reset Modals to proper state
-  function RefreshModals(){
-      paymentSelection = document.querySelector("#payment-accounts").value;
-      if (paymentSelection == "add") {
-        document.querySelector("#otherAccountInputs").classList.remove("hidden");
-      } else {
-        document.querySelector("#otherAccountInputs").classList.add("hidden");
-      }
-      depositSelection = document.querySelector("#accounts").value;
-      if (depositSelection == "add") {
-        document.querySelector("#otherDepositInputs").classList.remove("hidden");
-      } else {
-        document.querySelector("#otherDepositInputs").classList.add("hidden");
-      }
-      // generate new uuids
-      document.querySelector("#payment-uuid").value = uuidv4();
-      document.querySelector("#deposit-uuid").value = uuidv4();
-  }
-  RefreshModals();
+  // function RefreshModals(){
+  //     depositSelection = document.querySelector("#accounts").value;
+  //     if (depositSelection == "add") {
+  //       document.querySelector("#otherDepositInputs").classList.remove("hidden");
+  //     } else {
+  //       document.querySelector("#otherDepositInputs").classList.add("hidden");
+  //     }
+  //     // generate new uuids
+  //     document.querySelector("#payment-uuid").value = uuidv4();
+  //   }
+  //   RefreshModals();
+    document.querySelector("#deposit-uuid").value = uuidv4();
 });
