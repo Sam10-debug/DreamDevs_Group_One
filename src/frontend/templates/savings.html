@@ -1,0 +1,1743 @@
+<!--
+Copyright 2020 Google LLC
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    https://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+    <title>MoniNextER - Savings</title>
+
+    <link rel="icon" href="static/img/favicon.png" />
+    <link rel="stylesheet"
+        href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+        crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="static/styles/cymbal.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="static/styles/platform.css">
+    <link rel="stylesheet" href="static/styles/platform/None.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .inter {
+            font-family: "Inter", sans-serif;
+            font-optical-sizing: auto;
+        }
+
+        html,
+        body {
+            font-family: "Inter", sans-serif;
+            font-optical-sizing: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <span class="text-gray-800 font-medium hidden" id="accountId">{{ account_id }}</span>
+    <!-- Main Content -->
+    <main class="p-3 flex">
+        <!-- Top row - overview, account # -->
+        <!-- Desktop Sidenav -->
+        <div class="left-0 top-0 h-full w-64 bg-white border-r border-gray-100 flex-col hidden md:flex z-20">
+            <!-- Logo section -->
+            <div class="p-6 pb-8">
+                <a href="/home" class="flex items-center">
+                    <span class="ml-3 text-2xl font-bold text-gray-900">MonieNext</span>
+                </a>
+            </div>
+
+            <!-- Navigation links -->
+            <div class="flex-grow">
+                <ul>
+                    <!-- Home - Active -->
+                    <li>
+                        <a href="/" class="flex items-center px-6 py-3.5 text-gray-500 hover:bg-gray-50">
+                            <div class="flex items-center justify-center w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="w-6 h-6">
+                                    <path d="M4 13h4v4h8v-4h4L12 5z" fill="currentColor" />
+                                </svg>
+                            </div>
+                            <span class="ml-3 font-medium">Home</span>
+                        </a>
+                    </li>
+
+                    <!-- Transactions -->
+                    <li>
+                        <a href="/transactions" class="flex items-center px-6 py-3.5 text-gray-500 hover:bg-gray-50">
+                            <div class="flex items-center justify-center w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                </svg>
+                            </div>
+                            <span class="ml-3 font-medium">Transactions</span>
+                        </a>
+                    </li>
+
+                    <li class="relative">
+                        <!-- Blue indicator bar -->
+                        <div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 rounded-r-md"></div>
+                        <a href="/savings" class="flex items-center px-6 py-3.5 bg-blue-50 text-blue-600">
+                            <div class="flex items-center justify-center w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <span class="ml-3 font-medium">Savings</span>
+                        </a>
+                    </li>
+
+                    <!-- Donations -->
+                    <li>
+                        <a href="/donations" class="flex items-center px-6 py-3.5 text-gray-500 hover:bg-gray-50">
+                            <div class="flex items-center justify-center w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                </svg>
+                            </div>
+                            <span class="ml-3 font-medium">Donations</span>
+                        </a>
+                    </li>
+
+                    <!-- Community -->
+                    <li>
+                        <a href="/community" class="flex items-center px-6 py-3.5 text-gray-500 hover:bg-gray-50">
+                            <div class="flex items-center justify-center w-6 h-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2" />
+                                </svg>
+                            </div>
+                            <span class="ml-3 font-medium">Community</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Logout at bottom -->
+            <div class="p-6 border-t border-gray-100">
+                <a href="/logout" class="flex items-center text-gray-500 hover:text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    <span class="ml-3 font-medium">Logout</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Mobile Bottom Navigation Bar -->
+        <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 md:hidden z-20">
+            <div class="flex justify-between items-center">
+                <!-- Home -->
+                <a href="/home" class="flex flex-col items-center justify-center text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path d="M4 13h4v4h8v-4h4L12 5z" />
+                    </svg>
+                    <span class="text-xs mt-1">Home</span>
+                </a>
+
+                <!-- Transactions -->
+                <a href="/transactions" class="flex flex-col items-center justify-center text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    <span class="text-xs mt-1">Transactions</span>
+                </a>
+
+                <!-- Savings -->
+                <a href="/savings" class="flex flex-col items-center justify-center text-blue-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span class="text-xs mt-1">Savings</span>
+                </a>
+
+                <!-- Donations -->
+                <a href="/donations" class="flex flex-col items-center justify-center text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                    <span class="text-xs mt-1">Donations</span>
+                </a>
+
+                <!-- More menu (for Community & Logout) -->
+                <button class="flex flex-col items-center justify-center text-gray-500 focus:outline-none"
+                    id="mobileMoreBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <span class="text-xs mt-1">More</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobileMoreMenu" class="fixed bottom-16 right-4 bg-white rounded-lg shadow-lg p-4 hidden z-30">
+            <ul class="space-y-3">
+                <li>
+                    <a href="/community" class="flex items-center text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            class="w-5 h-5 mr-3">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2" />
+                        </svg>
+                        Community
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout" class="flex items-center text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                            class="w-5 h-5 mr-3">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="flex flex-col gap-6 align-items-start p-2 md:ml-4 w-full mt-8">
+            <!-- Initial Loader -->
+            <div id="loadingContainer" class="w-full flex justify-center items-center py-16">
+                <div class="text-center">
+                    <div class="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mx-auto">
+                    </div>
+                    <p class="mt-4 text-gray-600">Loading your savings wallets...</p>
+                    <div class="w-64 h-2 bg-gray-200 rounded-full mt-4 overflow-hidden">
+                        <div id="progressBar" class="h-full bg-blue-600 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content (initially hidden) -->
+            <div id="mainContent" class="w-full hidden pb-20">
+                <!-- Summary Card -->
+                <div class="w-full bg-white rounded-xl shadow-md overflow-hidden mb-6">
+                    <div class="p-6">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                            <div>
+                                <h1 class="text-2xl font-bold text-gray-800 mb-1">My Savings</h1>
+                                <p class="text-gray-500">Manage all your personal savings in one place</p>
+                            </div>
+                            <button id="createSavingsBtn"
+                                class="mt-4 md:mt-0 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                New Savings
+                            </button>
+                        </div>
+
+                        <div class="flex flex-wrap mt-6 -mx-2">
+                            <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0">
+                                <div class="p-4 bg-blue-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="p-3 bg-blue-100 rounded-full mr-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600"
+                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-blue-600 font-medium">Total Savings</p>
+                                            <h3 id="totalSavingsAmount" class="text-2xl font-bold text-gray-800">₦0.00
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full md:w-1/3 px-2 mb-4 md:mb-0">
+                                <div class="p-4 bg-green-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="p-3 bg-green-100 rounded-full mr-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600"
+                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M5 13l4 4L19 7" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-green-600 font-medium">Last Activity</p>
+                                            <h3 id="lastActivity" class="text-2xl font-bold text-gray-800">N/A</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full md:w-1/3 px-2">
+                                <div class="p-4 bg-purple-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="p-3 bg-purple-100 rounded-full mr-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600"
+                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-purple-600 font-medium">Active Wallets</p>
+                                            <h3 id="activeWalletsCount" class="text-2xl font-bold text-gray-800">0</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- No Savings Message (initially hidden) -->
+                <div id="noSavingsMessage"
+                    class="w-full bg-white rounded-xl shadow-md overflow-hidden p-8 text-center hidden">
+                    <div class="w-24 h-24 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-600" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">No savings wallets yet</h3>
+                    <p class="text-gray-600 mb-6">Create your first savings wallet to start putting money aside for your
+                        future goals.</p>
+                    <button id="createFirstSavingsBtn"
+                        class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        Create Your First Savings
+                    </button>
+                </div>
+
+                <!-- Savings List Grid -->
+                <div id="savingsListContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+
+            <!-- Create Savings Modal -->
+            <div class="modal fade" id="createSavingsModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content rounded-lg shadow-lg border-0">
+                        <div class="modal-header border-bottom-0">
+                            <h5 class="modal-title font-semibold text-gray-800">Create New Savings</h5>
+                            <button type="button" class="close text-gray-500" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="createSavingsForm">
+                                <div class="form-group mb-4">
+                                    <label for="savingsName" class="block text-sm font-medium text-gray-700 mb-2">Wallet
+                                        Name</label>
+                                    <input type="text"
+                                        class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        id="savingsName" placeholder="e.g. Emergency Fund, Vacation, New Car" required>
+                                    <div class="invalid-feedback">Please provide a name for your savings wallet.</div>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="initialAmount"
+                                        class="block text-sm font-medium text-gray-700 mb-2">Initial Deposit Amount
+                                        (Optional)</label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <span class="text-gray-600">₦</span>
+                                        </div>
+                                        <input type="number"
+                                            class="form-control pl-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                            id="initialAmount" placeholder="0.00" min="0" step="0.01">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer border-top-0">
+                            <button type="button"
+                                class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+                                data-dismiss="modal">Cancel</button>
+                            <button type="button" id="saveNewSavingsBtn"
+                                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">Create
+                                Wallet</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View Savings Details Modal -->
+            <div class="modal fade" id="viewSavingsModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content rounded-lg shadow-lg border-0">
+                        <div class="modal-header bg-blue-50 border-bottom-0">
+                            <h5 class="modal-title font-semibold text-gray-800" id="viewSavingsTitle">Savings Details
+                            </h5>
+                            <button type="button" class="close text-gray-500" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Savings Overview -->
+                            <div class="bg-blue-50 rounded-lg p-4 mb-4">
+                                <div class="flex flex-col md:flex-row justify-between">
+                                    <div class="mb-4 md:mb-0">
+                                        <p class="text-sm text-gray-500">Current Balance</p>
+                                        <h2 id="viewSavingsBalance" class="text-3xl font-bold text-gray-800">₦0.00</h2>
+                                    </div>
+                                    <div class="mb-4 md:mb-0">
+                                        <p class="text-sm text-gray-500">Created On</p>
+                                        <h3 id="viewSavingsCreatedDate" class="text-lg font-semibold text-gray-800">-
+                                        </h3>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Last Transaction</p>
+                                        <h3 id="viewSavingsLastTransaction" class="text-lg font-semibold text-gray-800">
+                                            -</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Transaction History -->
+                            <h4 class="text-lg font-semibold text-gray-800 mb-4">Transaction History</h4>
+                            <div id="noTransactionsMessage" class="text-center py-8 bg-gray-50 rounded-lg hidden">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400 mb-3"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                </svg>
+                                <p class="text-gray-600">No transactions yet for this savings wallet.</p>
+                            </div>
+                            <div id="transactionsContainer" class="max-h-60 overflow-y-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Date</th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Type</th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Description</th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Amount</th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Balance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="transactionsTableBody" class="bg-white divide-y divide-gray-200">
+                                        <!-- Transactions will be dynamically added here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-between">
+                            <div>
+                                <button id="withdrawSavingsBtn"
+                                    class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Withdraw
+                                </button>
+                            </div>
+                            <div>
+                                <button type="button"
+                                    class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors mr-2"
+                                    data-dismiss="modal">Close</button>
+                                <button id="fundSavingsBtn"
+                                    class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Fund
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fund Savings Modal -->
+            <div class="modal fade" id="fundSavingsModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content rounded-lg shadow-lg border-0">
+                        <div class="modal-header bg-green-50 border-bottom-0">
+                            <h5 class="modal-title font-semibold text-gray-800" id="fundSavingsTitle">Fund Savings</h5>
+                            <button type="button" class="close text-gray-500" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="fundSavingsForm">
+                                <input type="hidden" id="fundSavingsWalletId">
+                                <div class="form-group mb-4">
+                                    <label for="fundAmount" class="block text-sm font-medium text-gray-700 mb-2">Amount
+                                        to Deposit</label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <span class="text-gray-600">₦</span>
+                                        </div>
+                                        <input type="number"
+                                            class="form-control pl-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                            id="fundAmount" placeholder="0.00" min="0.01" step="0.01" required>
+                                        <div class="invalid-feedback">Please enter a valid amount greater than 0.</div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer border-top-0">
+                            <button type="button"
+                                class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+                                data-dismiss="modal">Cancel</button>
+                            <button type="button" id="confirmFundBtn"
+                                class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">Deposit
+                                Funds</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Withdraw Savings Modal -->
+            <div class="modal fade" id="withdrawSavingsModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content rounded-lg shadow-lg border-0">
+                        <div class="modal-header bg-red-50 border-bottom-0">
+                            <h5 class="modal-title font-semibold text-gray-800" id="withdrawSavingsTitle">Withdraw from
+                                Savings</h5>
+                            <button type="button" class="close text-gray-500" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="withdrawSavingsForm">
+                                <input type="hidden" id="withdrawSavingsWalletId">
+                                <div class="form-group mb-2">
+                                    <label for="withdrawAmount"
+                                        class="block text-sm font-medium text-gray-700 mb-2">Amount to Withdraw</label>
+                                    <div class="relative">
+                                        <div
+                                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <span class="text-gray-600">₦</span>
+                                        </div>
+                                        <input type="number"
+                                            class="form-control pl-8 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                            id="withdrawAmount" placeholder="0.00" min="0.01" step="0.01" required>
+                                        <div class="invalid-feedback">Please enter a valid amount greater than 0.</div>
+                                    </div>
+                                </div>
+                                <div class="bg-yellow-50 p-3 rounded-lg text-sm text-yellow-800 mt-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1 text-yellow-600"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Available balance: <span id="availableBalance" class="font-semibold">₦0.00</span>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer border-top-0">
+                            <button type="button"
+                                class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+                                data-dismiss="modal">Cancel</button>
+                            <button type="button" id="confirmWithdrawBtn"
+                                class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">Withdraw
+                                Funds</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notification Toast -->
+            <div id="notificationToast"
+                class="fixed top-4 right-4 z-50 max-w-xs bg-white rounded-lg shadow-lg p-4 transform transition-transform duration-300 translate-y-[-100px] opacity-0">
+                <div class="flex items-center">
+                    <div id="notificationIcon"
+                        class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center mr-3"></div>
+                    <div>
+                        <h4 id="notificationTitle" class="text-sm font-semibold text-gray-800"></h4>
+                        <p id="notificationMessage" class="text-xs text-gray-600 mt-1"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Initialize wallet engine and services
+                // get account id from span with #accountId
+                const accountId = document.querySelector('#accountId')?.textContent || 'user123';
+                const walletEngine = new WalletEngine();
+                const savingsService = new SavingsService(accountId);
+
+                // DOM Elements
+                const loadingContainer = document.getElementById('loadingContainer');
+                const progressBar = document.getElementById('progressBar');
+                const mainContent = document.getElementById('mainContent');
+                const noSavingsMessage = document.getElementById('noSavingsMessage');
+                const savingsListContainer = document.getElementById('savingsListContainer');
+                const totalSavingsAmount = document.getElementById('totalSavingsAmount');
+                const lastActivity = document.getElementById('lastActivity');
+                const activeWalletsCount = document.getElementById('activeWalletsCount');
+                const createSavingsBtn = document.getElementById('createSavingsBtn');
+                const createFirstSavingsBtn = document.getElementById('createFirstSavingsBtn');
+
+                // Current wallet being viewed/modified
+                let currentWallet = null;
+
+                // Simulated loading sequence
+                function simulateLoading() {
+                    let progress = 0;
+                    const interval = setInterval(() => {
+                        progress += 5;
+                        progressBar.style.width = `${progress}%`;
+
+                        if (progress >= 100) {
+                            clearInterval(interval);
+                            // After 3 seconds, load content
+                            setTimeout(() => {
+                                loadWallets();
+                            }, 500);
+                        }
+                    }, 150);
+                }
+
+                // Format currency
+                function formatCurrency(amount) {
+                    return new Intl.NumberFormat('en-NG', {
+                        style: 'currency',
+                        currency: 'NGN',
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    }).format(amount).replace('NGN', '₦');
+                }
+
+                // Format date
+                function formatDate(dateString) {
+                    const date = new Date(dateString);
+                    return date.toLocaleDateString('en-NG', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    });
+                }
+
+                // Format time
+                function formatTime(dateString) {
+                    const date = new Date(dateString);
+                    return date.toLocaleTimeString('en-NG', {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                }
+
+                // Get relative time (e.g. "2 days ago")
+                function getRelativeTime(dateString) {
+                    const date = new Date(dateString);
+                    const now = new Date();
+                    const diffTime = Math.abs(now - date);
+                    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+                    if (diffDays === 0) {
+                        return 'Today';
+                    } else if (diffDays === 1) {
+                        return 'Yesterday';
+                    } else if (diffDays < 7) {
+                        return `${diffDays} days ago`;
+                    } else if (diffDays < 30) {
+                        return `${Math.floor(diffDays / 7)} weeks ago`;
+                    } else {
+                        return formatDate(dateString);
+                    }
+                }
+
+                // Load all savings wallets
+                function loadWallets() {
+                    try {
+                        const wallets = savingsService.getSavingsWallets();
+                        const totalSavings = savingsService.getTotalSavings();
+
+                        // Update statistics
+                        totalSavingsAmount.textContent = formatCurrency(totalSavings);
+                        activeWalletsCount.textContent = wallets.length;
+
+                        // Find most recent transaction
+                        let mostRecentDate = null;
+
+                        if (wallets.length > 0) {
+                            // Hide no savings message, show wallets grid
+                            noSavingsMessage.classList.add('hidden');
+                            savingsListContainer.classList.remove('hidden');
+
+                            // Sort wallets by most recent activity
+                            wallets.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                            // If any transactions, find most recent one
+                            wallets.forEach(wallet => {
+                                const transactions = savingsService.getSavingsTransactions(wallet.id);
+                                if (transactions.length > 0) {
+                                    const latestTx = transactions.sort((a, b) =>
+                                        new Date(b.timestamp) - new Date(a.timestamp))[0];
+
+                                    if (!mostRecentDate || new Date(latestTx.timestamp) > new Date(mostRecentDate)) {
+                                        mostRecentDate = latestTx.timestamp;
+                                    }
+                                }
+                            });
+
+                            // Display wallets
+                            savingsListContainer.innerHTML = '';
+                            wallets.forEach(wallet => renderWalletCard(wallet));
+
+                        } else {
+                            // No wallets, show the no savings message
+                            noSavingsMessage.classList.remove('hidden');
+                            savingsListContainer.classList.add('hidden');
+                        }
+
+                        // Update most recent activity
+                        lastActivity.textContent = mostRecentDate ? getRelativeTime(mostRecentDate) : 'N/A';
+
+                        // Hide loader, show content
+                        loadingContainer.classList.add('hidden');
+                        mainContent.classList.remove('hidden');
+
+                    } catch (error) {
+                        console.error('Error loading wallets:', error);
+                        showNotification(false, 'Error', 'Failed to load your savings wallets. Please try again.');
+
+                        // Still hide loader and show content area
+                        loadingContainer.classList.add('hidden');
+                        mainContent.classList.remove('hidden');
+                    }
+                }
+
+                // Render a single wallet card
+                function renderWalletCard(wallet) {
+                    const transactions = savingsService.getSavingsTransactions(wallet.id);
+                    let lastTxDate = 'No transactions';
+
+                    if (transactions.length > 0) {
+                        const latestTx = transactions.sort((a, b) =>
+                            new Date(b.timestamp) - new Date(a.timestamp))[0];
+                        lastTxDate = getRelativeTime(latestTx.timestamp);
+                    }
+
+                    const cardHtml = `
+            <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all hover:shadow-lg" data-wallet-id="${wallet.id}">
+                <div class="p-6">
+                    <div class="flex justify-between items-start">
+                       <div class="p-3 bg-blue-100 rounded-full">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                           </svg>
+                       </div>
+                       <div class="bg-blue-50 px-3 py-1 rounded-full text-xs font-medium text-blue-600">
+                           Savings
+                       </div>
+                   </div>
+                   <h3 class="mt-4 text-xl font-semibold text-gray-800">${wallet.name}</h3>
+                   <div class="mt-1 text-sm text-gray-500">Created ${formatDate(wallet.createdAt)}</div>
+                   <div class="mt-4">
+                       <div class="text-gray-500 text-sm">Current Balance</div>
+                       <div class="text-2xl font-bold text-gray-800">${formatCurrency(wallet.balance)}</div>
+                   </div>
+                   <div class="mt-4 flex justify-between items-center">
+                       <div class="text-sm text-gray-500">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                           </svg>
+                           ${lastTxDate}
+                       </div>
+                       <button class="view-wallet-btn px-3 py-1 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 text-sm font-medium transition-colors">
+                           View Details
+                       </button>
+                   </div>
+               </div>
+           </div>
+       `;
+
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = cardHtml;
+                    const card = tempDiv.firstElementChild;
+
+                    // Add click event for the entire card
+                    card.addEventListener('click', () => viewWalletDetails(wallet.id));
+
+                    // Also add click event for just the button (to be explicit)
+                    card.querySelector('.view-wallet-btn').addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevent double triggering through card click
+                        viewWalletDetails(wallet.id);
+                    });
+
+                    savingsListContainer.appendChild(card);
+                }
+
+                // View wallet details
+                function viewWalletDetails(walletId) {
+                    try {
+                        currentWallet = savingsService.walletEngine.getWallet(walletId);
+
+                        if (!currentWallet) {
+                            showNotification(false, 'Error', 'Wallet not found');
+                            return;
+                        }
+
+                        // Set modal title and data
+                        document.getElementById('viewSavingsTitle').textContent = currentWallet.name;
+                        document.getElementById('viewSavingsBalance').textContent = formatCurrency(currentWallet.balance);
+                        document.getElementById('viewSavingsCreatedDate').textContent = formatDate(currentWallet.createdAt);
+
+                        // Get transactions
+                        const transactions = savingsService.getSavingsTransactions(walletId);
+
+                        // Sort transactions by timestamp (newest first)
+                        transactions.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+                        if (transactions.length > 0) {
+                            document.getElementById('viewSavingsLastTransaction').textContent = getRelativeTime(transactions[0].timestamp);
+                            document.getElementById('noTransactionsMessage').classList.add('hidden');
+                            document.getElementById('transactionsContainer').classList.remove('hidden');
+
+                            // Populate transactions table
+                            const tableBody = document.getElementById('transactionsTableBody');
+                            tableBody.innerHTML = '';
+
+                            transactions.forEach(tx => {
+                                const row = document.createElement('tr');
+
+                                // Format the amount with the appropriate color and sign
+                                const amountClass = tx.type === 'credit' ? 'text-green-600' : 'text-red-600';
+                                const amountSign = tx.type === 'credit' ? '+' : '-';
+
+                                row.innerHTML = `
+                       <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                           ${formatDate(tx.timestamp)}
+                       </td>
+                       <td class="px-6 py-4 whitespace-nowrap">
+                           <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${tx.type === 'credit' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                               ${tx.type === 'credit' ? 'Deposit' : 'Withdrawal'}
+                           </span>
+                       </td>
+                       <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                           ${tx.description}
+                       </td>
+                       <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-right ${amountClass}">
+                           ${amountSign}${formatCurrency(tx.amount)}
+                       </td>
+                       <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-medium">
+                           ${formatCurrency(tx.balance)}
+                       </td>
+                   `;
+
+                                tableBody.appendChild(row);
+                            });
+
+                        } else {
+                            document.getElementById('viewSavingsLastTransaction').textContent = 'No transactions';
+                            document.getElementById('noTransactionsMessage').classList.remove('hidden');
+                            document.getElementById('transactionsContainer').classList.add('hidden');
+                        }
+
+                        // Show the modal
+                        $('#viewSavingsModal').modal('show');
+
+                    } catch (error) {
+                        console.error('Error viewing wallet details:', error);
+                        showNotification(false, 'Error', 'Failed to load wallet details. Please try again.');
+                    }
+                }
+
+                // Create a new savings wallet
+                function createSavingsWallet() {
+                    const nameInput = document.getElementById('savingsName');
+                    const initialAmountInput = document.getElementById('initialAmount');
+
+                    const name = nameInput.value.trim();
+                    const initialAmount = parseFloat(initialAmountInput.value) || 0;
+
+                    if (!name) {
+                        nameInput.classList.add('is-invalid');
+                        return;
+                    }
+
+                    try {
+                        // Create the wallet
+                        const wallet = savingsService.createSavingsWallet(name, initialAmount);
+
+                        // Hide the modal
+                        $('#createSavingsModal').modal('hide');
+
+                        // Reset form
+                        nameInput.value = '';
+                        initialAmountInput.value = '';
+
+                        // Show success notification
+                        showNotification(true, 'Success', `Savings wallet "${name}" created successfully.`);
+
+                        // Reload wallets
+                        loadWallets();
+
+                    } catch (error) {
+                        console.error('Error creating wallet:', error);
+                        showNotification(false, 'Error', 'Failed to create savings wallet. Please try again.');
+                    }
+                }
+
+                // Fund a savings wallet
+                function fundSavingsWallet() {
+                    const amountInput = document.getElementById('fundAmount');
+                    const amount = parseFloat(amountInput.value);
+
+                    if (!amount || amount <= 0) {
+                        amountInput.classList.add('is-invalid');
+                        return;
+                    }
+
+                    const walletId = document.getElementById('fundSavingsWalletId').value;
+
+                    try {
+                        // Fund the wallet
+                        savingsService.fundSavingsWallet(walletId, amount);
+
+                        // Hide the modal
+                        $('#fundSavingsModal').modal('hide');
+
+                        // Show success notification
+                        showNotification(true, 'Success', `Deposited ${formatCurrency(amount)} to your savings wallet.`);
+
+                        // If details modal is open, update it
+                        if ($('#viewSavingsModal').hasClass('show')) {
+                            viewWalletDetails(walletId);
+                        } else {
+                            // Otherwise just reload wallets
+                            loadWallets();
+                        }
+
+                    } catch (error) {
+                        console.error('Error funding wallet:', error);
+                        showNotification(false, 'Error', 'Failed to deposit funds. Please try again.');
+                    }
+                }
+
+                // Withdraw from a savings wallet
+                function withdrawFromSavingsWallet() {
+                    const amountInput = document.getElementById('withdrawAmount');
+                    const amount = parseFloat(amountInput.value);
+
+                    if (!amount || amount <= 0) {
+                        amountInput.classList.add('is-invalid');
+                        return;
+                    }
+
+                    const walletId = document.getElementById('withdrawSavingsWalletId').value;
+                    const wallet = savingsService.walletEngine.getWallet(walletId);
+
+                    if (amount > wallet.balance) {
+                        showNotification(false, 'Error', 'Insufficient funds in this wallet.');
+                        return;
+                    }
+
+                    try {
+                        // Withdraw from the wallet
+                        savingsService.withdrawFromSavingsWallet(walletId, amount);
+
+                        // Hide the modal
+                        $('#withdrawSavingsModal').modal('hide');
+
+                        // Show success notification
+                        showNotification(true, 'Success', `Withdrew ${formatCurrency(amount)} from your savings wallet.`);
+
+                        // If details modal is open, update it
+                        if ($('#viewSavingsModal').hasClass('show')) {
+                            viewWalletDetails(walletId);
+                        } else {
+                            // Otherwise just reload wallets
+                            loadWallets();
+                        }
+
+                    } catch (error) {
+                        console.error('Error withdrawing from wallet:', error);
+
+                        if (error.message === 'Insufficient funds') {
+                            showNotification(false, 'Error', 'Insufficient funds in this wallet.');
+                        } else {
+                            showNotification(false, 'Error', 'Failed to withdraw funds. Please try again.');
+                        }
+                    }
+                }
+
+                // Display notification
+                function showNotification(isSuccess, title, message) {
+                    const toast = document.getElementById('notificationToast');
+                    const iconContainer = document.getElementById('notificationIcon');
+                    const titleElement = document.getElementById('notificationTitle');
+                    const messageElement = document.getElementById('notificationMessage');
+
+                    // Set the content
+                    titleElement.textContent = title;
+                    messageElement.textContent = message;
+
+                    // Set the appropriate icon and colors
+                    if (isSuccess) {
+                        iconContainer.className = 'flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3';
+                        iconContainer.innerHTML = `
+               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+               </svg>
+           `;
+                    } else {
+                        iconContainer.className = 'flex-shrink-0 w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-3';
+                        iconContainer.innerHTML = `
+               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+               </svg>
+           `;
+                    }
+
+                    // Show the notification
+                    toast.classList.remove('translate-y-[-100px]', 'opacity-0');
+                    toast.classList.add('translate-y-0', 'opacity-100');
+
+                    // Hide after 3 seconds
+                    setTimeout(() => {
+                        toast.classList.remove('translate-y-0', 'opacity-100');
+                        toast.classList.add('translate-y-[-100px]', 'opacity-0');
+                    }, 3000);
+                }
+
+                // Event Listeners
+
+                // Create Savings Button
+                createSavingsBtn.addEventListener('click', () => {
+                    $('#createSavingsModal').modal('show');
+                });
+
+                // Create First Savings Button
+                createFirstSavingsBtn.addEventListener('click', () => {
+                    $('#createSavingsModal').modal('show');
+                });
+
+                // Save New Savings Button
+                document.getElementById('saveNewSavingsBtn').addEventListener('click', createSavingsWallet);
+
+                // Fund Savings Button
+                document.getElementById('fundSavingsBtn').addEventListener('click', () => {
+                    document.getElementById('fundSavingsWalletId').value = currentWallet.id;
+                    document.getElementById('fundSavingsTitle').textContent = `Fund ${currentWallet.name}`;
+
+                    // Hide view modal and show fund modal
+                    $('#viewSavingsModal').modal('hide');
+                    $('#fundSavingsModal').modal('show');
+                });
+
+                // Withdraw Savings Button
+                document.getElementById('withdrawSavingsBtn').addEventListener('click', () => {
+                    document.getElementById('withdrawSavingsWalletId').value = currentWallet.id;
+                    document.getElementById('withdrawSavingsTitle').textContent = `Withdraw from ${currentWallet.name}`;
+                    document.getElementById('availableBalance').textContent = formatCurrency(currentWallet.balance);
+
+                    // Hide view modal and show withdraw modal
+                    $('#viewSavingsModal').modal('hide');
+                    $('#withdrawSavingsModal').modal('show');
+                });
+
+                // Confirm Fund Button
+                document.getElementById('confirmFundBtn').addEventListener('click', fundSavingsWallet);
+
+                // Confirm Withdraw Button
+                document.getElementById('confirmWithdrawBtn').addEventListener('click', withdrawFromSavingsWallet);
+
+                // Input validation resets
+                document.getElementById('savingsName').addEventListener('input', function () {
+                    this.classList.remove('is-invalid');
+                });
+
+                document.getElementById('fundAmount').addEventListener('input', function () {
+                    this.classList.remove('is-invalid');
+                });
+
+                document.getElementById('withdrawAmount').addEventListener('input', function () {
+                    this.classList.remove('is-invalid');
+                });
+
+                // Mobile Menu
+                document.getElementById('mobileMoreBtn').addEventListener('click', function () {
+                    document.getElementById('mobileMoreMenu').classList.toggle('hidden');
+                });
+
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', function (event) {
+                    const mobileMenu = document.getElementById('mobileMoreMenu');
+                    const mobileBtn = document.getElementById('mobileMoreBtn');
+
+                    if (!mobileBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+
+                // Start the loading simulation
+                simulateLoading();
+            });
+        </script>
+
+    </main>
+    <!-- JavaScript common -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+        crossorigin="anonymous"></script>
+    <!-- Page specific-->
+    <!-- JavaScript common -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+        integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+        crossorigin="anonymous"></script>
+    <script>
+        class WalletEngine {
+            constructor() {
+                // Initialize storage if not already initialized
+                if (!localStorage.getItem('wallets')) {
+                    localStorage.setItem('wallets', JSON.stringify([]));
+                }
+
+                if (!localStorage.getItem('transactions')) {
+                    localStorage.setItem('transactions', JSON.stringify([]));
+                }
+            }
+
+            /**
+             * Generate a unique ID
+             * @returns {string} Unique ID
+             */
+            generateId() {
+                return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+            }
+
+            /**
+             * Get all wallets for an account
+             * @param {string} accountId - Account ID
+             * @param {string} walletType - Optional wallet type filter
+             * @returns {Array} Array of wallets
+             */
+            getWallets(accountId, walletType = null) {
+                const wallets = JSON.parse(localStorage.getItem('wallets') || '[]');
+                return wallets.filter(wallet => {
+                    if (wallet.accountId !== accountId) return false;
+                    if (walletType && wallet.walletType !== walletType) return false;
+                    return true;
+                });
+            }
+
+            /**
+             * Create a new wallet
+             * @param {string} accountId - Account ID
+             * @param {string} walletType - Type of wallet
+             * @param {string} name - Wallet name
+             * @param {Object} metadata - Additional metadata
+             * @returns {Object} Created wallet
+             */
+            createWallet(accountId, walletType, name, metadata = {}) {
+                const wallets = JSON.parse(localStorage.getItem('wallets') || '[]');
+
+                const newWallet = {
+                    id: this.generateId(),
+                    accountId,
+                    walletType,
+                    name,
+                    balance: 0,
+                    createdAt: new Date().toISOString(),
+                    metadata
+                };
+
+                wallets.push(newWallet);
+                localStorage.setItem('wallets', JSON.stringify(wallets));
+
+                return newWallet;
+            }
+
+            /**
+             * Get a specific wallet by ID
+             * @param {string} walletId - Wallet ID
+             * @returns {Object|null} Wallet object or null if not found
+             */
+            getWallet(walletId) {
+                const wallets = JSON.parse(localStorage.getItem('wallets') || '[]');
+                return wallets.find(wallet => wallet.id === walletId) || null;
+            }
+
+            /**
+             * Sum the balances of multiple wallets
+             * @param {Array} wallets - Array of wallet objects
+             * @returns {number} Total balance
+             */
+            sumWallets(wallets) {
+                return wallets.reduce((total, wallet) => total + wallet.balance, 0);
+            }
+
+            /**
+             * Sum the balances of all wallets of a specific type
+             * @param {string} walletType - Type of wallets to sum
+             * @returns {Object} Object containing total balance and count of wallets
+             */
+            sumWalletTypes(walletType) {
+                const wallets = JSON.parse(localStorage.getItem('wallets') || '[]');
+                const filteredWallets = wallets.filter(wallet => wallet.walletType === walletType);
+
+                return {
+                    balance: this.sumWallets(filteredWallets),
+                    count: filteredWallets.length
+                };
+            }
+
+            /**
+             * Add funds to a wallet
+             * @param {string} walletId - Wallet ID
+             * @param {number} amount - Amount to add
+             * @returns {Object} Updated wallet
+             */
+            fundWallet(walletId, amount) {
+                const wallets = JSON.parse(localStorage.getItem('wallets') || '[]');
+                const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+
+                const walletIndex = wallets.findIndex(wallet => wallet.id === walletId);
+                if (walletIndex === -1) {
+                    throw new Error(`Wallet with ID ${walletId} not found`);
+                }
+
+                // Update wallet balance
+                wallets[walletIndex].balance += amount;
+                localStorage.setItem('wallets', JSON.stringify(wallets));
+
+                // Create transaction record
+                const transaction = {
+                    id: this.generateId(),
+                    walletId,
+                    type: 'credit',
+                    amount,
+                    balance: wallets[walletIndex].balance,
+                    timestamp: new Date().toISOString(),
+                    description: `Funded wallet ${wallets[walletIndex].name}`
+                };
+
+                transactions.push(transaction);
+                localStorage.setItem('transactions', JSON.stringify(transactions));
+
+                return wallets[walletIndex];
+            }
+
+            /**
+             * Remove funds from a wallet
+             * @param {string} walletId - Wallet ID
+             * @param {number} amount - Amount to debit
+             * @returns {Object} Updated wallet
+             */
+            debitWallet(walletId, amount) {
+                const wallets = JSON.parse(localStorage.getItem('wallets') || '[]');
+                const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+
+                const walletIndex = wallets.findIndex(wallet => wallet.id === walletId);
+                if (walletIndex === -1) {
+                    throw new Error(`Wallet with ID ${walletId} not found`);
+                }
+
+                if (wallets[walletIndex].balance < amount) {
+                    throw new Error('Insufficient funds');
+                }
+
+                // Update wallet balance
+                wallets[walletIndex].balance -= amount;
+                localStorage.setItem('wallets', JSON.stringify(wallets));
+
+                // Create transaction record
+                const transaction = {
+                    id: this.generateId(),
+                    walletId,
+                    type: 'debit',
+                    amount,
+                    balance: wallets[walletIndex].balance,
+                    timestamp: new Date().toISOString(),
+                    description: `Debited from wallet ${wallets[walletIndex].name}`
+                };
+
+                transactions.push(transaction);
+                localStorage.setItem('transactions', JSON.stringify(transactions));
+
+                return wallets[walletIndex];
+            }
+
+            /**
+             * Get all transactions for a wallet
+             * @param {string} walletId - Wallet ID
+             * @returns {Array} Array of transactions
+             */
+            getWalletTransactions(walletId) {
+                const transactions = JSON.parse(localStorage.getItem('transactions') || '[]');
+                return transactions.filter(transaction => transaction.walletId === walletId);
+            }
+
+            /**
+             * Move funds from one wallet to another
+             * @param {string} sourceWalletId - Source wallet ID
+             * @param {string} destinationWalletId - Destination wallet ID
+             * @param {number} amount - Amount to transfer
+             * @returns {Object} Object containing updated source and destination wallets
+             */
+            moveFund(sourceWalletId, destinationWalletId, amount) {
+                const wallets = JSON.parse(localStorage.getItem('wallets') || '[]');
+
+                const sourceWalletIndex = wallets.findIndex(wallet => wallet.id === sourceWalletId);
+                if (sourceWalletIndex === -1) {
+                    throw new Error(`Source wallet with ID ${sourceWalletId} not found`);
+                }
+
+                const destWalletIndex = wallets.findIndex(wallet => wallet.id === destinationWalletId);
+                if (destWalletIndex === -1) {
+                    throw new Error(`Destination wallet with ID ${destinationWalletId} not found`);
+                }
+
+                if (wallets[sourceWalletIndex].balance < amount) {
+                    throw new Error('Insufficient funds in source wallet');
+                }
+
+                // Debit source wallet
+                this.debitWallet(sourceWalletId, amount);
+
+                // Credit destination wallet
+                this.fundWallet(destinationWalletId, amount);
+
+                // Get updated wallets
+                const updatedWallets = JSON.parse(localStorage.getItem('wallets') || '[]');
+                const sourceWallet = updatedWallets.find(wallet => wallet.id === sourceWalletId);
+                const destWallet = updatedWallets.find(wallet => wallet.id === destinationWalletId);
+
+                return {
+                    sourceWallet,
+                    destinationWallet: destWallet
+                };
+            }
+
+            /**
+             * Clear all data (for testing purposes)
+             */
+            clearAll() {
+                localStorage.removeItem('wallets');
+                localStorage.removeItem('transactions');
+                localStorage.setItem('wallets', JSON.stringify([]));
+                localStorage.setItem('transactions', JSON.stringify([]));
+            }
+        }
+
+        // Export as global variable
+        window.WalletEngine = WalletEngine;
+    </script>
+    <script>
+        class SavingsService {
+            constructor(accountId) {
+                this.walletEngine = new WalletEngine();
+                this.accountId = accountId;
+                this.walletType = 'savings';
+            }
+
+            /**
+             * Get total savings amount across all savings wallets
+             * @returns {number} Total savings amount
+             */
+            getTotalSavings() {
+                const result = this.walletEngine.sumWalletTypes(this.walletType);
+                return result.balance;
+            }
+
+            /**
+             * Get all savings wallets
+             * @returns {Array} Array of savings wallets
+             */
+            getSavingsWallets() {
+                return this.walletEngine.getWallets(this.accountId, this.walletType);
+            }
+
+            /**
+             * Create a new savings wallet
+             * @param {string} name - Wallet name
+             * @param {number} initialBalance - Optional initial balance
+             * @returns {Object} Created wallet
+             */
+            createSavingsWallet(name, initialBalance = 0) {
+                const wallet = this.walletEngine.createWallet(this.accountId, this.walletType, name);
+
+                // Fund the wallet if initial balance is provided
+                if (initialBalance > 0) {
+                    this.walletEngine.fundWallet(wallet.id, initialBalance);
+                    return this.walletEngine.getWallet(wallet.id); // Get updated wallet with balance
+                }
+
+                return wallet;
+            }
+
+            /**
+             * Fund a savings wallet
+             * @param {string} walletId - Wallet ID
+             * @param {number} amount - Amount to add
+             * @returns {Object} Updated wallet
+             */
+            fundSavingsWallet(walletId, amount) {
+                // Verify this is a savings wallet belonging to this account
+                const wallet = this.walletEngine.getWallet(walletId);
+                if (!wallet || wallet.walletType !== this.walletType || wallet.accountId !== this.accountId) {
+                    throw new Error('Invalid savings wallet');
+                }
+
+                return this.walletEngine.fundWallet(walletId, amount);
+            }
+
+            /**
+             * Withdraw from a savings wallet
+             * @param {string} walletId - Wallet ID
+             * @param {number} amount - Amount to withdraw
+             * @returns {Object} Updated wallet
+             */
+            withdrawFromSavingsWallet(walletId, amount) {
+                // Verify this is a savings wallet belonging to this account
+                const wallet = this.walletEngine.getWallet(walletId);
+                if (!wallet || wallet.walletType !== this.walletType || wallet.accountId !== this.accountId) {
+                    throw new Error('Invalid savings wallet');
+                }
+
+                return this.walletEngine.debitWallet(walletId, amount);
+            }
+
+            /**
+             * Get transactions for a savings wallet
+             * @param {string} walletId - Wallet ID
+             * @returns {Array} Array of transactions
+             */
+            getSavingsTransactions(walletId) {
+                // Verify this is a savings wallet belonging to this account
+                const wallet = this.walletEngine.getWallet(walletId);
+                if (!wallet || wallet.walletType !== this.walletType || wallet.accountId !== this.accountId) {
+                    throw new Error('Invalid savings wallet');
+                }
+
+                return this.walletEngine.getWalletTransactions(walletId);
+            }
+        }
+
+
+        /**
+         * CommunityService - Manages community savings wallets
+         * Built on top of WalletEngine with public viewing capabilities
+         */
+        class CommunityService {
+            constructor(accountId) {
+                this.walletEngine = new WalletEngine();
+                this.accountId = accountId;
+                this.walletType = 'community';
+            }
+
+            /**
+             * Get total community savings amount across all community wallets
+             * @returns {number} Total community savings amount
+             */
+            getTotalCommunitySavings() {
+                const result = this.walletEngine.sumWalletTypes(this.walletType);
+                return result.balance;
+            }
+
+            /**
+             * Get all community savings wallets
+             * @param {boolean} publicView - If true, returns public information only
+             * @returns {Array} Array of community wallets
+             */
+            getCommunitySavingsWallets(publicView = false) {
+                const wallets = this.walletEngine.getWallets(this.accountId, this.walletType);
+
+                if (publicView) {
+                    // For public view, filter out sensitive information
+                    return wallets.map(wallet => {
+                        return {
+                            id: wallet.id,
+                            name: wallet.name,
+                            balance: wallet.balance,
+                            createdAt: wallet.createdAt,
+                            publicInfo: wallet.metadata.publicInfo || {},
+                            memberCount: wallet.metadata.members?.length || 0
+                        };
+                    });
+                }
+
+                return wallets;
+            }
+
+            /**
+             * Create a new community savings wallet
+             * @param {string} name - Wallet name
+             * @param {number} initialBalance - Optional initial balance
+             * @param {Object} metadata - Additional metadata like community details, rules, members
+             * @returns {Object} Created wallet
+             */
+            createCommunitySavingsWallet(name, initialBalance = 0, metadata = {}) {
+                // Ensure metadata has a publicInfo field for public viewing
+                const enhancedMetadata = {
+                    ...metadata,
+                    publicInfo: metadata.publicInfo || {
+                        description: '',
+                        rules: '',
+                        isPublic: true
+                    }
+                };
+
+                const wallet = this.walletEngine.createWallet(
+                    this.accountId,
+                    this.walletType,
+                    name,
+                    enhancedMetadata
+                );
+
+                // Fund the wallet if initial balance is provided
+                if (initialBalance > 0) {
+                    this.walletEngine.fundWallet(wallet.id, initialBalance);
+                    return this.walletEngine.getWallet(wallet.id); // Get updated wallet with balance
+                }
+
+                return wallet;
+            }
+
+            /**
+             * Fund a community savings wallet
+             * @param {string} walletId - Wallet ID
+             * @param {number} amount - Amount to add
+             * @param {Object} contributorInfo - Information about the contributor
+             * @returns {Object} Updated wallet
+             */
+            fundCommunitySavingsWallet(walletId, amount, contributorInfo = {}) {
+                // Verify this is a community wallet belonging to this account
+                const wallet = this.walletEngine.getWallet(walletId);
+                if (!wallet || wallet.walletType !== this.walletType || wallet.accountId !== this.accountId) {
+                    throw new Error('Invalid community wallet');
+                }
+
+                // Add contributor info to wallet metadata
+                const updatedWallet = this.walletEngine.getWallet(walletId);
+                updatedWallet.metadata.contributions = updatedWallet.metadata.contributions || [];
+                updatedWallet.metadata.contributions.push({
+                    ...contributorInfo,
+                    amount,
+                    timestamp: new Date().toISOString()
+                });
+
+                // Update wallet with new metadata
+                const wallets = JSON.parse(localStorage.getItem('wallets') || '[]');
+                const walletIndex = wallets.findIndex(w => w.id === walletId);
+                if (walletIndex !== -1) {
+                    wallets[walletIndex] = updatedWallet;
+                    localStorage.setItem('wallets', JSON.stringify(wallets));
+                }
+
+                return this.walletEngine.fundWallet(walletId, amount);
+            }
+
+            /**
+             * Withdraw from a community savings wallet
+             * @param {string} walletId - Wallet ID
+             * @param {number} amount - Amount to withdraw
+             * @param {Object} withdrawalInfo - Information about the withdrawal
+             * @returns {Object} Updated wallet
+             */
+            withdrawFromCommunitySavingsWallet(walletId, amount, withdrawalInfo = {}) {
+                // Verify this is a community wallet belonging to this account
+                const wallet = this.walletEngine.getWallet(walletId);
+                if (!wallet || wallet.walletType !== this.walletType || wallet.accountId !== this.accountId) {
+                    throw new Error('Invalid community wallet');
+                }
+
+                // Add withdrawal info to wallet metadata
+                const updatedWallet = this.walletEngine.getWallet(walletId);
+                updatedWallet.metadata.withdrawals = updatedWallet.metadata.withdrawals || [];
+                updatedWallet.metadata.withdrawals.push({
+                    ...withdrawalInfo,
+                    amount,
+                    timestamp: new Date().toISOString()
+                });
+
+                // Update wallet with new metadata
+                const wallets = JSON.parse(localStorage.getItem('wallets') || '[]');
+                const walletIndex = wallets.findIndex(w => w.id === walletId);
+                if (walletIndex !== -1) {
+                    wallets[walletIndex] = updatedWallet;
+                    localStorage.setItem('wallets', JSON.stringify(wallets));
+                }
+
+                return this.walletEngine.debitWallet(walletId, amount);
+            }
+
+            /**
+             * Get transactions for a community savings wallet
+             * @param {string} walletId - Wallet ID
+             * @param {boolean} publicView - If true, returns public information only
+             * @returns {Array} Array of transactions
+             */
+            getCommunitySavingsTransactions(walletId, publicView = false) {
+                // Get the wallet
+                const wallet = this.walletEngine.getWallet(walletId);
+                if (!wallet || wallet.walletType !== this.walletType) {
+                    throw new Error('Invalid community wallet');
+                }
+
+                // For public view, only show if wallet is marked as public
+                if (publicView && !wallet.metadata.publicInfo?.isPublic) {
+                    throw new Error('This community wallet is not public');
+                }
+
+                const transactions = this.walletEngine.getWalletTransactions(walletId);
+
+                if (publicView) {
+                    // For public view, filter out sensitive information
+                    return transactions.map(tx => {
+                        return {
+                            id: tx.id,
+                            type: tx.type,
+                            amount: tx.amount,
+                            timestamp: tx.timestamp,
+                            description: tx.description
+                        };
+                    });
+                }
+
+                return transactions;
+            }
+
+            /**
+             * Add a member to a community savings wallet
+             * @param {string} walletId - Wallet ID
+             * @param {Object} memberInfo - Information about the member
+             * @returns {Object} Updated wallet
+             */
+            addCommunityMember(walletId, memberInfo) {
+                // Verify this is a community wallet belonging to this account
+                const wallet = this.walletEngine.getWallet(walletId);
+                if (!wallet || wallet.walletType !== this.walletType || wallet.accountId !== this.accountId) {
+                    throw new Error('Invalid community wallet');
+                }
+
+                // Add member to wallet metadata
+                const updatedWallet = this.walletEngine.getWallet(walletId);
+                updatedWallet.metadata.members = updatedWallet.metadata.members || [];
+                updatedWallet.metadata.members.push({
+                    ...memberInfo,
+                    joinedAt: new Date().toISOString()
+                });
+
+                // Update wallet with new metadata
+                const wallets = JSON.parse(localStorage.getItem('wallets') || '[]');
+                const walletIndex = wallets.findIndex(w => w.id === walletId);
+                if (walletIndex !== -1) {
+                    wallets[walletIndex] = updatedWallet;
+                    localStorage.setItem('wallets', JSON.stringify(wallets));
+                }
+
+                return updatedWallet;
+            }
+
+            /**
+             * Get public information about all community savings wallets
+             * This method can be called without an account ID
+             * @returns {Array} Array of public community wallet information
+             */
+            static getPublicCommunityWallets() {
+                const walletEngine = new WalletEngine();
+                const allWallets = JSON.parse(localStorage.getItem('wallets') || '[]');
+
+                return allWallets
+                    .filter(wallet =>
+                        wallet.walletType === 'community' &&
+                        wallet.metadata.publicInfo?.isPublic
+                    )
+                    .map(wallet => {
+                        return {
+                            id: wallet.id,
+                            name: wallet.name,
+                            balance: wallet.balance,
+                            createdAt: wallet.createdAt,
+                            publicInfo: wallet.metadata.publicInfo || {},
+                            memberCount: wallet.metadata.members?.length || 0
+                        };
+                    });
+            }
+        }
+
+        window.SavingsService = SavingsService;
+        window.CommunityService = CommunityService;
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const moreBtn = document.getElementById("mobileMoreBtn");
+          const moreMenu = document.getElementById("mobileMoreMenu");
+
+          if (moreBtn && moreMenu) {
+            moreBtn.addEventListener("click", function () {
+              moreMenu.classList.toggle("hidden");
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener("click", function (event) {
+              if (
+                !moreBtn.contains(event.target) &&
+                !moreMenu.contains(event.target)
+              ) {
+                moreMenu.classList.add("hidden");
+              }
+            });
+          }
+        });
+      </script>
+</body>
+
+</html>
