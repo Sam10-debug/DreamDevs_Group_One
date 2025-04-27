@@ -100,3 +100,19 @@ class UserDb:
             result = conn.execute(statement).first()
         self.logger.debug('RESULT: fetched user data for %s', username)
         return dict(result) if result is not None else None
+        
+    def get_user_by_accountid(self, accountid):
+        """Get user data for the specified accountid.
+
+        Params: accountid - the accountid of the user
+        Return: a key/value dict of user attributes,
+                {'username': username, 'accountid': accountid, ...}
+                or None if that user does not exist
+        Raises: SQLAlchemyError if there was an issue with the database
+        """
+        statement = self.users_table.select().where(self.users_table.c.accountid == accountid)
+        self.logger.debug('QUERY: %s', str(statement))
+        with self.engine.connect() as conn:
+            result = conn.execute(statement).first()
+        self.logger.debug('RESULT: fetched user data for %s', accountid)
+        return dict(result) if result is not None else None

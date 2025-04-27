@@ -756,7 +756,38 @@ def create_app():
                                 _external=True,
                                 _scheme=app.config['SCHEME']))
 
-    @app.route('/logout', methods=['POST'])
+    @app.route('/user/<account_id>', methods=['GET'])
+    def get_user_by_accountid(account_id):
+        """
+        Retrieves user information from userservice using account id
+        """
+        app.logger.debug('Retrieving user by account id.')
+        token = request.cookies.get(app.config['TOKEN_NAME'])
+        hed = {'Authorization': 'Bearer ' + token}
+        try:
+            resp = requests.get(url=f'{app.config["USERSERVICE_API"]}/users/{account_id}',
+                                headers=hed,
+                                timeout=app.config['BACKEND_TIMEOUT'])
+            resp.raise_for_status()  # Raise on HTTP Status code 4XX or 5XX
+            return jsonify(resp.json()), 200
+        except requests.exceptions.RequestException as err:
+            app.logger.error('Error retrieving user by account id: %s', str(err))
+            return jsonify({'error': str(err)}), 500
+        except UserWarning as warn:
+            app.logger.error('Error retrieving user by account id: %s', str(warn))
+            return jsonify({'error': str(warn)}), 500
+        except jwt.exceptions.InvalidTokenError as err:
+            app.logger.error('Error retrieving user by account id: %s', str(err))
+            return jsonify({'error': str(err)}), 401
+        except SQLAlchemyError as err:
+            app.logger.error('Error retrieving user by account id: %s', str(err))
+            return jsonify({'error': str(err)}), 500
+        except Exception as err:
+            app.logger.error('Error retrieving user by account id: %s', str(err))
+            return jsonify({'error': str(err)}), 500
+    #get user by username from userservice
+
+    @app.route('/logout', methods=['GET', 'POST'])
     def logout():
         """
         Logs out user by deleting token cookie and redirecting to login page
@@ -817,6 +848,8 @@ def create_app():
     # set up global variables
     app.config["TRANSACTIONS_URI"] = 'http://{}/transactions'.format(
         os.environ.get('TRANSACTIONS_API_ADDR'))
+    app.config["USERSERVICE_API"] = 'http://{}'.format(
+        os.environ.get('USERSERVICE_API_ADDR'))
     app.config["USERSERVICE_URI"] = 'http://{}/users'.format(
         os.environ.get('USERSERVICE_API_ADDR'))
     app.config["BALANCES_URI"] = 'http://{}/balances'.format(
