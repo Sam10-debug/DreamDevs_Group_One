@@ -229,6 +229,32 @@ def create_app():
             app.logger.error('Error logging in: %s', str(err))
             return 'failed to retrieve user information', 500
 
+        @app.route('/users/<accountid>', methods=['GET'])
+   
+    def get_user_by_accountid(accountid):
+        """Get user data for the specified accountid.
+
+        Params: accountid - the accountid of the user
+        Return: a key/value dict of user attributes,
+                {'username': username, 'accountid': accountid, ...}
+                or None if that user does not exist
+        Raises: SQLAlchemyError if there was an issue with the database
+        """
+        try:
+            app.logger.debug('Getting user data.')
+            user = users_db.get_user_by_accountid(accountid)
+            if user is None:
+                raise LookupError('user with accountid {} does not exist'.format(accountid))
+            app.logger.info('Successfully retrieved user data.')
+            return jsonify(user), 200
+        except LookupError as err:
+            app.logger.error('Error retrieving user data: %s', str(err))
+            return str(err), 404
+        except SQLAlchemyError as err:
+            app.logger.error('Error retrieving user data: %s', str(err))
+            return 'failed to retrieve user information', 500
+
+
     def send_email(to_email, subject, content):
         # Configuration (load from environment variables)
         SMTP_SERVER = os.environ.get("SMTP_SERVER", "smtp.gmail.com")
