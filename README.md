@@ -1,17 +1,16 @@
 # MoniNext
 
-![GitHub branch check runs](https://img.shields.io/github/check-runs/GoogleCloudPlatform/bank-of-anthos/main)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fcymbal-bank.fsi.cymbal.dev%2F&label=live%20demo)](https://landing-page-279553134984.europe-west1.run.app/)
 
 **MoniNext** is a revamped version of the Bank of Anthos project, transformed into a sleek, user-friendly digital banking platform. Built on Google Cloud Platform, MoniNext offers seamless financial transactions, savings management, and community features with enterprise-grade security and scalability.
 
 ## Screenshots
 
-| Landing Page                                            | DashBoard                                                                          | 
+| Landing Page                                            | Sign Up                                                                          | 
 | ---------------------------------------------------- | ------------------------------------------------------------------------------ | 
-| ![Screenshot from 2025-04-29 03-59-18](https://github.com/user-attachments/assets/a6231abd-093d-4e3d-9155-20a2ed8fc2aa) | ![Screenshot from 2025-04-29 04-00-07](https://github.com/user-attachments/assets/50472157-3722-4ac6-89b3-3e33b2f63bc2) |
-| Sign in                                              | Sign Up                                                                           |                                                   
-| ![Screenshot from 2025-04-29 03-59-51](https://github.com/user-attachments/assets/d0a24d4a-0dc1-4b43-b44a-5092834bbda5) | ![image](https://github.com/user-attachments/assets/ed569621-591f-45c8-960a-63547034025b)
+| ![Screenshot from 2025-04-29 03-59-18](https://github.com/user-attachments/assets/a6231abd-093d-4e3d-9155-20a2ed8fc2aa) | ![image](https://github.com/user-attachments/assets/ed569621-591f-45c8-960a-63547034025b) |
+| Sign in                                              | DashBoard                                                                           |                                                   
+| ![Screenshot from 2025-04-29 03-59-51](https://github.com/user-attachments/assets/d0a24d4a-0dc1-4b43-b44a-5092834bbda5) | ![image](https://github.com/user-attachments/assets/7296def2-6d1a-46c1-9cdd-15b9930e2a7f)
 
 
 ## Service architecture
