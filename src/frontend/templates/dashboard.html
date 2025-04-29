@@ -895,9 +895,9 @@ limitations under the License.
                                                         clip-rule="evenodd" />
                                                 </svg>
                                             </div>
-                                            <input id="recipient-name" type="text" 
-                                                class="bg-gray-50 border border-gray-200 rounded-lg text-gray-700 pl-10 pr-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
-                                                placeholder="Enter recipient name">
+                                            <input id="recipient-name" type="text"
+                                                class="bg-gray-100 border border-gray-200 rounded-lg text-gray-700 pl-10 pr-4 py-3 w-full focus:outline-none"
+                                                readonly>
                                         </div>
                                     </div>
 
@@ -1277,8 +1277,8 @@ limitations under the License.
                                 proceedBtn.disabled = false;
                                 proceedBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                             } else {
-                                // const recipientName = getAccountName(accountNumber);
-                                // recipientNameInput.value = recipientName;
+                                const recipientName = getAccountName(accountNumber);
+                                recipientNameInput.value = recipientName;
 
                                 // Show step 2
                                 goToStep2();
@@ -1286,24 +1286,24 @@ limitations under the License.
                         }, 1500);
                     }
 
-                    // function getAccountName(accountNumber) {
-                    //     const lastDigit = accountNumber.slice(-1);
-                    //     // supposed to be an api call
-                    //     const names = [
-                    //         'Oluwaseun Adebayo',
-                    //         'Chidi Okonkwo',
-                    //         'Amina Ibrahim',
-                    //         'Emeka Okafor',
-                    //         'Folake Adeyemi',
-                    //         'Tunde Bakare',
-                    //         'Ngozi Eze',
-                    //         'Ibrahim Mohammed',
-                    //         'Yetunde Adewale',
-                    //         'John Smith'
-                    //     ];
+                    function getAccountName(accountNumber) {
+                        const lastDigit = accountNumber.slice(-1);
+                        // supposed to be an api call
+                        const names = [
+                            'Oluwaseun Adebayo',
+                            'Chidi Okonkwo',
+                            'Amina Ibrahim',
+                            'Emeka Okafor',
+                            'Folake Adeyemi',
+                            'Tunde Bakare',
+                            'Ngozi Eze',
+                            'Ibrahim Mohammed',
+                            'Yetunde Adewale',
+                            'John Smith'
+                        ];
 
-                    //     return names[lastDigit];
-                    // }
+                        return names[lastDigit];
+                    }
                     function goToStep1() {
                         step1.classList.remove('hidden');
                         step2.classList.add('hidden');
@@ -1713,7 +1713,7 @@ limitations under the License.
                         const formData = new FormData();
                         const tenDigitNumber = phoneNumber.toString().substring(1);
                         formData.append('contact_account_num', tenDigitNumber);
-                        formData.append('contact_label', 'AIRTIME ' );
+                        formData.append('contact_label', 'AIRTIME ' + alphabetId(7));
                         formData.append('amount', amount);
                         formData.append('account_num', 'add');
                         formData.append('uuid', getId());
