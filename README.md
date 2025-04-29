@@ -93,7 +93,7 @@ kubectl create secret generic smtp-creds --from-literal=SMTP_USER="EXAMPLE-USER"
  --from-literal=SMTP_PASSWORD="EXAMPLE_PASSWORD"
 ```
 
-8. **Deploy Bank of Anthos** to your cluster. Each backend Deployment (`userservice`, `contacts`, `transactionhistory`, `balancereader`, and `ledgerwriter`) is configured with a [Cloud SQL Proxy](https://cloud.google.com/sql/docs/mysql/sql-proxy#what_the_proxy_provides) sidecar container. Cloud SQL Proxy provides a secure TLS connection between the backend GKE pods and your Cloud SQL instance.
+8. **Deploy MonieNext** to your cluster. Each backend Deployment (`userservice`, `contacts`, `transactionhistory`, `balancereader`, and `ledgerwriter`) is configured with a [Cloud SQL Proxy](https://cloud.google.com/sql/docs/mysql/sql-proxy#what_the_proxy_provides) sidecar container. Cloud SQL Proxy provides a secure TLS connection between the backend GKE pods and your Cloud SQL instance.
 
 This command will also deploy two Kubernetes Jobs, to populate the accounts and ledger dbs with Tables and test data.
 
@@ -118,7 +118,7 @@ transactionhistory-747476548c-j2zqx   2/2     Running     0          2m53s
 userservice-7f6df69544-nskdf          2/2     Running     0          2m53s
 ```
 
-10. Access the Bank of Anthos frontend at the frontend service `EXTERNAL_IP`, then log in as `test-user` with the pre-populated credentials added to the Cloud SQL-based `accounts-db`. You should see the pre-populated transaction data show up, from the Cloud SQL-based `ledger-db`. You're done!
+10. Access the MoniNext frontend at the frontend service `EXTERNAL_IP`, then log in as `testuser` with the pre-populated credentials added to the Cloud SQL-based `accounts-db`. You should see the pre-populated transaction data show up, from the Cloud SQL-based `ledger-db`. You're done!
 
 8. Once you are done with it, delete the GKE cluster.
 
