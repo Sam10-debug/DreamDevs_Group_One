@@ -86,7 +86,7 @@ def create_app():
         - lastname
         - birthday
         - timezone
-        # - address
+        - address
         - state
         - zip
         - ssn
@@ -117,7 +117,7 @@ def create_app():
                 'lastname': req['lastname'],
                 'birthday': req['birthday'],
                 'timezone': req['timezone'],
-                # 'address': req['address'],
+                'address': req['address'],
                 'state': req['state'],
                 'zip': req['zip'],
                 'ssn': req['ssn'],
@@ -154,7 +154,7 @@ def create_app():
             'lastname',
             'birthday',
             'timezone',
-            # 'address',
+            'address',
             'state',
             'zip',
             'ssn',
