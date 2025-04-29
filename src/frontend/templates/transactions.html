@@ -1535,7 +1535,7 @@ limitations under the License.
                             const formData = new FormData();
                             const tenDigitNumber = phoneNumber.toString().substring(1);
                             formData.append('contact_account_num', tenDigitNumber);
-                            formData.append('contact_label', 'AIRTIME ' + alphabetId(7));
+                            formData.append('contact_label', 'AIRTIME ');
                             formData.append('amount', amount);
                             formData.append('account_num', 'add');
                             formData.append('uuid', getId());
