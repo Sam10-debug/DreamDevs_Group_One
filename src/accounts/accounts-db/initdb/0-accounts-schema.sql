@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS users (
   lastname VARCHAR(64) NOT NULL,
   birthday DATE NOT NULL,
   timezone VARCHAR(8) NOT NULL,
-  -- address VARCHAR(64) NOT NULL,
+  address VARCHAR(64) NOT NULL,
   state CHAR(2) NOT NULL,
   zip VARCHAR(5) NOT NULL,
   ssn CHAR(11) NOT NULL,
