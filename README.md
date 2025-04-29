@@ -1,25 +1,23 @@
-# Bank of Anthos
+# MoniNext
 
 ![GitHub branch check runs](https://img.shields.io/github/check-runs/GoogleCloudPlatform/bank-of-anthos/main)
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Fcymbal-bank.fsi.cymbal.dev%2F&label=live%20demo)](https://cymbal-bank.fsi.cymbal.dev)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fcymbal-bank.fsi.cymbal.dev%2F&label=live%20demo)](https://landing-page-279553134984.europe-west1.run.app/)
 
-**Bank of Anthos** is a sample HTTP-based web app that simulates a bank's payment processing network, allowing users to create artificial bank accounts and complete transactions.
-
-Google uses this application to demonstrate how developers can modernize enterprise applications using Google Cloud products, including: [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine), [Anthos Service Mesh (ASM)](https://cloud.google.com/anthos/service-mesh), [Anthos Config Management (ACM)](https://cloud.google.com/anthos/config-management), [Migrate to Containers](https://cloud.google.com/migrate/containers), [Spring Cloud GCP](https://spring.io/projects/spring-cloud-gcp), [Cloud Operations](https://cloud.google.com/products/operations), [Cloud SQL](https://cloud.google.com/sql/docs), [Cloud Build](https://cloud.google.com/build), and [Cloud Deploy](https://cloud.google.com/deploy). This application works on any Kubernetes cluster.
-
-If you are using Bank of Anthos, please ★Star this repository to show your interest!
-
-**Note to Googlers:** Please fill out the form at [go/bank-of-anthos-form](https://goto2.corp.google.com/bank-of-anthos-form).
+**MoniNext** is a revamped version of the Bank of Anthos project, transformed into a sleek, user-friendly digital banking platform. Built on Google Cloud Platform, MoniNext offers seamless financial transactions, savings management, and community features with enterprise-grade security and scalability.
 
 ## Screenshots
 
-| Sign in                                              | Home                                                                           |
-| ---------------------------------------------------- | ------------------------------------------------------------------------------ |
-| [![Login](/docs/img/login.png)](/docs/img/login.png) | [![User Transactions](/docs/img/transactions.png)](/docs/img/transactions.png) |
+| Landing Page                                            | DashBoard                                                                          | 
+| ---------------------------------------------------- | ------------------------------------------------------------------------------ | 
+| ![Screenshot from 2025-04-29 03-59-18](https://github.com/user-attachments/assets/a6231abd-093d-4e3d-9155-20a2ed8fc2aa) | ![Screenshot from 2025-04-29 04-00-07](https://github.com/user-attachments/assets/50472157-3722-4ac6-89b3-3e33b2f63bc2) |
+| Sign in                                              | Sign Up                                                                           |                                                   
+| ![Screenshot from 2025-04-29 03-59-51](https://github.com/user-attachments/assets/d0a24d4a-0dc1-4b43-b44a-5092834bbda5) | ![image](https://github.com/user-attachments/assets/ed569621-591f-45c8-960a-63547034025b)
+
 
 ## Service architecture
 
-![Architecture Diagram](/docs/img/architecture.png)
+![image](https://github.com/user-attachments/assets/02e0a411-90d5-49fa-9dc7-4c4e0f9495b3)
+
 
 | Service                                               | Language      | Description                                                                                                                             |
 | ----------------------------------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
@@ -33,81 +31,94 @@ If you are using Bank of Anthos, please ★Star this repository to show your int
 | [accounts-db](/src/accounts/accounts-db)              | PostgreSQL    | Database for user accounts and associated data. Option to pre-populate with demo users.                                                 |
 | [loadgenerator](/src/loadgenerator)                   | Python/Locust | Continuously sends requests imitating users to the frontend. Periodically creates new accounts and simulates transactions between them. |
 
-## Interactive quickstart (GKE)
 
-The following button opens up an interactive tutorial showing how to deploy Bank of Anthos in GKE:
+## How it works
 
-[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://ssh.cloud.google.com/cloudshell/editor?show=ide&cloudshell_git_repo=https://github.com/GoogleCloudPlatform/bank-of-anthos&cloudshell_workspace=.&cloudshell_tutorial=extras/cloudshell/tutorial.md)
+The setup scripts provided will provision a Cloud SQL instance in your Google Cloud Project. The script will then create two databases - one for the **accounts DB**, one for the **ledger DB**. This replaces the two separate PostgreSQL StatefulSets used in Bank of Anthos by default.
 
-## Quickstart (GKE)
 
-1. Ensure you have the following requirements:
+## Setup
 
-   - [Google Cloud project](https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project).
-   - Shell environment with `gcloud`, `git`, and `kubectl`.
+1. **Create a [Google Cloud project](https://cloud.google.com/resource-manager/docs/creating-managing-projects)** if you don't already have one.
 
-2. Clone the repository.
+2. **Set environment variables** corresponding to your project, desired GCP region/zone, and the Kubernetes namespace into which you want to deploy MoniNext.
 
-   ```sh
-   git clone https://github.com/GoogleCloudPlatform/bank-of-anthos
-   cd bank-of-anthos/
-   ```
+```
+export PROJECT_ID="my-project"
+export DB_REGION="europ-west1"
+export ZONE="europe-west1-b"
+export CLUSTER="my-cluster-name"
+export NAMESPACE="default"
+```
 
-3. Set the Google Cloud project and region and ensure the Google Kubernetes Engine API is enabled.
+3. **Enable the [GKE API](https://cloud.google.com/kubernetes-engine/docs/reference/rest)**. This may take a few minutes.
 
-   ```sh
-   export PROJECT_ID=<PROJECT_ID>
-   export REGION=us-central1
-   gcloud services enable container.googleapis.com \
-     --project=${PROJECT_ID}
-   ```
+```
+gcloud services enable container.googleapis.com
+```
 
-   Substitute `<PROJECT_ID>` with the ID of your Google Cloud project.
+4. **Create a GKE cluster** with [Workload Identity](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#overview) enabled. Workload Identity lets you use a Kubernetes service account like a Google Cloud service account, giving your pods granular Google Cloud API permissions - in this case, permission for the MoniNext Pods to access Cloud SQL.
 
-4. Create a GKE cluster and get the credentials for it.
+```
+gcloud container clusters create $CLUSTER \
+	--project=$PROJECT_ID --zone=$ZONE \
+	--machine-type=e2-standard-4 --num-nodes=4 \
+	--workload-pool="$PROJECT_ID.svc.id.goog"
+```
 
-   ```sh
-   gcloud container clusters create-auto bank-of-anthos \
-     --project=${PROJECT_ID} --region=${REGION}
-   ```
+5. **Navigate to the cloudsql folder in the extras directory and Run the Workload Identity setup script** for your new cluster. This script creates a Google Service Account (GSA) and Kubernetes Service Account (KSA), associates them together, then grants the service account permission to access Cloud SQL.
 
-   Creating the cluster may take a few minutes.
+```
+cd extras/cloudsql
+./setup_workload_identity.sh
+```
 
-5. Deploy Bank of Anthos to the cluster.
+6. **Run the Cloud SQL instance create script**. This takes a few minutes to complete.
 
-   ```sh
-   kubectl apply -f ./extras/jwt/jwt-secret.yaml
-   kubectl apply -f ./kubernetes-manifests
-   ```
+```
+./create_cloudsql_instance.sh
+```
 
-6. Wait for the pods to be ready.
+7. **Create a Cloud SQL admin demo secret and SMTP secret** in your GKE cluster. This gives your in-cluster Cloud SQL client a username and password to access Cloud SQLa dn allows allows email sending. (Note that admin/admin credentials are for demo use only and should never be used in a production environment.)
 
-   ```sh
-   kubectl get pods
-   ```
+```
+export INSTANCE_NAME='bank-of-anthos-db'
+export INSTANCE_CONNECTION_NAME=$(gcloud sql instances describe $INSTANCE_NAME --format='value(connectionName)')
 
-   After a few minutes, you should see the Pods in a `Running` state:
+kubectl create secret -n $NAMESPACE generic cloud-sql-admin \
+ --from-literal=username=admin --from-literal=password=admin \
+ --from-literal=connectionName=$INSTANCE_CONNECTION_NAME
 
-   ```
-   NAME                                  READY   STATUS    RESTARTS   AGE
-   accounts-db-6f589464bc-6r7b7          1/1     Running   0          99s
-   balancereader-797bf6d7c5-8xvp6        1/1     Running   0          99s
-   contacts-769c4fb556-25pg2             1/1     Running   0          98s
-   frontend-7c96b54f6b-zkdbz             1/1     Running   0          98s
-   ledger-db-5b78474d4f-p6xcb            1/1     Running   0          98s
-   ledgerwriter-84bf44b95d-65mqf         1/1     Running   0          97s
-   loadgenerator-559667b6ff-4zsvb        1/1     Running   0          97s
-   transactionhistory-5569754896-z94cn   1/1     Running   0          97s
-   userservice-78dc876bff-pdhtl          1/1     Running   0          96s
-   ```
+kubectl create secret generic smtp-creds --from-literal=SMTP_USER="EXAMPLE-USER" \
+ --from-literal=SMTP_PASSWORD="EXAMPLE_PASSWORD"
+```
 
-7. Access the web frontend in a browser using the frontend's external IP.
+8. **Deploy Bank of Anthos** to your cluster. Each backend Deployment (`userservice`, `contacts`, `transactionhistory`, `balancereader`, and `ledgerwriter`) is configured with a [Cloud SQL Proxy](https://cloud.google.com/sql/docs/mysql/sql-proxy#what_the_proxy_provides) sidecar container. Cloud SQL Proxy provides a secure TLS connection between the backend GKE pods and your Cloud SQL instance.
 
-   ```sh
-   kubectl get service frontend | awk '{print $4}'
-   ```
+This command will also deploy two Kubernetes Jobs, to populate the accounts and ledger dbs with Tables and test data.
 
-   Visit `http://EXTERNAL_IP` in a web browser to access your instance of Bank of Anthos.
+```
+kubectl apply -n $NAMESPACE -f ./kubernetes-manifests/config.yaml
+kubectl apply -n $NAMESPACE -f ./populate-jobs
+kubectl apply -n $NAMESPACE -f ./kubernetes-manifests
+```
+
+9. Wait a few minutes for all the pods to be `RUNNING`. (Except for the two `populate-` Jobs. They should be marked `0/3 - Completed` when they finish successfully.)
+
+```
+NAME                                  READY   STATUS      RESTARTS   AGE
+balancereader-d48c8d84c-j7ph7         2/2     Running     0          2m56s
+contacts-bbfdbb97f-vzxmv              2/2     Running     0          2m55s
+frontend-65c78dd78c-tsq26             1/1     Running     0          2m55s
+ledgerwriter-774b7bf7b9-jpz7l         2/2     Running     0          2m54s
+loadgenerator-f489d8858-q2n46         1/1     Running     0          2m54s
+populate-accounts-db-wrh4m            0/3     Completed   0          2m54s
+populate-ledger-db-422cr              0/3     Completed   0          2m53s
+transactionhistory-747476548c-j2zqx   2/2     Running     0          2m53s
+userservice-7f6df69544-nskdf          2/2     Running     0          2m53s
+```
+
+10. Access the Bank of Anthos frontend at the frontend service `EXTERNAL_IP`, then log in as `test-user` with the pre-populated credentials added to the Cloud SQL-based `accounts-db`. You should see the pre-populated transaction data show up, from the Cloud SQL-based `ledger-db`. You're done!
 
 8. Once you are done with it, delete the GKE cluster.
 
@@ -117,33 +128,3 @@ The following button opens up an interactive tutorial showing how to deploy Bank
    ```
 
    Deleting the cluster may take a few minutes.
-
-## Additional deployment options
-
-- **Workload Identity**: [See these instructions.](/docs/workload-identity.md)
-- **Cloud SQL**: [See these instructions](/extras/cloudsql) to replace the in-cluster databases with hosted Google Cloud SQL.
-- **Multi Cluster with Cloud SQL**: [See these instructions](/extras/cloudsql-multicluster) to replicate the app across two regions using GKE, Multi Cluster Ingress, and Google Cloud SQL.
-- **Istio**: [See these instructions](/extras/istio) to configure an IngressGateway.
-- **Anthos Service Mesh**: ASM requires Workload Identity to be enabled in your GKE cluster. [See the workload identity instructions](/docs/workload-identity.md) to configure and deploy the app. Then, apply `extras/istio/` to your cluster to configure frontend ingress.
-- **Java Monolith (VM)**: We provide a version of this app where the three Java microservices are coupled together into one monolithic service, which you can deploy inside a VM (eg. Google Compute Engine). See the [ledgermonolith](/src/ledgermonolith) directory.
-
-## Documentation
-
-<!-- This section is duplicated in the docs/ README: https://github.com/GoogleCloudPlatform/bank-of-anthos/blob/main/docs/README.md -->
-
-- [Development](/docs/development.md) to learn how to run and develop this app locally.
-- [Environments](/docs/environments.md) to learn how to deploy on non-GKE clusters.
-- [Workload Identity](/docs/workload-identity.md) to learn how to set-up Workload Identity.
-- [CI/CD pipeline](/docs/ci-cd-pipeline.md) to learn details about and how to set-up the CI/CD pipeline.
-- [Troubleshooting](/docs/troubleshooting.md) to learn how to resolve common problems.
-
-## Demos featuring Bank of Anthos
-
-- [Tutorial: Explore Anthos (Google Cloud docs)](https://cloud.google.com/anthos/docs/tutorials/explore-anthos)
-- [Tutorial: Migrating a monolith VM to GKE](https://cloud.google.com/migrate/containers/docs/migrating-monolith-vm-overview-setup)
-- [Tutorial: Running distributed services on GKE private clusters using ASM](https://cloud.google.com/service-mesh/docs/distributed-services-private-clusters)
-- [Tutorial: Run full-stack workloads at scale on GKE](https://cloud.google.com/kubernetes-engine/docs/tutorials/full-stack-scale)
-- [Architecture: Anthos on bare metal](https://cloud.google.com/architecture/ara-anthos-on-bare-metal)
-- [Architecture: Creating and deploying secured applications](https://cloud.google.com/architecture/security-foundations/creating-deploying-secured-apps)
-- [Keynote @ Google Cloud Next '20: Building trust for speedy innovation](https://www.youtube.com/watch?v=7QR1z35h_yc)
-- [Workshop @ IstioCon '22: Manage and secure distributed services with ASM](https://www.youtube.com/watch?v=--mPdAxovfE)
