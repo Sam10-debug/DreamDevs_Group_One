@@ -86,10 +86,10 @@ def create_app():
         - lastname
         - birthday
         - timezone
-        # - address
+        - address
         - state
         - zip
-        # - ssn
+        - ssn
         - email
         """
         try:
@@ -117,10 +117,10 @@ def create_app():
                 'lastname': req['lastname'],
                 'birthday': req['birthday'],
                 'timezone': req['timezone'],
-                # 'address': req['address'],
+                'address': req['address'],
                 'state': req['state'],
                 'zip': req['zip'],
-                # 'ssn': req['ssn'],
+                'ssn': req['ssn'],
                 'email': req['email']
             }
             # Add user_data to database
@@ -154,10 +154,10 @@ def create_app():
             'lastname',
             'birthday',
             'timezone',
-            # 'address',
+            'address',
             'state',
             'zip',
-            # 'ssn',
+            'ssn',
             'email'
         )
         if any(f not in req for f in fields):
