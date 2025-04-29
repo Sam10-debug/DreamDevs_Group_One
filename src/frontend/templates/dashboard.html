@@ -449,12 +449,13 @@ limitations under the License.
                             </svg>
                         </div>
 
+                        <a href="savings.html" class="block no-underline">
                         <div
                             class="bg-white rounded-xl p-4 shadow flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors" data-action="topup" data-toggle="topup" data-target="#topUpModal"
                                 data-keyboard="false" data-backdrop="static">
                             <div class="flex items-center">
-                                <div class="w-10 h-10 bg-gray-100 rounded-md flex items-center justify-center mr-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400"
+                                <div class="w-10 h-10 gray-100 rounded-md flex items-center justify-center mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                                         <rect x="7" y="7" width="3" height="3"></rect>
@@ -463,13 +464,14 @@ limitations under the License.
                                         <rect x="14" y="14" width="3" height="3"></rect>
                                     </svg>
                                 </div>
-                                <span class="font-medium text-gray-400"> New feature</span>
+                                <span class="font-medium text-black-400"> Savings</span>
                             </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 24 24"
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-400" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M9 18l6-6-6-6"></path>
                             </svg>
                         </div>
+                        </a>
                     </div>
                 </div>
 
@@ -1715,7 +1717,7 @@ limitations under the License.
                         const formData = new FormData();
                         const tenDigitNumber = phoneNumber.toString().substring(1);
                         formData.append('contact_account_num', tenDigitNumber);
-                        formData.append('contact_label', 'AIRTIME ' + alphabetId(7));
+                        formData.append('contact_label', 'AIRTIME ' );
                         formData.append('amount', amount);
                         formData.append('account_num', 'add');
                         formData.append('uuid', getId());

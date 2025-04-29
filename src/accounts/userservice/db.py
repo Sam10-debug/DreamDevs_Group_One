@@ -40,7 +40,7 @@ class UserDb:
             Column('lastname', String, nullable=False),
             Column('birthday', Date, nullable=False),
             Column('timezone', String, nullable=False),
-            Column('address', String, nullable=False),
+            # Column('address', String, nullable=False),
             Column('state', String, nullable=False),
             Column('zip', String, nullable=False),
             Column('ssn', String, nullable=False),
